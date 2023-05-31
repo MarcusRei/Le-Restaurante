@@ -10,7 +10,7 @@ const CustomerSchema = new mongoose.Schema({
     required: true,
   },
   phonenumber: {
-    type: Number,
+    type: String,
   },
 });
 

@@ -1,3 +1,4 @@
+const Customer = require("./Customer");
 const mongoose = require("mongoose");
 
 const BookingSchema = new mongoose.Schema({
@@ -13,12 +14,10 @@ const BookingSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  customer: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Customer",
-    },
-  ],
+  customer: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Customer",
+  },
 });
 
 module.exports = mongoose.model("BookingSchema", BookingSchema);
