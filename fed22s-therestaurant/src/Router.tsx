@@ -1,22 +1,28 @@
 import { createBrowserRouter } from "react-router-dom";
 import { Layout } from "./components/Layout";
 
-export const router = createBrowserRouter([
+
+export const Router = createBrowserRouter([
     {
-        path: "/home",
+        path: "/",
         element: <Layout></Layout>,
-        index: true
-    },
-    {
-        path:"/booking",
-        element:
-    },
-    {
-        path:"/contact",
-        element:
-    },
-    {
-        path: "/admin",
-        element:
+        children: [
+            {
+                path:"/",
+                index: true
+            },
+            {
+                path: "/booking",
+                element:
+            },
+            {
+                path:"/contact",
+                element:
+            },
+            {
+                path:"/admin",
+                element:
+            }
+        ]
     }
 ]);
