@@ -6,6 +6,7 @@ import { NumberInput } from "./NumberInput";
 import { LeftsideDiv } from "./styled/LeftsideDiv";
 import { Heading } from "./styled/Heading";
 import { Button } from "./styled/Button";
+import { ImageBackground } from "./styled/ImageBackground";
 
 export const Form = () => {
   const [policyChecked, setPolicyChecked] = useState(false);
@@ -36,7 +37,7 @@ export const Form = () => {
   };
 
   return (
-    <div>
+    <ImageBackground>
       <StyledForm onSubmit={handleSubmit}>
         <Heading>Boka bord</Heading>
         <label>
@@ -84,7 +85,9 @@ export const Form = () => {
           </label>
           <Button>Välj tid</Button>
         </LeftsideDiv>
-        <input type="checkbox" onChange={handleCheckbox} />
+        <label>
+          <input type="checkbox" onChange={handleCheckbox} />
+        </label>
         <p>
           Genom att boka bord på Le Restaurante godkänner jag att mina uppgifter
           sparas enligt denna
@@ -95,6 +98,6 @@ export const Form = () => {
         </p>
         <Button disabled={!policyChecked}>Boka</Button>
       </StyledForm>
-    </div>
+    </ImageBackground>
   );
 };
