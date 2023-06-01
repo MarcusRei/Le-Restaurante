@@ -1,5 +1,11 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import { Customer } from "../models/Customer";
+import { Input } from "./styled/Input";
+import { StyledForm } from "./styled/StyledForm";
+import { NumberInput } from "./NumberInput";
+import { LeftsideDiv } from "./styled/LeftsideDiv";
+import { Heading } from "./styled/Heading";
+import { Button } from "./styled/Button";
 
 export const Form = () => {
   const [policyChecked, setPolicyChecked] = useState(false);
@@ -31,11 +37,11 @@ export const Form = () => {
 
   return (
     <div>
-      <h3>Boka bord</h3>
-      <form onSubmit={handleSubmit}>
+      <StyledForm onSubmit={handleSubmit}>
+        <Heading>Boka bord</Heading>
         <label>
           Namn:
-          <input
+          <Input
             type="text"
             value={customer.name}
             name="name"
@@ -45,7 +51,7 @@ export const Form = () => {
         </label>
         <label>
           Email:
-          <input
+          <Input
             type="text"
             value={customer.email}
             name="email"
@@ -55,7 +61,7 @@ export const Form = () => {
         </label>
         <label>
           Telefonnummer:
-          <input
+          <Input
             type="text"
             value={customer.phone}
             name="phone"
@@ -63,30 +69,32 @@ export const Form = () => {
             required
           />
         </label>
-        <label>
-          Antal i sällskap:
-          <input
-            type="number"
-            min={1}
-            max={10}
-            value={customer.guests}
-            name="guests"
-            onChange={handleChange}
-            required
-          />
-        </label>
-        <button>Välj tid</button>
-      </form>
-      <input type="checkbox" onChange={handleCheckbox} />
-      <p>
-        Genom att boka bord på Le Restaurante godkänner jag att mina uppgifter
-        sparas enligt denna
-        <a href="https://book.easytablebooking.com/book/privacy/?id=b6e01&lang=SE">
-          {" "}
-          integritetspolicy
-        </a>
-      </p>
-      <button disabled={!policyChecked}>Boka</button>
+        <LeftsideDiv>
+          <label>
+            Antal i sällskap:
+            <NumberInput
+              type="number"
+              min={1}
+              max={10}
+              value={customer.guests}
+              name="guests"
+              onChange={handleChange}
+              required
+            />
+          </label>
+          <Button>Välj tid</Button>
+        </LeftsideDiv>
+        <input type="checkbox" onChange={handleCheckbox} />
+        <p>
+          Genom att boka bord på Le Restaurante godkänner jag att mina uppgifter
+          sparas enligt denna
+          <a href="https://book.easytablebooking.com/book/privacy/?id=b6e01&lang=SE">
+            {" "}
+            integritetspolicy
+          </a>
+        </p>
+        <Button disabled={!policyChecked}>Boka</Button>
+      </StyledForm>
     </div>
   );
 };
