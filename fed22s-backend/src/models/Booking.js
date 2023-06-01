@@ -1,4 +1,4 @@
-const Customer = require("./Customer");
+const Booking = require("./Booking");
 const mongoose = require("mongoose");
 
 const BookingSchema = new mongoose.Schema({
