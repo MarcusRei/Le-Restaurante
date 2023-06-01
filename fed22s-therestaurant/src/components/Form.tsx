@@ -2,6 +2,7 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import { Customer } from "../models/Customer";
 
 export const Form = () => {
+  const [policyChecked, setPolicyChecked] = useState(false);
   const [customer, setCustomer] = useState<Customer>({
     name: "",
     email: "",
@@ -22,6 +23,10 @@ export const Form = () => {
     if (e.target.type === "number") {
       setCustomer({ ...customer, [prop]: +e.target.value });
     }
+  };
+
+  const handleCheckbox = (e: ChangeEvent<HTMLInputElement>) => {
+    setPolicyChecked(e.target.checked);
   };
 
   return (
@@ -72,7 +77,16 @@ export const Form = () => {
         </label>
         <button>Välj tid</button>
       </form>
-      <button>Boka</button>
+      <input type="checkbox" onChange={handleCheckbox} />
+      <p>
+        Genom att boka bord på Le Restaurante godkänner jag att mina uppgifter
+        sparas enligt denna
+        <a href="https://book.easytablebooking.com/book/privacy/?id=b6e01&lang=SE">
+          {" "}
+          integritetspolicy
+        </a>
+      </p>
+      <button disabled={!policyChecked}>Boka</button>
     </div>
   );
 };
