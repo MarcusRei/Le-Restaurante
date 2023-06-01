@@ -8,4 +8,7 @@ export const Input = styled.input`
   width: 250px;
   margin-bottom: 15px;
   background-color: white;
+  @media (min-width: 844px) {
+    background-color: lightgray;
+  }
 `;

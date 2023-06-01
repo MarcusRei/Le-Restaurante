@@ -37,67 +37,65 @@ export const Form = () => {
   };
 
   return (
-    <ImageBackground>
-      <StyledForm onSubmit={handleSubmit}>
-        <Heading>Boka bord</Heading>
+    <StyledForm onSubmit={handleSubmit}>
+      <Heading>Boka bord</Heading>
+      <label>
+        Namn:
+        <Input
+          type="text"
+          value={customer.name}
+          name="name"
+          onChange={handleChange}
+          required
+        />
+      </label>
+      <label>
+        Email:
+        <Input
+          type="text"
+          value={customer.email}
+          name="email"
+          onChange={handleChange}
+          required
+        />
+      </label>
+      <label>
+        Telefonnummer:
+        <Input
+          type="text"
+          value={customer.phone}
+          name="phone"
+          onChange={handleChange}
+          required
+        />
+      </label>
+      <LeftsideDiv>
         <label>
-          Namn:
-          <Input
-            type="text"
-            value={customer.name}
-            name="name"
+          Antal i sällskap:
+          <NumberInput
+            type="number"
+            min={1}
+            max={10}
+            value={customer.guests}
+            name="guests"
             onChange={handleChange}
             required
           />
         </label>
-        <label>
-          Email:
-          <Input
-            type="text"
-            value={customer.email}
-            name="email"
-            onChange={handleChange}
-            required
-          />
-        </label>
-        <label>
-          Telefonnummer:
-          <Input
-            type="text"
-            value={customer.phone}
-            name="phone"
-            onChange={handleChange}
-            required
-          />
-        </label>
-        <LeftsideDiv>
-          <label>
-            Antal i sällskap:
-            <NumberInput
-              type="number"
-              min={1}
-              max={10}
-              value={customer.guests}
-              name="guests"
-              onChange={handleChange}
-              required
-            />
-          </label>
-          <Button>Välj tid</Button>
-        </LeftsideDiv>
-        <label>
-          <input type="checkbox" onChange={handleCheckbox} />
-        </label>
-        <p>
-          Genom att boka bord på Le Restaurante godkänner jag att mina uppgifter
-          sparas enligt denna
-          <a href="https://book.easytablebooking.com/book/privacy/?id=b6e01&lang=SE">
-            {" "}
-            integritetspolicy
-          </a>
-        </p>
-        <Button disabled={!policyChecked}>Boka</Button>
-      </StyledForm>
-    </ImageBackground>
+        <Button>Välj tid</Button>
+      </LeftsideDiv>
+      <label>
+        <input type="checkbox" onChange={handleCheckbox} />
+      </label>
+      <p>
+        Genom att boka bord på Le Restaurante godkänner jag att mina uppgifter
+        sparas enligt denna
+        <a href="https://book.easytablebooking.com/book/privacy/?id=b6e01&lang=SE">
+          {" "}
+          integritetspolicy
+        </a>
+      </p>
+      <Button disabled={!policyChecked}>Boka</Button>
+    </StyledForm>
   );
 };

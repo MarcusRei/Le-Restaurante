@@ -1,5 +1,10 @@
 import { Form } from "./Form";
+import { ImageBackground } from "./styled/ImageBackground";
 
 export const Booking = () => {
-  return <></>;
+  return (
+    <>
+      <Form></Form>
+    </>
+  );
 };
