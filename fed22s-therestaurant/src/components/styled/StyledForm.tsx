@@ -17,7 +17,7 @@ export const StyledForm = styled.form`
     background-color: #efeaea;
     position: relative;
     bottom: 90px;
-    justify-content: center;
+    //justify-content: center;
 
     p {
       font-size: larger;

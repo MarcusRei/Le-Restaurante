@@ -6,9 +6,9 @@ export const StyledFooter = styled.div`
   width: 100vw;
   z-index: 10;
   @media (min-width: 844px) {
-    width: 55%;
+    width: 55.5%;
     position: relative;
-    left: 680px;
+    left: 677px;
     bottom: 200px;
   }
 `;
