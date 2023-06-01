@@ -11,21 +11,11 @@ import { TimeSlots } from "./TimeSlots";
 
 // 4. registrera vald dag och gå tillbaka till formulär
 
-/* const disabledDates = [tomorrow, in3Days, in5Days];
-
-function tileDisabled({ date, view }) {
-  // Disable tiles in month view only
-  if (view === "month") {
-    // Check if a date React-Calendar wants to check is on the list of disabled dates
-    return disabledDates.find((dDate) => isSameDay(dDate, date));
-  }
-} */
-
 export const BookingsCalendar = () => {
   const [date, setDate] = useState(new Date());
   const [showTime, setShowTime] = useState(false);
 
-  function updateDate(nextValue: any) {
+  function updateDate(nextValue: Date) {
     setDate(nextValue);
   }
 
@@ -41,7 +31,7 @@ export const BookingsCalendar = () => {
       <div className="calendar-container">
         <Calendar
           value={date}
-          onChange={updateDate}
+          onChange={() => updateDate(date)}
           onClickDay={() => checkDate()}
         ></Calendar>
         <div>Valt datum: {date.toDateString()}</div>

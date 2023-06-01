@@ -3,12 +3,18 @@ interface ITimeSlotsProps {
 }
 
 export const TimeSlots = (props: ITimeSlotsProps) => {
+  /*  const openSlotsHTML = () */
   return (
     <>
       <div>
-        {props.showTime
-          ? "18:00 och 21:00"
-          : "Tyvärr finns inga lediga tider här"}
+        {props.showTime ? (
+          <div>
+            <button>18:00</button>
+            <button>21:00</button>
+          </div>
+        ) : (
+          "Tyvärr finns inga lediga tider här"
+        )}
       </div>
     </>
   );
