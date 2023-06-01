@@ -13,8 +13,11 @@ export const StyledForm = styled.form`
 
   @media (min-width: 844px) {
     padding: 35px;
-    width: 100%;
+    width: 80%;
     background-color: #efeaea;
+    position: relative;
+    bottom: 90px;
+    justify-content: center;
 
     p {
       font-size: larger;
