@@ -58,30 +58,50 @@ exports.addBooking = async (req, res, next) => {
 
 exports.updateBooking = async (req, res, next) => {
   try {
+    // 1. Hämtar id från params och data från body
     const bookingId = req.params.id;
-    const { name, email, phonenumber, date, time, numberOfPeople } = req.body;
+    const { name, email, phonenumber, date, time, guests } = req.body;
 
-    const booking = await booking.findById(bookingId);
-    if (!booking) {
-      throw new NotFoundError("Booking not found");
+    // 2. hittar vår bokning
+    const reservation = await booking.findById(bookingId);
+
+    if (!reservation) {
+      throw new Error("Sorry, no reservation was found with that id");
     }
 
-    const customer = await customer.findById(booking.customer);
-    if (!customer) {
-      throw new NotFoundError("Customer not found");
+    // 3. Hittar en kund med samma namn som det vi skickar
+    const customerToUpdate = await customer.findById(reservation.customer._id);
+
+    if (!customerToUpdate) {
+      throw new Error("Sorry i couldn't find a customer with that id");
     }
+    console.log(customerToUpdate);
 
-    customer.name = name;
-    customer.email = email;
-    customer.phonenumber = phonenumber;
-    const updatedCustomer = await customer.save();
+    // Måste avgöra om dessa fält är tomma i så fall gör inget med dem
+    if (name) {
+      customerToUpdate.name = name;
+    }
+    if (email) {
+      customerToUpdate.email = email;
+    }
+    if (phonenumber) {
+      customerToUpdate.phonenumber = phonenumber;
+    }
+    // const updatedCustomer = await customer.save(customerToUpdate)
+    const updatedCustomer = await customerToUpdate.save();
 
-    booking.date = date;
-    booking.time = time;
-    booking.guests = numberOfPeople;
-    const updatedBooking = await booking.save();
+    if (date) {
+      reservation.date = date;
+    }
+    if (time) {
+      reservation.time = time;
+    }
+    if (guests) {
+      reservation.guests = guests;
+    }
+    const updatedBooking = await reservation.save();
 
-    res.json(updatedBooking);
+    res.send("Your reservation has been updated!");
   } catch (error) {
     console.error(error);
     return res.status(500).json({ message: error.message });
@@ -95,10 +115,10 @@ exports.deleteBooking = async (req, res, next) => {
     const deletedBooking = await booking.findByIdAndDelete(bookingId);
 
     if (!deletedBooking) {
-      throw new NotFoundError("Booking not found");
+      throw new Error("Sorry, I could not find a reservation with that id!");
     }
 
-    res.json({ message: "Booking deleted successfully" });
+    res.json({ message: "Reservation deleted successfully" });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ message: error.message });
