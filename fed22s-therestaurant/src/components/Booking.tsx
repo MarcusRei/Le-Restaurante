@@ -1,3 +1,12 @@
+import { BookingsCalendar } from "./BookingsCalendar";
+import { CenterWrapper } from "./styled/Wrappers";
+
 export const Booking = () => {
-  return <></>;
+  return (
+    <>
+      <CenterWrapper>
+        <BookingsCalendar></BookingsCalendar>
+      </CenterWrapper>
+    </>
+  );
 };
