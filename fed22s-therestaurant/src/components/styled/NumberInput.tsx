@@ -8,4 +8,7 @@ export const NumberInput = styled.input`
   width: 100px;
   margin-bottom: 15px;
   background-color: white;
+  @media (min-width: 844px) {
+    background-color: lightgray;
+  }
 `;

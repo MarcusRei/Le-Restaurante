@@ -2,7 +2,7 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import { Customer } from "../models/Customer";
 import { Input } from "./styled/Input";
 import { StyledForm } from "./styled/StyledForm";
-import { NumberInput } from "./NumberInput";
+import { NumberInput } from "./styled/NumberInput";
 import { LeftsideDiv } from "./styled/LeftsideDiv";
 import { Heading } from "./styled/Heading";
 import { Button } from "./styled/Button";

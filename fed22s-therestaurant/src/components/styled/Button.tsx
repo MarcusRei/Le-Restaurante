@@ -8,5 +8,6 @@ export const Button = styled.button`
     border: 1.5px solid black;
     height: 40px;
     width: 100px;
+    background-color: lightgray;
   }
 `;
