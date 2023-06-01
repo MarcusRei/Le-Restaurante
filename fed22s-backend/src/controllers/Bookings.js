@@ -58,26 +58,21 @@ exports.addBooking = async (req, res, next) => {
 
 exports.updateBooking = async (req, res, next) => {
   try {
-    // 1. Hämtar id från params och data från body
     const bookingId = req.params.id;
     const { name, email, phonenumber, date, time, guests } = req.body;
 
-    // 2. hittar vår bokning
     const reservation = await booking.findById(bookingId);
 
     if (!reservation) {
       throw new Error("Sorry, no reservation was found with that id");
     }
 
-    // 3. Hittar en kund med samma namn som det vi skickar
     const customerToUpdate = await customer.findById(reservation.customer._id);
 
     if (!customerToUpdate) {
       throw new Error("Sorry i couldn't find a customer with that id");
     }
-    console.log(customerToUpdate);
 
-    // Måste avgöra om dessa fält är tomma i så fall gör inget med dem
     if (name) {
       customerToUpdate.name = name;
     }

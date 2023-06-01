@@ -7,7 +7,7 @@ const {
 const router = express.Router();
 
 router.get("/", getAllCustomers);
-router.put("/update/:id", updateCustomer);
-router.delete("/delete/:id", deleteCustomer);
+router.put("/:id", updateCustomer);
+router.delete("/:id", deleteCustomer);
 
 module.exports = router;
