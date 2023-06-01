@@ -5,7 +5,7 @@ exports.getAllCustomers = async (req, res, next) => {
     const customers = await customer.find();
 
     if (!customer) {
-      throw new NotFoundError("There are no bookings");
+      throw new NotFoundError("Sorry I was not able to find any customers!");
     }
 
     res.json(customers);
@@ -41,9 +41,7 @@ exports.deleteCustomer = async (req, res, next) => {
   try {
     const customerId = req.params.id;
 
-    const deletedCustomer = await customer.findByIdAndDelete(
-      customerId
-    );
+    const deletedCustomer = await customer.findByIdAndDelete(customerId);
 
     if (!deletedCustomer) {
       throw new NotFoundError("Customer not found");

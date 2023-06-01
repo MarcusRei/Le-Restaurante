@@ -3,13 +3,13 @@ const customer = require("../models/Customer");
 
 exports.getAllBookings = async (req, res, next) => {
   try {
-    const bookings = await booking.find();
+    const bookings = await booking.find().populate("customer");
 
     if (!bookings) {
       throw new NotFoundError("There are no bookings");
     }
 
-    res.json(bookings);
+    return res.json(bookings);
   } catch (error) {
     console.error(error);
     return res.status(500).json({ message: error.message });
@@ -18,22 +18,38 @@ exports.getAllBookings = async (req, res, next) => {
 
 exports.addBooking = async (req, res, next) => {
   try {
-    const { name, email, phonenumber, date, time, numberOfPeople } =
-      req.body;
-    const newCustomer = new customer({ name, email, phonenumber });
+    const { name, email, phonenumber, date, time, numberOfPeople } = req.body;
 
-    const savedCustomer = await newCustomer.save();
+    const existingCustomer = await customer.findOne({ name: name });
 
-    const newBooking = new booking({
-      date,
-      time,
-      guests: numberOfPeople,
-      customer: savedCustomer._id,
-    });
+    if (!existingCustomer) {
+      console.log(existingCustomer);
+      const newCustomer = new customer({ name, email, phonenumber });
 
-    const savedBooking = await newBooking.save();
+      const savedCustomer = await newCustomer.save();
 
-    res.json(savedBooking);
+      const newBooking = new booking({
+        date,
+        time,
+        guests: numberOfPeople,
+        customer: savedCustomer._id,
+      });
+
+      const savedBooking = await newBooking.save();
+
+      res.json(savedBooking);
+    } else {
+      const newBooking = new booking({
+        date,
+        time,
+        guests: numberOfPeople,
+        customer: existingCustomer._id,
+      });
+
+      const savedBooking = await newBooking.save();
+
+      res.json(savedBooking);
+    }
   } catch (error) {
     console.error(error);
     return res.status(500).json({ message: error.message });
@@ -43,8 +59,7 @@ exports.addBooking = async (req, res, next) => {
 exports.updateBooking = async (req, res, next) => {
   try {
     const bookingId = req.params.id;
-    const { name, email, phonenumber, date, time, numberOfPeople } =
-      req.body;
+    const { name, email, phonenumber, date, time, numberOfPeople } = req.body;
 
     const booking = await booking.findById(bookingId);
     if (!booking) {
