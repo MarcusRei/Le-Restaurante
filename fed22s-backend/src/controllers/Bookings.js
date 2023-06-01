@@ -40,21 +40,18 @@ exports.addBooking = async (req, res, next) => {
   }
 };
 
-const Booking = require("../models/Booking");
-const Customer = require("../models/Customer");
-
 exports.updateBooking = async (req, res, next) => {
   try {
     const bookingId = req.params.id;
     const { name, email, phonenumber, date, time, numberOfPeople } =
       req.body;
 
-    const booking = await Booking.findById(bookingId);
+    const booking = await booking.findById(bookingId);
     if (!booking) {
       throw new NotFoundError("Booking not found");
     }
 
-    const customer = await Customer.findById(booking.customer);
+    const customer = await customer.findById(booking.customer);
     if (!customer) {
       throw new NotFoundError("Customer not found");
     }

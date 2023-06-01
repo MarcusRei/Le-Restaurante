@@ -8,8 +8,8 @@ const {
 const router = express.Router();
 
 router.get("/", getAllBookings);
-router.post("/add", addBooking);
-router.put("/update/:id", updateBooking);
-router.delete("/delete/:id", deleteBooking);
+router.post("/", addBooking);
+router.put("/:id", updateBooking);
+router.delete("/:id", deleteBooking);
 
 module.exports = router;
