@@ -1,6 +1,6 @@
 import { BottomChair, ChairsWrapper, TopChair } from "./styled/Chairs";
 import { Table } from "./styled/Table";
-import { TableWrapper, TableviewWrapper } from "./styled/tableviewWrappers";
+import { TableWrapper, TableviewWrapper } from "./styled/AdminWrappers";
 
 export const TableSet = () => {
   return (

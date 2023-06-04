@@ -11,3 +11,10 @@ export const Button = styled.button`
     background-color: lightgray;
   }
 `;
+
+export const ContactButton = styled.button`
+  background-color: transparent;
+  border: 1px solid #424242;
+  border-radius: 10px;
+  padding: 0.2em 1em;
+`;

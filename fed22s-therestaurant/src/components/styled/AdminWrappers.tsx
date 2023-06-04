@@ -1,5 +1,10 @@
 import styled from "styled-components";
 
+export const AdminWrapper = styled.div`
+  display: flex;
+  gap: 0.5em;
+`;
+
 export const TableviewWrapper = styled.div`
   background-color: #808080a0;
   display: flex;
@@ -33,4 +38,8 @@ export const TableWrapper = styled.div`
   position: relative;
   width: 60%;
   height: 60%;
+`;
+
+export const BookingsListWrapper = styled(TableviewWrapper)`
+  width: 30vw;
 `;
