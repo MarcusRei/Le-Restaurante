@@ -23,10 +23,10 @@ export const Router = createBrowserRouter([
         path: "/contact",
         element: <Contact></Contact>,
       },
-      {
-        path: "/admin",
-        element: <Admin></Admin>,
-      },
     ],
+  },
+  {
+    path: "/admin",
+    element: <Admin></Admin>,
   },
 ]);
