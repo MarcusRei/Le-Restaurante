@@ -17,4 +17,9 @@ export const ContactButton = styled.button`
   border: 1px solid #424242;
   border-radius: 10px;
   padding: 0.2em 1em;
+
+  &:hover {
+    cursor: pointer;
+    background-color: #c3c3c3;
+  }
 `;

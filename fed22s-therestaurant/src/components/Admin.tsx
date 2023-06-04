@@ -1,6 +1,4 @@
 import { TableSet } from "./TableSet";
-import { BottomChair, ChairsWrapper, TopChair } from "./styled/Chairs";
-import { Table } from "./styled/Table";
 import {
   AdminWrapper,
   LowerTableWrapper,

@@ -5,4 +5,8 @@ export const Table = styled.div`
   border-radius: 15px;
   width: 80%;
   height: 100%;
+
+  &:hover {
+    filter: drop-shadow(5px 5px 25px #fffcb1);
+  }
 `;
