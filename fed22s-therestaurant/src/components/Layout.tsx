@@ -1,19 +1,22 @@
 import { Outlet } from "react-router-dom";
-import { Wrapper } from "./styled/Wrapper";
+import { HorizontalWrapper, Wrapper } from "./styled/Wrapper";
 import { ImageBackground } from "./styled/ImageBackground";
 import { Footer } from "./Footer";
+import { ImageWrapper, StyledImage } from "./styled/ImageStyling";
+import { StyledFooter } from "./styled/StyledFooter";
 import { Navigation } from "./Navigation";
 
 export const Layout = () => {
   return (
     <>
-      <ImageBackground>
-        <Navigation></Navigation>
-        <Wrapper>
-          <Outlet></Outlet>
-        </Wrapper>
-      </ImageBackground>
-      <Footer></Footer>
+      <HorizontalWrapper>
+        <ImageWrapper>
+          <StyledImage src="/assets/restaurant-4011989_1280.jpg"></StyledImage>
+        </ImageWrapper>
+        <Outlet></Outlet>
+      </HorizontalWrapper>
+
+      <StyledFooter></StyledFooter>
     </>
   );
 };
