@@ -1,6 +1,6 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import { Customer } from "../models/Customer";
-import { Input } from "./styled/Input";
+import { Input, TextInput } from "./styled/TextInput";
 import { StyledForm } from "./styled/StyledForm";
 import { NumberInput } from "./styled/NumberInput";
 import { LeftsideDiv } from "./styled/LeftsideDiv";
@@ -41,7 +41,7 @@ export const Form = () => {
       <Heading>Boka bord</Heading>
       <label>
         Namn:
-        <Input
+        <TextInput
           type="text"
           value={customer.name}
           name="name"
@@ -51,7 +51,7 @@ export const Form = () => {
       </label>
       <label>
         Email:
-        <Input
+        <TextInput
           type="text"
           value={customer.email}
           name="email"
@@ -61,7 +61,7 @@ export const Form = () => {
       </label>
       <label>
         Telefonnummer:
-        <Input
+        <TextInput
           type="text"
           value={customer.phone}
           name="phone"

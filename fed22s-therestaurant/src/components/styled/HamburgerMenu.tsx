@@ -6,10 +6,10 @@ interface IHamburgerMenuProps {
 
 const crossTop = keyframes`
   from {
-    transform: rotate(0deg);
+    transform: rotate(0deg) translateY(0%);
   }
   to {
-    transform: rotate(45deg);
+    transform: rotate(45deg) translateY(0%);
   }
 `;
 
@@ -24,10 +24,10 @@ const crossMiddle = keyframes`
 
 const crossBottom = keyframes`
   from {
-    transform: rotate(0deg);
+    transform: rotate(0deg) translateY(0%);
   }
   to {
-    transform: rotate(-45deg);
+    transform: rotate(-45deg) translateY(0%);
   }
 `;
 
@@ -36,13 +36,13 @@ export const HamburgerMenu = styled.div<IHamburgerMenuProps>`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 30px;
-  height: 24px;
+  width: 2em;
+  height: 2em;
   cursor: pointer;
 
   & > div {
     width: 100%;
-    height: 2px;
+    height: 2em;
     background-color: red;
     transition: transform 0.3s;
 

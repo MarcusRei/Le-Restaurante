@@ -1,13 +1,30 @@
 import { Navbar } from "./styled/Navbar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { NavIcon } from "./styled/NavIcon";
 import { HamburgerMenu } from "./styled/HamburgerMenu";
 import { NavLinkWrapper } from "./styled/NavLinkWrapper";
-import { keyframes } from "styled-components";
+import { StyledAnchor } from "./styled/StyledAnchor";
 
 export const Navigation = () => {
   const [showNav, setShowNav] = useState(false);
   const [isRotated, setIsRotated] = useState(false);
+  const [displayLinks, setDisplayLinks] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      const isDesktop = window.innerWidth > 844;
+      setDisplayLinks(isDesktop);
+      if (isDesktop) {
+        setShowNav(true);
+      }
+    };
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   const links = [
     { label: "Meny", url: "/menu" },
@@ -30,12 +47,12 @@ export const Navigation = () => {
         </HamburgerMenu>
       </Navbar>
       <NavLinkWrapper>
-        {showNav && (
+        {(showNav || displayLinks) && (
           <>
             {links.map((link) => (
-              <a key={link.label} href={link.url}>
+              <StyledAnchor key={link.label} href={link.url}>
                 {link.label}
-              </a>
+              </StyledAnchor>
             ))}
           </>
         )}
