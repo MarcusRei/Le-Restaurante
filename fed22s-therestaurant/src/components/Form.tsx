@@ -1,6 +1,11 @@
 import { ChangeEvent, FormEvent, useContext, useState } from "react";
 import { Input } from "./styled/Input";
-import { StyledForm } from "./styled/StyledForm";
+import {
+  PolicyWrapper,
+  StyledForm,
+  StyledLabel,
+  StyledParagraph,
+} from "./styled/StyledForm";
 import { NumberInput } from "./styled/NumberInput";
 import { LeftsideDiv } from "./styled/LeftsideDiv";
 import { Heading } from "./styled/Heading";
@@ -8,6 +13,7 @@ import { Button } from "./styled/Button";
 import { ImageBackground } from "./styled/ImageBackground";
 import { Booking } from "../models/Booking";
 import { BookingContext } from "../contexts/BookingContext";
+import { HorizontalWrapper } from "./styled/Wrapper";
 
 export const Form = () => {
   const [policyChecked, setPolicyChecked] = useState(false);
@@ -59,7 +65,7 @@ export const Form = () => {
     <>
       <StyledForm>
         <Heading>Boka bord</Heading>
-        <label>
+        <StyledLabel>
           Namn:
           <Input
             type="text"
@@ -68,8 +74,8 @@ export const Form = () => {
             onChange={handleChange}
             required
           />
-        </label>
-        <label>
+        </StyledLabel>
+        <StyledLabel>
           Email:
           <Input
             type="text"
@@ -78,8 +84,8 @@ export const Form = () => {
             onChange={handleChange}
             required
           />
-        </label>
-        <label>
+        </StyledLabel>
+        <StyledLabel>
           Telefonnummer:
           <Input
             type="text"
@@ -88,9 +94,9 @@ export const Form = () => {
             onChange={handleChange}
             required
           />
-        </label>
+        </StyledLabel>
         <LeftsideDiv>
-          <label>
+          <StyledLabel>
             Antal i sällskap:
             <NumberInput
               type="number"
@@ -101,20 +107,22 @@ export const Form = () => {
               onChange={handleChange}
               required
             />
-          </label>
+          </StyledLabel>
           <Button onClick={openCalendar}>Välj tid</Button>
         </LeftsideDiv>
-        <label>
-          <input type="checkbox" onChange={handleCheckbox} />
-        </label>
-        <p>
-          Genom att boka bord på Le Restaurante godkänner jag att mina uppgifter
-          sparas enligt denna
-          <a href="https://book.easytablebooking.com/book/privacy/?id=b6e01&lang=SE">
-            {" "}
-            integritetspolicy
-          </a>
-        </p>
+        <PolicyWrapper>
+          <StyledLabel>
+            <input type="checkbox" onChange={handleCheckbox} />
+          </StyledLabel>
+          <StyledParagraph>
+            Jag bekräftar att jag har läst och godkänt Le Restaurante's
+            <a href="https://book.easytablebooking.com/book/privacy/?id=b6e01&lang=SE">
+              {" "}
+              integritetspolicy
+            </a>
+          </StyledParagraph>
+        </PolicyWrapper>
+
         <Button
           disabled={!policyChecked}
           onClick={dateChosen ? handleSubmit : undefined}
