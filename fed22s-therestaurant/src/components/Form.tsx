@@ -2,10 +2,10 @@ import { ChangeEvent, FormEvent, useContext, useState } from "react";
 import {
   PolicyWrapper,
   StyledForm,
-  StyledLabel,
-  StyledParagraph,
+  FormLabel,
+  FormParagraph,
 } from "./styled/StyledForm";
-import { Input, TextInput } from "./styled/TextInput";
+import { TextInput } from "./styled/TextInput";
 import { NumberInput } from "./styled/NumberInput";
 import { LeftsideDiv } from "./styled/LeftsideDiv";
 import { Heading } from "./styled/Heading";
@@ -65,38 +65,38 @@ export const Form = () => {
     <>
       <StyledForm>
         <Heading>Boka bord</Heading>
-        <StyledLabel>
+        <FormLabel>
           Namn:
-          <Input
+          <TextInput
             type="text"
             value={booking.name}
             name="name"
             onChange={handleChange}
             required
           />
-        </StyledLabel>
-        <StyledLabel>
+        </FormLabel>
+        <FormLabel>
           Email:
-          <Input
+          <TextInput
             type="text"
             value={booking.email}
             name="email"
             onChange={handleChange}
             required
           />
-        </StyledLabel>
-        <StyledLabel>
+        </FormLabel>
+        <FormLabel>
           Telefonnummer:
-          <Input
+          <TextInput
             type="text"
             value={booking.phonenumber}
             name="phonenumber"
             onChange={handleChange}
             required
           />
-        </StyledLabel>
+        </FormLabel>
         <LeftsideDiv>
-          <StyledLabel>
+          <FormLabel>
             Antal i sällskap:
             <NumberInput
               type="number"
@@ -107,20 +107,20 @@ export const Form = () => {
               onChange={handleChange}
               required
             />
-          </StyledLabel>
+          </FormLabel>
           <Button onClick={openCalendar}>Välj tid</Button>
         </LeftsideDiv>
         <PolicyWrapper>
-          <StyledLabel>
+          <FormLabel>
             <input type="checkbox" onChange={handleCheckbox} />
-          </StyledLabel>
-          <StyledParagraph>
+          </FormLabel>
+          <FormParagraph>
             Jag bekräftar att jag har läst och godkänt Le Restaurante's
             <a href="https://book.easytablebooking.com/book/privacy/?id=b6e01&lang=SE">
               {" "}
               integritetspolicy
             </a>
-          </StyledParagraph>
+          </FormParagraph>
         </PolicyWrapper>
 
         <Button

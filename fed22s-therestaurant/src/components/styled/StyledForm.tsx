@@ -20,12 +20,12 @@ export const StyledForm = styled.form`
   }
 `;
 
-export const StyledParagraph = styled.p`
+export const FormParagraph = styled.p`
   width: 70%;
   font-weight: 600;
 `;
 
-export const StyledLabel = styled.label`
+export const FormLabel = styled.label`
   font-weight: 600;
 `;
 
