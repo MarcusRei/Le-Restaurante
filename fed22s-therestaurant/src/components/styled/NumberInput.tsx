@@ -7,6 +7,6 @@ export const NumberInput = styled(TextInput)`
   margin-bottom: 2em;
   background-color: white;
   @media (min-width: 844px) {
-    background-color: lightgray;
+    background-color: #ffffff;
   }
 `;
