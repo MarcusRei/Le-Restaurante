@@ -7,7 +7,6 @@ export const StyledFooter = styled.div`
   z-index: 10;
   @media (min-width: 844px) {
     width: 55.5%;
-    position: relative;
     left: 677px;
     bottom: 200px;
   }
