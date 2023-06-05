@@ -1,5 +1,4 @@
 import { ChangeEvent, FormEvent, useContext, useState } from "react";
-import { Customer } from "../models/Customer";
 import { Input } from "./styled/Input";
 import { StyledForm } from "./styled/StyledForm";
 import { NumberInput } from "./styled/NumberInput";
