@@ -1,11 +1,11 @@
 import { ChangeEvent, FormEvent, useContext, useState } from "react";
-import { Input } from "./styled/Input";
 import {
   PolicyWrapper,
   StyledForm,
   StyledLabel,
   StyledParagraph,
 } from "./styled/StyledForm";
+import { Input, TextInput } from "./styled/TextInput";
 import { NumberInput } from "./styled/NumberInput";
 import { LeftsideDiv } from "./styled/LeftsideDiv";
 import { Heading } from "./styled/Heading";

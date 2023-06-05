@@ -1,12 +1,10 @@
 import styled from "styled-components";
+import { TextInput } from "./TextInput";
 
-export const NumberInput = styled.input`
+export const NumberInput = styled(TextInput)`
   display: block;
-  border: 1px solid grey;
-  border-radius: 5px;
-  height: 30px;
-  width: 100px;
-  margin-bottom: 15px;
+  width: 8em;
+  margin-bottom: 2em;
   background-color: white;
   @media (min-width: 844px) {
     background-color: lightgray;
