@@ -6,13 +6,10 @@ import {
   FormParagraph,
   DateTimeText,
 } from "./styled/StyledForm";
-import { TextInput } from "./styled/TextInput";
-import { NumberInput } from "./styled/NumberInput";
-import { LeftsideDiv } from "./styled/LeftsideDiv";
+import { TextInput, NumberInput } from "./styled/Inputs";
 import { Heading } from "./styled/Heading";
 import { Button } from "./styled/Button";
 import { Booking } from "../models/Booking";
-import { BookingContext } from "../contexts/BookingContext";
 import {
   HorizontalWrapper,
   HorizontalWrapperGap,
