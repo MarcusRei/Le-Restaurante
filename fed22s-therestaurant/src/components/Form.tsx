@@ -5,7 +5,7 @@ import {
   StyledLabel,
   StyledParagraph,
 } from "./styled/StyledForm";
-import { Input, TextInput } from "./styled/TextInput";
+import { TextInput } from "./styled/TextInput";
 import { NumberInput } from "./styled/NumberInput";
 import { LeftsideDiv } from "./styled/LeftsideDiv";
 import { Heading } from "./styled/Heading";
@@ -67,7 +67,7 @@ export const Form = () => {
         <Heading>Boka bord</Heading>
         <StyledLabel>
           Namn:
-          <Input
+          <TextInput
             type="text"
             value={booking.name}
             name="name"
@@ -77,7 +77,7 @@ export const Form = () => {
         </StyledLabel>
         <StyledLabel>
           Email:
-          <Input
+          <TextInput
             type="text"
             value={booking.email}
             name="email"
@@ -87,7 +87,7 @@ export const Form = () => {
         </StyledLabel>
         <StyledLabel>
           Telefonnummer:
-          <Input
+          <TextInput
             type="text"
             value={booking.phonenumber}
             name="phonenumber"
