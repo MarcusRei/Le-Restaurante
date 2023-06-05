@@ -9,7 +9,6 @@ export const Button = styled.button`
   @media (min-width: 844px) {
     border: 1.5px solid lightgray;
     height: 40px;
-    width: 100px;
   }
 `;
 
@@ -18,7 +17,7 @@ export const CallUsButton = styled(Button)`
   background-color: white;
   @media (min-width: 844px) {
     border: 1.5px solid lightgray;
-    width: 30em;
+    width: 12em;
   }
 `;
 export const BookingButton = styled(Button)`
@@ -26,6 +25,6 @@ export const BookingButton = styled(Button)`
   background-color: white;
   @media (min-width: 844px) {
     border: 1.5px solid lightgray;
-    width: 40em;
+    width: 14em;
   }
 `;
