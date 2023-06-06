@@ -9,10 +9,10 @@ export const Wrapper = styled.div`
 `;
 
 export const NavWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  align-items: flex-end;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 100;
 `;
 
 export const CenteringWrapper = styled.div`

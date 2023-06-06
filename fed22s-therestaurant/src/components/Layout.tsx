@@ -10,11 +10,11 @@ export const Layout = () => {
   return (
     <>
       <HorizontalWrapper>
-        <NavWrapper>
-          <Navigation></Navigation>
-        </NavWrapper>
         <ImageWrapper>
           <StyledImage src="/assets/restaurant-4011989_1280.jpg"></StyledImage>
+          <NavWrapper>
+            <Navigation></Navigation>
+          </NavWrapper>
         </ImageWrapper>
         <Outlet></Outlet>
       </HorizontalWrapper>
