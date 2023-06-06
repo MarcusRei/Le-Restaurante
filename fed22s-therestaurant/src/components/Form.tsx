@@ -15,6 +15,7 @@ import {
   HorizontalWrapperGap,
   VerticalWrapper,
 } from "./styled/Wrapper";
+import { postNewBooking } from "../services/dataService";
 
 export const Form = () => {
   const [policyChecked, setPolicyChecked] = useState(false);
@@ -33,9 +34,11 @@ export const Form = () => {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
 
-    setConfirm(true);
+    console.log(booking);
 
-    console.log("Form sent!");
+    postNewBooking(booking);
+
+    setConfirm(true);
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {

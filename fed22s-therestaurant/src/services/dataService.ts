@@ -48,6 +48,7 @@ export const postNewBooking = async (booking: Booking) => {
       booking
     );
 
+    console.log("Form sent!");
     return response.data;
   } catch {
     throw new Error("Could not post booking to API");
