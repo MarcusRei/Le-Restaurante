@@ -8,6 +8,13 @@ export const Wrapper = styled.div`
   }
 `;
 
+export const NavWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  align-items: flex-end;
+`;
+
 export const CenteringWrapper = styled.div`
   display: flex;
   justify-content: center;
