@@ -1,7 +1,8 @@
 import Calendar from "react-calendar";
 import "./BookingsCalendar.css";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { TimeSlots } from "../TimeSlots";
+import { BookingsContext } from "../../contexts/BookingsContext";
 
 // 1. Hämta alla bookings
 
@@ -14,6 +15,8 @@ import { TimeSlots } from "../TimeSlots";
 export const BookingsCalendar = () => {
   const [date, setDate] = useState(new Date());
   const [showTime, setShowTime] = useState(false);
+
+  const bookings = useContext(BookingsContext);
 
   function updateDate(nextValue: Date) {
     setDate(nextValue);

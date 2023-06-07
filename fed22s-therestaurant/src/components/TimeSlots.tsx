@@ -3,7 +3,6 @@ interface ITimeSlotsProps {
 }
 
 export const TimeSlots = (props: ITimeSlotsProps) => {
-  /*  const openSlotsHTML = () */
   return (
     <>
       <div>
