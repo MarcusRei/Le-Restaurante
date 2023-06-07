@@ -2,8 +2,7 @@ import styled from "styled-components";
 import { CenteringWrapper, HorizontalWrapper } from "./Wrappers";
 
 export const StyledForm = styled.form`
-  position: absolute;
-  //top: -39em;
+  position: relative;
   background-color: #989898ab;
   border-radius: 25px;
   display: flex;
@@ -11,6 +10,7 @@ export const StyledForm = styled.form`
   align-items: center;
   padding: 2em;
   z-index: 10;
+  width: 80%;
 
   @media (min-width: 844px) {
     top: 0;

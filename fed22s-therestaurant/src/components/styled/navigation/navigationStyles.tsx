@@ -7,7 +7,7 @@ import {
 } from "../animations";
 
 export const Navbar = styled.nav`
-  position: relative;
+  position: absolute;
   padding-top: 1.5em;
   padding-right: 1.6em;
   width: 100%;
@@ -15,6 +15,7 @@ export const Navbar = styled.nav`
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+  z-index: 100;
 
   @media (min-width: 844px) {
   }
@@ -68,6 +69,7 @@ export const HamburgerLine = styled.div`
 `;
 
 export const MobileLinksWrapper = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
 `;
@@ -82,4 +84,26 @@ export const NavElements = styled.ul`
   display: flex;
   flex-direction: column;
   cursor: pointer;
+`;
+
+export const StyledAnchor = styled.a`
+  position: relative;
+  text-decoration: none;
+  font-size: 2em;
+  color: white;
+  background-color: #434343;
+  padding: 0.1em;
+  text-align: center;
+
+  :hover {
+    color: #8c0303;
+  }
+
+  @media (min-width: 844px) {
+    background-color: transparent;
+    font-size: 1.5em;
+    font-weight: 600;
+    padding-right: 1em;
+    color: black;
+  }
 `;
