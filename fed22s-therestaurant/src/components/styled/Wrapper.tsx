@@ -1,10 +1,10 @@
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
-  height: 100vh;
+  height: 100%;
+
   @media (min-width: 844px) {
     position: relative;
-    left: 700px;
   }
 `;
 
@@ -35,5 +35,16 @@ export const HorizontalWrapper = styled.div`
   @media (min-width: 844px) {
     position: relative;
     flex-direction: row;
+  }
+`;
+
+export const GridWrapper = styled.div`
+  padding: 1em;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2em;
+  @media (min-width: 844px) {
+    padding: 2em;
+    grid-template-columns: 1fr 1fr;
   }
 `;
