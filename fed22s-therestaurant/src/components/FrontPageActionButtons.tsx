@@ -5,6 +5,7 @@ import {
   faMobile,
   faArrowUpRightFromSquare,
 } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 
 export const FrontPageActionButtons = () => {
   return (
@@ -13,10 +14,12 @@ export const FrontPageActionButtons = () => {
         <CallUsButton>
           <FontAwesomeIcon icon={faMobile} /> 08 - 89677
         </CallUsButton>
-        <BookingButton>
-          <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
-          BORDSBOKNING
-        </BookingButton>
+        <Link to="/booking">
+          <BookingButton>
+            <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
+            BORDSBOKNING
+          </BookingButton>
+        </Link>
       </InnerWrapperOfHeading>
     </>
   );
