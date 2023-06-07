@@ -1,5 +1,9 @@
 import { Outlet } from "react-router-dom";
-import { HorizontalWrapper, NavWrapper, Wrapper } from "./styled/Wrappers";
+import {
+  HorizontalWrapper,
+  NavWrapper,
+  Wrapper,
+} from "./styled/Wrappers";
 import { ImageBackground } from "./styled/ImageBackground";
 import { Footer } from "./Footer";
 import { ImageWrapper, StyledImage } from "./styled/ImageStyling";
@@ -19,7 +23,7 @@ export const Layout = () => {
         <Outlet></Outlet>
       </HorizontalWrapper>
 
-      <StyledFooter></StyledFooter>
+      <Footer></Footer>
     </>
   );
 };
