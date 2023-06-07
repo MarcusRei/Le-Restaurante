@@ -4,6 +4,7 @@ import { Home } from "./components/Home";
 import { Booking } from "./components/Booking";
 import { Contact } from "./components/Contact";
 import { Admin } from "./components/Admin";
+import { Menu } from "./components/Menu";
 
 export const Router = createBrowserRouter([
   {
@@ -14,6 +15,10 @@ export const Router = createBrowserRouter([
         path: "/",
         element: <Home></Home>,
         index: true,
+      },
+      {
+        path: "/menu",
+        element: <Menu></Menu>,
       },
       {
         path: "/booking",

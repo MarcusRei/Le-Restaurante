@@ -1,34 +1,53 @@
-import { ChangeEvent, FormEvent, useState } from "react";
-import { Customer } from "../models/Customer";
-import { Input } from "./styled/Input";
-import { StyledForm } from "./styled/StyledForm";
-import { NumberInput } from "./styled/NumberInput";
-import { LeftsideDiv } from "./styled/LeftsideDiv";
+import { ChangeEvent, FormEvent, useContext, useState } from "react";
+import {
+  PolicyWrapper,
+  StyledForm,
+  FormLabel,
+  FormParagraph,
+  DateTimeText,
+} from "./styled/StyledForm";
+import { TextInput, NumberInput } from "./styled/Inputs";
 import { Heading } from "./styled/Heading";
 import { Button } from "./styled/Button";
-import { ImageBackground } from "./styled/ImageBackground";
+import { Booking } from "../models/Booking";
+import {
+  HorizontalWrapper,
+  HorizontalWrapperGap,
+  VerticalWrapper,
+} from "./styled/Wrapper";
+import { postNewBooking } from "../services/dataService";
 
 export const Form = () => {
   const [policyChecked, setPolicyChecked] = useState(false);
-  const [customer, setCustomer] = useState<Customer>({
+  const [dateChosen, setDateChosen] = useState(false);
+  const [confirm, setConfirm] = useState(false);
+
+  const [booking, setBooking] = useState<Booking>({
     name: "",
     email: "",
-    phone: "",
+    phonenumber: "",
     guests: 0,
+    date: "",
+    time: "",
   });
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    console.log(customer);
+
+    console.log(booking);
+
+    postNewBooking(booking);
+
+    setConfirm(true);
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const prop = e.target.name;
     if (e.target.type === "text") {
-      setCustomer({ ...customer, [prop]: e.target.value });
+      setBooking({ ...booking, [prop]: e.target.value });
     }
     if (e.target.type === "number") {
-      setCustomer({ ...customer, [prop]: +e.target.value });
+      setBooking({ ...booking, [prop]: +e.target.value });
     }
   };
 
@@ -36,66 +55,96 @@ export const Form = () => {
     setPolicyChecked(e.target.checked);
   };
 
+  const openCalendar = (e: FormEvent) => {
+    e.preventDefault();
+    setBooking({ ...booking, date: "05-06-2023", time: "18:00-21:00" });
+    setDateChosen(true);
+
+    console.log("date and time set!");
+  };
+
   return (
-    <StyledForm onSubmit={handleSubmit}>
-      <Heading>Boka bord</Heading>
-      <label>
-        Namn:
-        <Input
-          type="text"
-          value={customer.name}
-          name="name"
-          onChange={handleChange}
-          required
-        />
-      </label>
-      <label>
-        Email:
-        <Input
-          type="text"
-          value={customer.email}
-          name="email"
-          onChange={handleChange}
-          required
-        />
-      </label>
-      <label>
-        Telefonnummer:
-        <Input
-          type="text"
-          value={customer.phone}
-          name="phone"
-          onChange={handleChange}
-          required
-        />
-      </label>
-      <LeftsideDiv>
-        <label>
-          Antal i sällskap:
-          <NumberInput
-            type="number"
-            min={1}
-            max={10}
-            value={customer.guests}
-            name="guests"
-            onChange={handleChange}
-            required
-          />
-        </label>
-        <Button>Välj tid</Button>
-      </LeftsideDiv>
-      <label>
-        <input type="checkbox" onChange={handleCheckbox} />
-      </label>
-      <p>
-        Genom att boka bord på Le Restaurante godkänner jag att mina uppgifter
-        sparas enligt denna
-        <a href="https://book.easytablebooking.com/book/privacy/?id=b6e01&lang=SE">
-          {" "}
-          integritetspolicy
-        </a>
-      </p>
-      <Button disabled={!policyChecked}>Boka</Button>
-    </StyledForm>
+    <>
+      <VerticalWrapper>
+        <StyledForm>
+          <Heading>Boka bord</Heading>
+          <FormLabel>
+            Namn:
+            <TextInput
+              type="text"
+              value={booking.name}
+              name="name"
+              onChange={handleChange}
+              required
+            />
+          </FormLabel>
+          <FormLabel>
+            Email:
+            <TextInput
+              type="text"
+              value={booking.email}
+              name="email"
+              onChange={handleChange}
+              required
+            />
+          </FormLabel>
+          <FormLabel>
+            Telefonnummer:
+            <TextInput
+              type="text"
+              value={booking.phonenumber}
+              name="phonenumber"
+              onChange={handleChange}
+              required
+            />
+          </FormLabel>
+
+          <HorizontalWrapperGap>
+            <FormLabel>
+              Antal i sällskap:
+              <NumberInput
+                type="number"
+                min={1}
+                max={10}
+                value={booking.guests}
+                name="guests"
+                onChange={handleChange}
+                required
+              />
+            </FormLabel>
+            <Button onClick={openCalendar}>Välj tid</Button>
+          </HorizontalWrapperGap>
+          <HorizontalWrapper>
+            {booking.date !== "" && (
+              <VerticalWrapper>
+                <DateTimeText>{booking.date}</DateTimeText>
+                <DateTimeText>{booking.time}</DateTimeText>
+              </VerticalWrapper>
+            )}
+          </HorizontalWrapper>
+
+          <PolicyWrapper>
+            <FormLabel>
+              <input type="checkbox" onChange={handleCheckbox} />
+            </FormLabel>
+            <FormParagraph>
+              Jag bekräftar att jag har läst och godkänt Le Restaurante's
+              <a href="https://book.easytablebooking.com/book/privacy/?id=b6e01&lang=SE">
+                {" "}
+                integritetspolicy
+              </a>
+            </FormParagraph>
+          </PolicyWrapper>
+
+          <Button
+            disabled={!policyChecked}
+            onClick={dateChosen ? handleSubmit : undefined}
+          >
+            Boka
+          </Button>
+        </StyledForm>
+        {confirm && <h2>Din bokning är registrerad!</h2>}
+      </VerticalWrapper>
+    </>
   );
 };

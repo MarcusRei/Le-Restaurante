@@ -5,6 +5,7 @@ export const Heading = styled.h3`
   justify-content: center;
   align-items: center;
   font-family: "Italiana", serif;
+
   font-size: 40px;
   margin: 0px;
   color: white;

@@ -7,7 +7,6 @@ export const LeftsideDiv = styled.div`
   align-items: flex-start;
   position: relative;
   right: 75px;
-  margin-bottom: 0px;
   @media (min-width: 844px) {
     position: relative;
   }
