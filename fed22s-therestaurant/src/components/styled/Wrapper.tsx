@@ -1,11 +1,18 @@
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
-  height: 100vh;
+  height: 100%;
+
   @media (min-width: 844px) {
     position: relative;
-    left: 700px;
   }
+`;
+
+export const NavWrapper = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 100;
 `;
 
 export const CenteringWrapper = styled.div`
@@ -30,6 +37,18 @@ export const HorizontalWrapper = styled.div`
     flex-direction: row;
   }
 `;
+
+
+export const GridWrapper = styled.div`
+  padding: 1em;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2em;
+  @media (min-width: 844px) {
+    padding: 2em;
+    grid-template-columns: 1fr 1fr;
+  }
+
 export const HorizontalWrapperGap = styled(HorizontalWrapper)`
   gap: 1em;
 `;
@@ -40,4 +59,5 @@ export const VerticalWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
 `;

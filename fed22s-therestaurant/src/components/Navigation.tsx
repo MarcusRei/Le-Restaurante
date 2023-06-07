@@ -27,6 +27,7 @@ export const Navigation = () => {
   }, []);
 
   const links = [
+    { label: "Hem", url: "/" },
     { label: "Meny", url: "/menu" },
     { label: "Bokning", url: "/booking" },
     { label: "Kontakt", url: "/contact" },

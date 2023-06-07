@@ -10,8 +10,9 @@ export const StyledAnchor = styled.a`
   }
 
   @media (min-width: 844px) {
-    font-size: 4em;
-    gap: 1em;
+    font-size: 3em;
+    padding-right: 2em;
+    //gap: 3em;
     color: red;
   }
 `;

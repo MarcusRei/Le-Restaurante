@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import { HorizontalWrapper, Wrapper } from "./styled/Wrapper";
+import { HorizontalWrapper, NavWrapper, Wrapper } from "./styled/Wrapper";
 import { ImageBackground } from "./styled/ImageBackground";
 import { Footer } from "./Footer";
 import { ImageWrapper, StyledImage } from "./styled/ImageStyling";
@@ -12,6 +12,9 @@ export const Layout = () => {
       <HorizontalWrapper>
         <ImageWrapper>
           <StyledImage src="/assets/restaurant-4011989_1280.jpg"></StyledImage>
+          <NavWrapper>
+            <Navigation></Navigation>
+          </NavWrapper>
         </ImageWrapper>
         <Outlet></Outlet>
       </HorizontalWrapper>
