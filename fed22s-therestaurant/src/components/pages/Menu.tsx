@@ -1,10 +1,10 @@
-import { Heading } from "./styled/HeadingStyles";
+import { Heading } from "../styled/HeadingStyles";
 import {
   CenteringWrapper,
   GridWrapper,
   HorizontalWrapper,
   Wrapper,
-} from "./styled/Wrappers";
+} from "../styled/Wrappers";
 
 export const Menu = () => {
   return (

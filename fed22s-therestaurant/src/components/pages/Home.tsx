@@ -1,11 +1,11 @@
-import { FrontPageHeading, Heading } from "./styled/HeadingStyles";
-import { PTagFrontPage } from "./styled/frontpage/PTagFrontPage";
-import { OuterWrapperOfHeading, WrapperOfHours } from "./styled/HeadingStyles";
-import { HeadingLine, HeadingLineWrapper } from "./styled/HeadingStyles";
-import { Logo } from "./Logo";
-import { ParagraphFrontPage } from "./styled/frontpage/ParagraphFrontPage";
-import { LeRestauranteWrapper } from "./styled/frontpage/LeRestauranteWrapper";
-import { FrontPageActionButtons } from "./FrontPageActionButtons";
+import { FrontPageHeading, Heading } from "../styled/HeadingStyles";
+import { PTagFrontPage } from "../styled/frontpage/PTagFrontPage";
+import { OuterWrapperOfHeading, WrapperOfHours } from "../styled/HeadingStyles";
+import { HeadingLine, HeadingLineWrapper } from "../styled/HeadingStyles";
+import { Logo } from "../Logo";
+import { ParagraphFrontPage } from "../styled/frontpage/ParagraphFrontPage";
+import { LeRestauranteWrapper } from "../styled/frontpage/LeRestauranteWrapper";
+import { FrontPageActionButtons } from "../FrontPageActionButtons";
 
 export const Home = () => {
   return (

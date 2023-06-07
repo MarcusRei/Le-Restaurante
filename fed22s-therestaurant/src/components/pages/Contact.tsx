@@ -1,4 +1,4 @@
-import { CallUsButton } from "./styled/Buttons";
+import { CallUsButton } from "../styled/Buttons";
 
 export const Contact = () => {
   return (
