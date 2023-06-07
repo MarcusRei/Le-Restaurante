@@ -1,8 +1,5 @@
-import { FrontPageHeading } from "./styled/Heading";
-import {
-  HeadingLine,
-  HeadingLineWrapper,
-} from "./styled/HeadingLine";
+import { FrontPageHeading } from "./styled/HeadingStyles";
+import { HeadingLine, HeadingLineWrapper } from "./styled/HeadingLine";
 
 export const Logo = () => {
   return (

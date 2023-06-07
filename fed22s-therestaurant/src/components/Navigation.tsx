@@ -1,9 +1,9 @@
-import { Navbar } from "./styled/Navbar";
+import { Navbar } from "./styled/navigation/Navbar";
 import { useEffect, useState } from "react";
-import { NavIcon } from "./styled/NavIcon";
-import { HamburgerMenu } from "./styled/HamburgerMenu";
-import { NavLinkWrapper } from "./styled/NavLinkWrapper";
-import { StyledAnchor } from "./styled/StyledAnchor";
+import { NavIcon } from "./styled/navigation/NavIcon";
+import { HamburgerMenu } from "./styled/navigation/HamburgerMenu";
+import { NavLinkWrapper } from "./styled/navigation/NavLinkWrapper";
+import { StyledAnchor } from "./styled/navigation/StyledAnchor";
 
 export const Navigation = () => {
   const [showNav, setShowNav] = useState(false);

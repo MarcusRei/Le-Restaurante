@@ -1,4 +1,4 @@
-import { Heading } from "./styled/Heading";
+import { Heading } from "./styled/HeadingStyles";
 import {
   CenteringWrapper,
   GridWrapper,

@@ -1,4 +1,4 @@
-import { BookingButton, CallUsButton } from "./styled/Button";
+import { BookingButton, CallUsButton } from "./styled/Buttons";
 import { InnerWrapperOfHeading } from "./styled/InnerWrapperOfHeading";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
