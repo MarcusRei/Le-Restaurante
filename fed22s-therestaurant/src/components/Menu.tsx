@@ -4,7 +4,7 @@ import {
   GridWrapper,
   HorizontalWrapper,
   Wrapper,
-} from "./styled/Wrapper";
+} from "./styled/Wrappers";
 
 export const Menu = () => {
   return (

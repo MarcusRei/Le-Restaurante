@@ -14,7 +14,7 @@ import {
   HorizontalWrapper,
   HorizontalWrapperGap,
   VerticalWrapper,
-} from "./styled/Wrapper";
+} from "./styled/Wrappers";
 import { postNewBooking } from "../services/dataService";
 
 export const Form = () => {

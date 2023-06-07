@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import { HorizontalWrapper, NavWrapper, Wrapper } from "./styled/Wrapper";
+import { HorizontalWrapper, NavWrapper, Wrapper } from "./styled/Wrappers";
 import { ImageBackground } from "./styled/ImageBackground";
 import { Footer } from "./Footer";
 import { ImageWrapper, StyledImage } from "./styled/ImageStyling";
