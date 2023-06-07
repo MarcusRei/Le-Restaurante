@@ -14,17 +14,20 @@ import {
   HorizontalWrapper,
   HorizontalWrapperGap,
   VerticalWrapper,
-} from "./styled/Wrapper";
+} from "./styled/Wrappers";
 import { postNewBooking } from "../services/dataService";
 
 interface IChecks {
   policyChecked: boolean;
   dateChosen: boolean;
   confirm: boolean;
-  calendarOpen: boolean;
 }
 
-export const Form = () => {
+interface IFormProps {
+  switchCalendar: () => void;
+}
+
+export const Form = (props: IFormProps) => {
   /* const [policyChecked, setPolicyChecked] = useState(false);
   const [dateChosen, setDateChosen] = useState(false);
   const [confirm, setConfirm] = useState(false); */
@@ -33,7 +36,6 @@ export const Form = () => {
     policyChecked: false,
     dateChosen: false,
     confirm: false,
-    calendarOpen: false,
   });
 
   const [booking, setBooking] = useState<Booking>({
@@ -73,7 +75,7 @@ export const Form = () => {
 
   const openCalendar = (e: FormEvent) => {
     e.preventDefault();
-    setChecks({ ...checks, calendarOpen: true });
+    props.switchCalendar();
     //setBooking({ ...booking, date: "05-06-2023", time: "18:00-21:00" });
     /* setDateChosen(true); */
 

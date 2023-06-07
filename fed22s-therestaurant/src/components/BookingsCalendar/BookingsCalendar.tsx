@@ -1,7 +1,7 @@
 import Calendar from "react-calendar";
 import "./BookingsCalendar.css";
 import { useState } from "react";
-import { TimeSlots } from "./TimeSlots";
+import { TimeSlots } from "../TimeSlots";
 
 // 1. Hämta alla bookings
 

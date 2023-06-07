@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { HorizontalWrapper } from "./Wrapper";
+import { HorizontalWrapper } from "./Wrappers";
 
 export const StyledForm = styled.form`
   position: absolute;
