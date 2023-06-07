@@ -38,6 +38,7 @@ export const HorizontalWrapper = styled.div`
   }
 `;
 
+
 export const GridWrapper = styled.div`
   padding: 1em;
   display: grid;
@@ -47,4 +48,16 @@ export const GridWrapper = styled.div`
     padding: 2em;
     grid-template-columns: 1fr 1fr;
   }
+
+export const HorizontalWrapperGap = styled(HorizontalWrapper)`
+  gap: 1em;
+`;
+
+export const VerticalWrapper = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
 `;

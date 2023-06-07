@@ -2,16 +2,20 @@ import styled from "styled-components";
 import { HorizontalWrapper } from "./Wrapper";
 
 export const StyledForm = styled.form`
-  background-color: #989898ce;
+  position: absolute;
+  top: -39em;
+  background-color: #989898ab;
   border-radius: 25px;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 2em;
+  z-index: 10;
 
   @media (min-width: 844px) {
+    top: 0;
     width: 50%;
-    background-color: #efeaea;
+    background-color: #e1e1e1;
     position: relative;
 
     p {
@@ -20,15 +24,26 @@ export const StyledForm = styled.form`
   }
 `;
 
-export const StyledParagraph = styled.p`
+export const FormParagraph = styled.p`
   width: 70%;
   font-weight: 600;
 `;
 
-export const StyledLabel = styled.label`
+export const FormLabel = styled.label`
   font-weight: 600;
 `;
 
 export const PolicyWrapper = styled(HorizontalWrapper)`
   gap: 1em;
+  flex-direction: row;
+
+  @media (min-width: 844px) {
+    position: relative;
+  }
+`;
+
+export const DateTimeText = styled.p`
+  font-weight: 600;
+  font-size: 1em;
+  margin: 0;
 `;

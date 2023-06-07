@@ -18,7 +18,7 @@ exports.getAllBookings = async (req, res, next) => {
 
 exports.addBooking = async (req, res, next) => {
   try {
-    const { name, email, phonenumber, date, time, numberOfPeople } = req.body;
+    const { name, email, phonenumber, date, time, guests } = req.body;
 
     const existingCustomer = await customer.findOne({ name: name });
 
@@ -31,7 +31,7 @@ exports.addBooking = async (req, res, next) => {
       const newBooking = new booking({
         date,
         time,
-        guests: numberOfPeople,
+        guests,
         customer: savedCustomer._id,
       });
 
@@ -42,7 +42,7 @@ exports.addBooking = async (req, res, next) => {
       const newBooking = new booking({
         date,
         time,
-        guests: numberOfPeople,
+        guests,
         customer: existingCustomer._id,
       });
 
