@@ -1,4 +1,8 @@
-import { StyledFooter } from "./styled/StyledFooter";
+import {
+  StyledFooter,
+  IconWrapper,
+  LogoWrapper,
+} from "./styled/StyledFooter";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faFacebook,
@@ -9,9 +13,13 @@ import { Logo } from "./Logo";
 export const Footer = () => {
   return (
     <StyledFooter>
-      <Logo></Logo>
-      <FontAwesomeIcon icon={faFacebook} />
-      <FontAwesomeIcon icon={faInstagram} />
+      <LogoWrapper>
+        <Logo></Logo>
+      </LogoWrapper>
+      <IconWrapper>
+        <FontAwesomeIcon icon={faFacebook} />
+        <FontAwesomeIcon icon={faInstagram} />
+      </IconWrapper>
     </StyledFooter>
   );
 };
