@@ -30,3 +30,14 @@ export const HorizontalWrapper = styled.div`
     flex-direction: row;
   }
 `;
+export const HorizontalWrapperGap = styled(HorizontalWrapper)`
+  gap: 1em;
+`;
+
+export const VerticalWrapper = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
