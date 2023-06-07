@@ -20,8 +20,6 @@ export const Navbar = styled.nav`
   }
 `;
 
-export const HamburgerWrapper = styled.div``;
-
 export const HamburgerSymbol = styled.div<IHamburgerMenuProps>`
   display: flex;
   flex-direction: column;

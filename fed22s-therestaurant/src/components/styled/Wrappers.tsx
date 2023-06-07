@@ -91,7 +91,6 @@ export const OutletWrapper = styled.div`
 
   @media (min-width: 844px) {
     position: relative;
-    justify-content: flex-start;
     width: 50%;
   }
 `;
