@@ -1,5 +1,5 @@
 import { BookingButton, CallUsButton } from "./styled/Buttons";
-import { InnerWrapperOfHeading } from "./styled/InnerWrapperOfHeading";
+import { InnerWrapperOfHeading } from "./styled/HeadingStyles";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faMobile,

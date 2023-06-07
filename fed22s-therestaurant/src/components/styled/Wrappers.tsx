@@ -41,6 +41,12 @@ export const HorizontalWrapper = styled.div`
   }
 `;
 
+export const LayoutWrapper = styled(HorizontalWrapper)`
+  position: relative;
+  overflow-x: hidden;
+  align-items: flex-start;
+`;
+
 export const GridWrapper = styled.div`
   padding: 1em;
   display: grid;
@@ -72,4 +78,20 @@ export const CenterWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+`;
+
+export const OutletWrapper = styled.div`
+  display: flex;
+  position: absolute;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  z-index: 100;
+
+  @media (min-width: 844px) {
+    position: relative;
+    justify-content: flex-start;
+    width: 50%;
+  }
 `;
