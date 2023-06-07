@@ -5,11 +5,20 @@ import { TimeSlots } from "../TimeSlots";
 import { BookingsContext } from "../../contexts/BookingsContext";
 import { BookingClass } from "../../models/Booking";
 
+interface IShowTimeslots {
+  earlySlot: boolean;
+  lateSlot: boolean;
+}
+
 export const BookingsCalendar = () => {
   const bookings = useContext(BookingsContext);
 
   const [date, setDate] = useState(new Date());
   const [showTime, setShowTime] = useState(false);
+  const [showTimeslots, setShowTimeslots] = useState<IShowTimeslots>({
+    earlySlot: false,
+    lateSlot: false,
+  });
 
   function updateDate(nextValue: Date) {
     setDate(nextValue);
@@ -17,26 +26,26 @@ export const BookingsCalendar = () => {
 
   function checkDate() {
     const chosenDate = date.toDateString();
-    console.log(bookings);
+    console.log(chosenDate);
 
-    //const checkedDate = bookings.find((booking) => booking.date === chosenDate);
+    // Filtrera bokningar på samma dag
+    const filteredBookings = bookings.filter(
+      (booking) => booking.date === chosenDate
+    );
+    console.log("filter", filteredBookings);
 
     const earlyTimeBookings = bookings.filter(
       (booking) => booking.time === "18.00-21.00"
     );
     console.log(earlyTimeBookings);
 
+    /* if(earlyTimeBookings.length >)
+     */
+
     const lateTimeBookings = bookings.filter(
       (booking) => booking.time === "21.00-23.00"
     );
     console.log(lateTimeBookings);
-
-    /* if (checkedDate !== undefined) {
-      checkedDate.time;
-    } */
-
-    //
-    console.log(chosenDate);
 
     setShowTime(true);
   }
