@@ -28,3 +28,7 @@ export const BookingButton = styled(Button)`
     width: 14em;
   }
 `;
+
+export const MailUsButton = styled(CallUsButton)`
+  height: auto;
+`;

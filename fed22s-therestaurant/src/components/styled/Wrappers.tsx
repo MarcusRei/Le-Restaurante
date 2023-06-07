@@ -80,6 +80,10 @@ export const CenterWrapper = styled.div`
   align-items: center;
 `;
 
+export const ContactWrapper = styled(CenterWrapper)`
+  padding-top: 3em;
+`;
+
 export const OutletWrapper = styled.div`
   display: flex;
   position: absolute;
