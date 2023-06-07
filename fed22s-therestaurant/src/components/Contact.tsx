@@ -1,3 +1,9 @@
+import { CallUsButton } from "./styled/Button";
+
 export const Contact = () => {
-  return <></>;
+  return (
+    <>
+      <CallUsButton></CallUsButton>
+    </>
+  );
 };
