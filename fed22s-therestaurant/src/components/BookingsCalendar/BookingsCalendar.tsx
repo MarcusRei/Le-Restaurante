@@ -1,22 +1,15 @@
 import Calendar from "react-calendar";
 import "./BookingsCalendar.css";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { TimeSlots } from "../TimeSlots";
 import { BookingsContext } from "../../contexts/BookingsContext";
-
-// 1. Hämta alla bookings
-
-// 2. Loopa igenom alla och jämför med
-
-// 3. Visa alla tillgängliga tider i kalendern
-
-// 4. registrera vald dag och gå tillbaka till formulär
+import { BookingClass } from "../../models/Booking";
 
 export const BookingsCalendar = () => {
+  const bookings = useContext(BookingsContext);
+
   const [date, setDate] = useState(new Date());
   const [showTime, setShowTime] = useState(false);
-
-  const bookings = useContext(BookingsContext);
 
   function updateDate(nextValue: Date) {
     setDate(nextValue);
@@ -24,6 +17,25 @@ export const BookingsCalendar = () => {
 
   function checkDate() {
     const chosenDate = date.toDateString();
+    console.log(bookings);
+
+    //const checkedDate = bookings.find((booking) => booking.date === chosenDate);
+
+    const earlyTimeBookings = bookings.filter(
+      (booking) => booking.time === "18.00-21.00"
+    );
+    console.log(earlyTimeBookings);
+
+    const lateTimeBookings = bookings.filter(
+      (booking) => booking.time === "21.00-23.00"
+    );
+    console.log(lateTimeBookings);
+
+    /* if (checkedDate !== undefined) {
+      checkedDate.time;
+    } */
+
+    //
     console.log(chosenDate);
 
     setShowTime(true);
