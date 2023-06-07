@@ -8,15 +8,10 @@ import {
   HeadingLine,
   HeadingLineWrapper,
 } from "./styled/HeadingLine";
-import { InnerWrapperOfHeading } from "./styled/InnerWrapperOfHeading";
+import { Logo } from "./Logo";
 import { ParagraphFrontPage } from "./styled/ParagraphFrontPage";
 import { LeRestauranteWrapper } from "./styled/LeRestauranteWrapper";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faMobile,
-  faArrowUpRightFromSquare,
-} from "@fortawesome/free-solid-svg-icons";
-import { BookingButton, CallUsButton } from "./styled/Button";
+import { FrontPageActionButtons } from "./FrontPageActionButtons";
 
 export const Home = () => {
   return (
@@ -24,27 +19,14 @@ export const Home = () => {
       <OuterWrapperOfHeading>
         <LeRestauranteWrapper>
           <PTagFrontPage>Välkomna till</PTagFrontPage>
-          <HeadingLineWrapper>
-            <FrontPageHeading>
-              <HeadingLine></HeadingLine> Le RESTAURANTE
-              <HeadingLine></HeadingLine>
-            </FrontPageHeading>
-          </HeadingLineWrapper>
+          <Logo></Logo>
         </LeRestauranteWrapper>
         <ParagraphFrontPage>
           En äkta italiensk ristorante med rötter från Trieste. Hos
           oss får du det italienska köket när det är som bäst, i en
           familjär och trivsam miljö. Välkomna att boka bord!
         </ParagraphFrontPage>
-        <InnerWrapperOfHeading>
-          <CallUsButton>
-            <FontAwesomeIcon icon={faMobile} /> 08 - 89677
-          </CallUsButton>
-          <BookingButton>
-            <FontAwesomeIcon icon={faArrowUpRightFromSquare} />{" "}
-            BORDSBOKNING
-          </BookingButton>
-        </InnerWrapperOfHeading>
+        <FrontPageActionButtons></FrontPageActionButtons>
         <HeadingLineWrapper>
           <Heading>
             <HeadingLine></HeadingLine>

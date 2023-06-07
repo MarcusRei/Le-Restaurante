@@ -7,7 +7,6 @@ export const ImageBackground = styled.div`
   z-index: -1000;
   background-repeat: no-repeat;
   padding-top: 100px;
-  //margin-top: 0;
   @media (min-width: 844px) {
     width: 45%;
   }

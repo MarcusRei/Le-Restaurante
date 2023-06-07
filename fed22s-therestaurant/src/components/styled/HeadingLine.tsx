@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const HeadingLine = styled.div`
   height: 1px;
-  width: 5em;
+  width: 1em;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -15,7 +15,7 @@ export const HeadingLine = styled.div`
 export const HeadingLineWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  width: 5em;
+
   @media (min-width: 844px) {
     width: 25em;
   }

@@ -1,6 +1,9 @@
 import styled from "styled-components";
 
 export const Heading = styled.h3`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-family: "Italiana", serif;
   font-size: 40px;
   margin: 0px;
@@ -12,11 +15,9 @@ export const Heading = styled.h3`
 
 export const FrontPageHeading = styled(Heading)`
   display: flex;
-  justify-content: center;
-  align-items: center;
   background-color: rgba(139, 0, 0, 0.3);
   border-radius: 10px;
-  width: 7em;
+  font-size: 32px;
   @media (min-width: 844px) {
     padding-left: 0.3em;
     padding-left: 0.3em;
