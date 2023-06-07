@@ -27,3 +27,18 @@ export const FrontPageHeading = styled(Heading)`
     width: 11em;
   }
 `;
+
+export const FooterHeaderLogo = styled(Heading)`
+  display: flex;
+  background-color: rgba(139, 0, 0, 0.2);
+  border-radius: 10px;
+  font-size: 22px;
+  @media (min-width: 844px) {
+    padding-left: 0.3em;
+    padding-left: 0.3em;
+    padding-top: 0.1em;
+    padding-bottom: 0.1em;
+    width: 11em;
+    color: black;
+  }
+`;

@@ -10,6 +10,7 @@ export const HeadingLine = styled.div`
   border-bottom: 1px solid lightgray;
   @media (min-width: 844px) {
     width: 1.5em;
+    border-bottom: 1px solid black;
   }
 `;
 export const HeadingLineWrapper = styled.div`

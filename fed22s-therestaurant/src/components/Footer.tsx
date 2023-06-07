@@ -2,7 +2,10 @@ import {
   StyledFooter,
   IconWrapper,
   LogoWrapper,
+  AdressWrapper,
+  AdressAndLogoWrapper,
 } from "./styled/StyledFooter";
+import { SmallLogo } from "./SmallLogo";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faFacebook,
@@ -13,9 +16,13 @@ import { Logo } from "./Logo";
 export const Footer = () => {
   return (
     <StyledFooter>
-      <LogoWrapper>
-        <Logo></Logo>
-      </LogoWrapper>
+      <AdressAndLogoWrapper>
+        <LogoWrapper>
+          <SmallLogo></SmallLogo>
+        </LogoWrapper>
+        <AdressWrapper>Adressvägen 7</AdressWrapper>
+        <AdressWrapper>Stockholm 191 91</AdressWrapper>
+      </AdressAndLogoWrapper>
       <IconWrapper>
         <FontAwesomeIcon icon={faFacebook} />
         <FontAwesomeIcon icon={faInstagram} />
