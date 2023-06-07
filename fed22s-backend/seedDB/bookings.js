@@ -1,6 +1,6 @@
 exports.mockBookings = [
   {
-    date: new Date(),
+    date: new Date().setDate(3),
     time: "18.00-21.00",
     guests: 4,
     customer: {
@@ -11,7 +11,7 @@ exports.mockBookings = [
     },
   },
   {
-    date: new Date(),
+    date: new Date().setDate(6),
     time: "18.00-21.00",
     guests: 6,
     customer: {
@@ -22,7 +22,7 @@ exports.mockBookings = [
     },
   },
   {
-    date: new Date(),
+    date: new Date().setDate(9),
     time: "21.00-23.00",
     guests: 8,
     customer: {

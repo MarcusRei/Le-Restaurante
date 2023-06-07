@@ -26,26 +26,27 @@ export const BookingsCalendar = () => {
 
   function checkDate() {
     const chosenDate = date.toDateString();
-    console.log(chosenDate);
+    //console.log(chosenDate);
 
     // Filtrera bokningar på samma dag
     const filteredBookings = bookings.filter(
-      (booking) => booking.date === chosenDate
+      //(booking) => booking.date.toDateString() === chosenDate
+      (booking) => console.log(booking.date)
     );
     console.log("filter", filteredBookings);
 
-    const earlyTimeBookings = bookings.filter(
+    /* const earlyTimeBookings = bookings.filter(
       (booking) => booking.time === "18.00-21.00"
     );
-    console.log(earlyTimeBookings);
+    console.log(earlyTimeBookings); */
 
     /* if(earlyTimeBookings.length >)
      */
 
-    const lateTimeBookings = bookings.filter(
+    /* const lateTimeBookings = bookings.filter(
       (booking) => booking.time === "21.00-23.00"
     );
-    console.log(lateTimeBookings);
+    console.log(lateTimeBookings); */
 
     setShowTime(true);
   }
