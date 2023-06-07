@@ -17,10 +17,24 @@ import {
 } from "./styled/Wrapper";
 import { postNewBooking } from "../services/dataService";
 
+interface IChecks {
+  policyChecked: boolean;
+  dateChosen: boolean;
+  confirm: boolean;
+  calendarOpen: boolean;
+}
+
 export const Form = () => {
-  const [policyChecked, setPolicyChecked] = useState(false);
+  /* const [policyChecked, setPolicyChecked] = useState(false);
   const [dateChosen, setDateChosen] = useState(false);
-  const [confirm, setConfirm] = useState(false);
+  const [confirm, setConfirm] = useState(false); */
+
+  const [checks, setChecks] = useState<IChecks>({
+    policyChecked: false,
+    dateChosen: false,
+    confirm: false,
+    calendarOpen: false,
+  });
 
   const [booking, setBooking] = useState<Booking>({
     name: "",
@@ -38,7 +52,8 @@ export const Form = () => {
 
     postNewBooking(booking);
 
-    setConfirm(true);
+    /* setConfirm(true); */
+    setChecks({ ...checks, confirm: true });
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -52,15 +67,19 @@ export const Form = () => {
   };
 
   const handleCheckbox = (e: ChangeEvent<HTMLInputElement>) => {
-    setPolicyChecked(e.target.checked);
+    /* setPolicyChecked(e.target.checked); */
+    setChecks({ ...checks, policyChecked: e.target.checked });
   };
 
   const openCalendar = (e: FormEvent) => {
     e.preventDefault();
-    setBooking({ ...booking, date: "05-06-2023", time: "18:00-21:00" });
-    setDateChosen(true);
+    setChecks({ ...checks, calendarOpen: true });
+    //setBooking({ ...booking, date: "05-06-2023", time: "18:00-21:00" });
+    /* setDateChosen(true); */
 
-    console.log("date and time set!");
+    //setChecks({ ...checks, dateChosen: true });
+
+    //console.log("date and time set!");
   };
 
   return (
@@ -137,13 +156,13 @@ export const Form = () => {
           </PolicyWrapper>
 
           <Button
-            disabled={!policyChecked}
-            onClick={dateChosen ? handleSubmit : undefined}
+            disabled={!checks.policyChecked}
+            onClick={checks.dateChosen ? handleSubmit : undefined}
           >
             Boka
           </Button>
         </StyledForm>
-        {confirm && <h2>Din bokning är registrerad!</h2>}
+        {checks.confirm && <h2>Din bokning är registrerad!</h2>}
       </VerticalWrapper>
     </>
   );
