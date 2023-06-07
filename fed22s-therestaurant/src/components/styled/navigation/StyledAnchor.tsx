@@ -6,13 +6,13 @@ export const StyledAnchor = styled.a`
   color: white;
 
   :hover {
-    color: red;
+    color: #8c0303;
   }
 
   @media (min-width: 844px) {
-    font-size: 3em;
-    padding-right: 2em;
-    //gap: 3em;
-    color: red;
+    font-size: 1.5em;
+    font-weight: 600;
+    padding-right: 1em;
+    color: black;
   }
 `;

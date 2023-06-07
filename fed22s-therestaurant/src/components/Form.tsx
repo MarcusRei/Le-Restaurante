@@ -7,8 +7,8 @@ import {
   DateTimeText,
 } from "./styled/StyledForm";
 import { TextInput, NumberInput } from "./styled/Inputs";
-import { Heading } from "./styled/Heading";
-import { Button } from "./styled/Button";
+import { Heading } from "./styled/HeadingStyles";
+import { Button } from "./styled/Buttons";
 import { Booking } from "../models/Booking";
 import {
   HorizontalWrapper,

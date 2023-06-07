@@ -1,9 +1,9 @@
 import styled from "styled-components";
-import { HorizontalWrapper } from "./Wrappers";
+import { CenteringWrapper, HorizontalWrapper } from "./Wrappers";
 
 export const StyledForm = styled.form`
   position: absolute;
-  top: -39em;
+  //top: -39em;
   background-color: #989898ab;
   border-radius: 25px;
   display: flex;
@@ -46,4 +46,8 @@ export const DateTimeText = styled.p`
   font-weight: 600;
   font-size: 1em;
   margin: 0;
+`;
+
+export const CenteringWrapperForm = styled(CenteringWrapper)`
+  //flex-direction: column;
 `;

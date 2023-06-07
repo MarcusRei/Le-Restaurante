@@ -1,10 +1,10 @@
 import { createBrowserRouter } from "react-router-dom";
 import { Layout } from "./components/Layout";
-import { Home } from "./components/Home";
-import { Booking } from "./components/Booking";
-import { Contact } from "./components/Contact";
-import { Admin } from "./components/Admin";
-import { Menu } from "./components/Menu";
+import { Home } from "./components/pages/Home";
+import { Booking } from "./components/pages/Booking";
+import { Contact } from "./components/pages/Contact";
+import { Admin } from "./components/pages/Admin";
+import { Menu } from "./components/pages/Menu";
 
 export const Router = createBrowserRouter([
   {
