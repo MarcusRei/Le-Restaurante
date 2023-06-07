@@ -1,3 +1,6 @@
+
+import { BookingsCalendar } from "./BookingsCalendar";
+import { CenterWrapper } from "./styled/Wrappers";
 import { useState } from "react";
 import { Form } from "./Form";
 import { ImageBackground } from "./styled/ImageBackground";
