@@ -3,7 +3,7 @@ import {
   Navbar,
 } from "./styled/navigation/navigationStyles";
 import { useEffect, useState } from "react";
-import { StyledAnchor } from "./styled/navigation/StyledAnchor";
+import { StyledAnchor } from "./styled/navigation/navigationStyles";
 import { HamburgerMenu } from "./HamburgerMenu";
 
 export const Navigation = () => {
