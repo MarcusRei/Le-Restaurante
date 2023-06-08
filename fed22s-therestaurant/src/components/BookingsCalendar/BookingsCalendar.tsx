@@ -22,14 +22,22 @@ export const BookingsCalendar = () => {
   const [date, setDate] = useState(new Date());
   const [showTime, setShowTime] = useState(false);
   const [showTimeslots, setShowTimeslots] = useState<IShowTimeslots>({
-    earlySlot: false,
-    lateSlot: false,
+    earlySlot: true,
+    lateSlot: true,
   });
   const [bookedTables, setBookedTables] = useState({ early: 0, late: 0 });
 
+  let lateSlotTables = 0;
+  let earlySlotTables = 0;
+
   useEffect(() => {
     checkDate();
+    console.log(bookedTables);
   }, [date]);
+
+  useEffect(() => {
+    checkAvailableTables();
+  }, [bookedTables]);
 
   function filterList(chosenDate: string) {
     // Filtrera bokningar på samma dag
@@ -42,25 +50,46 @@ export const BookingsCalendar = () => {
     // Kollar om det finns lediga bord på första sittningen
     filteredBookings.map((booking) => {
       if (booking.time === timeSlot.EARLY) {
-        console.log(Math.ceil(booking.guests / 6));
-        setBookedTables({
+        earlySlotTables = earlySlotTables + Math.ceil(booking.guests / 6);
+        /* setBookedTables({
           ...bookedTables,
-          early: Math.ceil(booking.guests / 6),
-        });
+          early: bookedTables.early + Math.ceil(booking.guests / 6),
+        }); */
       }
+      console.log("antal bord: ", earlySlotTables);
 
+      // Kolla andra
       if (booking.time === timeSlot.LATE) {
-        console.log(Math.ceil(booking.guests / 6));
-        setBookedTables({
+        lateSlotTables = lateSlotTables + Math.ceil(booking.guests / 6);
+        /* setBookedTables({
           ...bookedTables,
-          late: Math.ceil(booking.guests / 6),
-        });
+          late: bookedTables.late + Math.ceil(booking.guests / 6),
+        }); */
       }
+      console.log("antal bord på sena: ", lateSlotTables);
+
+      setBookedTables({
+        ...bookedTables,
+        early: earlySlotTables,
+        late: lateSlotTables,
+      });
     });
 
     console.log("filter", filteredBookings);
   }
-  console.log("bokade bord: ", bookedTables);
+
+  function checkAvailableTables() {
+    console.log("bokade bord: ", bookedTables);
+    // Kolla om första sittningen har bord kvar
+    if (bookedTables.early >= 15) {
+      setShowTimeslots({ ...showTimeslots, earlySlot: false });
+    }
+
+    // Kolla om andra sittningen har bord kvar
+    if (bookedTables.late >= 15) {
+      setShowTimeslots({ ...showTimeslots, lateSlot: false });
+    }
+  }
 
   function updateDate(nextValue: Date) {
     //console.log("update");
@@ -70,7 +99,7 @@ export const BookingsCalendar = () => {
   function checkDate() {
     const chosenDate = date.toDateString();
 
-    setShowTime(true);
+    //setShowTime(true);
     filterList(chosenDate);
   }
 
@@ -84,7 +113,7 @@ export const BookingsCalendar = () => {
         ></Calendar>
         <div>Valt datum: {date.toDateString()}</div>
         <h2>Tillgängliga tider:</h2>
-        <TimeSlots showTime={showTime}></TimeSlots>
+        <TimeSlots showTimeSlots={showTimeslots}></TimeSlots>
       </div>
     </>
   );
