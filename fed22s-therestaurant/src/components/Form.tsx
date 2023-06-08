@@ -9,7 +9,7 @@ import {
 import { TextInput, NumberInput } from "./styled/Inputs";
 import { Heading } from "./styled/Heading";
 import { Button } from "./styled/Button";
-import { Booking } from "../models/Booking";
+import { BookingClass } from "../models/Booking";
 import {
   HorizontalWrapper,
   HorizontalWrapperGap,
@@ -38,7 +38,7 @@ export const Form = (props: IFormProps) => {
     confirm: false,
   });
 
-  const [booking, setBooking] = useState<Booking>({
+  const [booking, setBooking] = useState<BookingClass>({
     name: "",
     email: "",
     phonenumber: "",

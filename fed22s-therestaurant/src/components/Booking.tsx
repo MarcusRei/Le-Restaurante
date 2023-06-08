@@ -10,6 +10,15 @@ export const Booking = () => {
   const [calendarOpen, setCalendarOpen] = useState(false);
   const [bookings, setBookings] = useState<BookingClass[]>([]);
 
+  const [booking, setBooking] = useState<BookingClass>({
+    name: "",
+    email: "",
+    phonenumber: "",
+    guests: 0,
+    date: "",
+    time: "",
+  });
+
   useEffect(() => {
     getBookings().then((bookings: BookingClass[]) => setBookings(bookings));
   }, []);
@@ -17,6 +26,8 @@ export const Booking = () => {
   const switchCalendar = () => {
     setCalendarOpen(true);
   };
+
+  function addEarlyTime() {}
   return (
     <>
       <CenteringWrapper>

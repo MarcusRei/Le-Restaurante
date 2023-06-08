@@ -5,15 +5,11 @@ import { TimeSlots } from "../TimeSlots";
 import { BookingsContext } from "../../contexts/BookingsContext";
 import { BookingClass } from "../../models/Booking";
 import { Value } from "react-calendar/dist/cjs/shared/types";
+import { timeSlot } from "../../enums/timeSlots";
 
 interface IShowTimeslots {
   earlySlot: boolean;
   lateSlot: boolean;
-}
-
-enum timeSlot {
-  EARLY = "18.00-21.00",
-  LATE = "21.00-23.00",
 }
 
 export const BookingsCalendar = () => {
