@@ -1,15 +1,36 @@
+import { useContext } from "react";
+import { NewBookingContext } from "../contexts/NewBookingContext";
 import { timeSlot } from "../enums/timeSlots";
+import { BookingDispatchContext } from "../contexts/BookingDispatchContext";
+import { actionType } from "../enums/actionType";
+import { BookingClass } from "../models/Booking";
+import { updateBooking } from "../services/dataService";
 
 interface ITimeSlotsProps {
   showTimeSlots: {
     earlySlot: boolean;
     lateSlot: boolean;
   };
+  switchCalendar: () =>
+}
+
+export interface IPayload {
+  time: string;
+  booking: BookingClass;
 }
 
 export const TimeSlots = (props: ITimeSlotsProps) => {
+  const booking = useContext(NewBookingContext);
+  const dispatch = useContext(BookingDispatchContext);
+  const newBooking = useContext(NewBookingContext);
+
   function addTime(time: string) {
-    console.log(time);
+    dispatch({
+      type: actionType.TIMEADDED,
+      payload: { time: time },
+    });
+
+    console.log(booking);
   }
   return (
     <>

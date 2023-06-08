@@ -6,11 +6,16 @@ import { BookingsContext } from "../../contexts/BookingsContext";
 import { BookingClass } from "../../models/Booking";
 import { Value } from "react-calendar/dist/cjs/shared/types";
 import { timeSlot } from "../../enums/timeSlots";
+import { updateBooking } from "../../services/dataService";
 
 interface IShowTimeslots {
   earlySlot: boolean;
   lateSlot: boolean;
 }
+
+/* interface IBookingsCalendarProps {
+  updateBooking: (time: string) => string;
+} */
 
 export const BookingsCalendar = () => {
   const bookings = useContext(BookingsContext);

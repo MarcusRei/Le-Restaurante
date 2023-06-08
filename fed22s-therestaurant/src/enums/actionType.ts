@@ -1,3 +1,4 @@
 export enum actionType {
-  ADDED = "added",
+  TIMEADDED = "timeadded",
+  INFOADDED = "infoadded",
 }

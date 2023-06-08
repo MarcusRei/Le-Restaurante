@@ -1,4 +1,10 @@
-import { ChangeEvent, FormEvent, useContext, useState } from "react";
+import {
+  ChangeEvent,
+  FormEvent,
+  useContext,
+  useReducer,
+  useState,
+} from "react";
 import {
   PolicyWrapper,
   StyledForm,
@@ -16,6 +22,9 @@ import {
   VerticalWrapper,
 } from "./styled/Wrappers";
 import { postNewBooking } from "../services/dataService";
+import { NewBookingContext } from "../contexts/NewBookingContext";
+import { BookingReducer } from "../reducers/BookingReducer";
+import { actionType } from "../enums/actionType";
 
 interface IChecks {
   policyChecked: boolean;
@@ -25,6 +34,7 @@ interface IChecks {
 
 interface IFormProps {
   switchCalendar: () => void;
+  /* updateBooking: (time: string) => void; */
 }
 
 export const Form = (props: IFormProps) => {
@@ -38,7 +48,7 @@ export const Form = (props: IFormProps) => {
     confirm: false,
   });
 
-  const [booking, setBooking] = useState<BookingClass>({
+  const [newBooking, setNewBooking] = useState<BookingClass>({
     name: "",
     email: "",
     phonenumber: "",
@@ -47,12 +57,32 @@ export const Form = (props: IFormProps) => {
     time: "",
   });
 
+  //const booking = useContext(NewBookingContext);
+  const [booking, dispatch] = useReducer(BookingReducer, {
+    name: "",
+    email: "",
+    phonenumber: "",
+    guests: 0,
+    date: "",
+    time: "",
+  });
+
+  /* const [booking, setBooking] = useState<BookingClass>({
+    name: "",
+    email: "",
+    phonenumber: "",
+    guests: 0,
+    date: "",
+    time: "",
+  }); */
+
+  function updateBooking() {}
+
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
 
-    console.log(booking);
-
-    postNewBooking(booking);
+    dispatch({ type: actionType.INFOADDED, payload: newBooking });
+    console.log(newBooking);
 
     /* setConfirm(true); */
     setChecks({ ...checks, confirm: true });
@@ -61,10 +91,12 @@ export const Form = (props: IFormProps) => {
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const prop = e.target.name;
     if (e.target.type === "text") {
-      setBooking({ ...booking, [prop]: e.target.value });
+      //setBooking({ ...booking, [prop]: e.target.value });
+      setNewBooking({ ...newBooking, [prop]: e.target.value });
     }
     if (e.target.type === "number") {
-      setBooking({ ...booking, [prop]: +e.target.value });
+      //setBooking({ ...booking, [prop]: +e.target.value });
+      setNewBooking({ ...newBooking, [prop]: +e.target.value });
     }
   };
 
@@ -93,7 +125,7 @@ export const Form = (props: IFormProps) => {
             Namn:
             <TextInput
               type="text"
-              value={booking.name}
+              value={newBooking.name}
               name="name"
               onChange={handleChange}
               required
@@ -103,7 +135,7 @@ export const Form = (props: IFormProps) => {
             Email:
             <TextInput
               type="text"
-              value={booking.email}
+              value={newBooking.email}
               name="email"
               onChange={handleChange}
               required
@@ -113,7 +145,7 @@ export const Form = (props: IFormProps) => {
             Telefonnummer:
             <TextInput
               type="text"
-              value={booking.phonenumber}
+              value={newBooking.phonenumber}
               name="phonenumber"
               onChange={handleChange}
               required
@@ -127,7 +159,7 @@ export const Form = (props: IFormProps) => {
                 type="number"
                 min={1}
                 max={10}
-                value={booking.guests}
+                value={newBooking.guests}
                 name="guests"
                 onChange={handleChange}
                 required
@@ -136,10 +168,10 @@ export const Form = (props: IFormProps) => {
             <Button onClick={openCalendar}>Välj tid</Button>
           </HorizontalWrapperGap>
           <HorizontalWrapper>
-            {booking.date !== "" && (
+            {newBooking.date !== "" && (
               <VerticalWrapper>
-                <DateTimeText>{booking.date}</DateTimeText>
-                <DateTimeText>{booking.time}</DateTimeText>
+                <DateTimeText>{newBooking.date}</DateTimeText>
+                <DateTimeText>{newBooking.time}</DateTimeText>
               </VerticalWrapper>
             )}
           </HorizontalWrapper>
