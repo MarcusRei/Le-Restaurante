@@ -1,8 +1,8 @@
-import { FooterHeaderLogo, FrontPageHeading } from "./styled/Heading";
+import { FooterHeaderLogo } from "./styled/StyledFooter";
 import {
   HeadingLine,
   HeadingLineWrapper,
-} from "./styled/HeadingLine";
+} from "./styled/HeadingStyles";
 
 export const SmallLogo = () => {
   return (

@@ -5,29 +5,27 @@ export const StyledFooter = styled.div`
   flex-direction: row;
   background-color: #7a6f6b;
   align-items: center;
-  height: 200px;
+  height: 150px;
   width: 100vw;
-  gap: 3em;
   @media (min-width: 844px) {
-    width: 55.5%;
-    left: 677px;
+    justify-content: space-between;
+    align-items: center;
     bottom: 200px;
   }
 `;
 
 export const IconWrapper = styled.div`
   position: relative;
-  right: -50px;
   display: flex;
   flex-direction: row;
-  gap: 0.4em;
-  font-size: 45px;
+  gap: 0.3em;
+  font-size: 40px;
   color: black;
-  right: -110px;
+  right: -150px;
   @media (min-width: 844px) {
-    width: 40%;
-    right: -260px;
-    font-size: 70px;
+    right: 10%;
+    font-size: 75px;
+    gap: 0.4em;
   }
   > a {
     color: black;
@@ -68,8 +66,24 @@ export const AdressAndLogoWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   width: 7em;
-  font-size: 15px;
   @media (min-width: 844px) {
     width: 10em;
+  }
+`;
+
+export const FooterHeaderLogo = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(139, 0, 0, 0.2);
+  border-radius: 10px;
+  font-size: 22px;
+  color: lightgray;
+  @media (min-width: 844px) {
+    padding-left: 0.3em;
+    padding-left: 0.3em;
+    padding-top: 0.1em;
+    padding-bottom: 0.1em;
+    width: 11em;
   }
 `;

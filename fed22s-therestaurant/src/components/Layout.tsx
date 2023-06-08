@@ -26,9 +26,8 @@ export const Layout = () => {
             <Outlet></Outlet>
           </OutletWrapper>
         </LayoutWrapper>
-        <StyledFooter></StyledFooter>
+        <Footer></Footer>
       </VerticalWrapper>
-      <Footer></Footer>
     </>
   );
 };

@@ -11,7 +11,6 @@ import {
   faFacebook,
   faInstagram,
 } from "@fortawesome/free-brands-svg-icons";
-import { Logo } from "./Logo";
 import { Link } from "react-router-dom";
 
 export const Footer = () => {
