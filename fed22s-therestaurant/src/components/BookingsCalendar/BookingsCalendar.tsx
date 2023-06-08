@@ -81,14 +81,12 @@ export const BookingsCalendar = () => {
   }
 
   function updateDate(nextValue: Date) {
-    //console.log("update");
     setDate(nextValue);
   }
 
   function checkDate() {
     const chosenDate = date.toDateString();
 
-    //setShowTime(true);
     filterList(chosenDate);
   }
 
