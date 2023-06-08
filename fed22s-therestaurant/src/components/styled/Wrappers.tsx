@@ -81,7 +81,8 @@ export const CenterWrapper = styled.div`
 `;
 
 export const ContactWrapper = styled(CenterWrapper)`
-  padding-top: 3em;
+  justify-content: flex-start;
+  padding-top: 1.5em;
 `;
 
 export const OutletWrapper = styled.div`
