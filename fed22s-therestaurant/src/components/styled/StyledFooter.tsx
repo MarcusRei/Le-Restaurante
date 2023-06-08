@@ -20,14 +20,25 @@ export const IconWrapper = styled.div`
   right: -50px;
   display: flex;
   flex-direction: row;
-  gap: 0.3em;
+  gap: 0.4em;
   font-size: 45px;
   color: black;
   right: -110px;
   @media (min-width: 844px) {
     width: 40%;
-    right: -300px;
-    font-size: 65px;
+    right: -260px;
+    font-size: 70px;
+  }
+  > a {
+    color: black;
+    display: flex;
+    align-items: center;
+    transition: color 0.3s, transform 0.3s;
+
+    &:hover {
+      color: #3b3034;
+      transform: scale(1.1);
+    }
   }
 `;
 export const LogoWrapper = styled.div`
