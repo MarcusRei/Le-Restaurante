@@ -68,6 +68,7 @@ export const AdressAndLogoWrapper = styled.div`
   width: 7em;
   @media (min-width: 844px) {
     width: 10em;
+    margin-left: 8em;
   }
 `;
 
