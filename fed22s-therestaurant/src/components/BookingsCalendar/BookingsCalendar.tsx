@@ -47,20 +47,12 @@ export const BookingsCalendar = () => {
     filteredBookings.map((booking) => {
       if (booking.time === timeSlot.EARLY) {
         earlySlotTables = earlySlotTables + Math.ceil(booking.guests / 6);
-        /* setBookedTables({
-          ...bookedTables,
-          early: bookedTables.early + Math.ceil(booking.guests / 6),
-        }); */
       }
       console.log("antal bord: ", earlySlotTables);
 
       // Kolla andra
       if (booking.time === timeSlot.LATE) {
         lateSlotTables = lateSlotTables + Math.ceil(booking.guests / 6);
-        /* setBookedTables({
-          ...bookedTables,
-          late: bookedTables.late + Math.ceil(booking.guests / 6),
-        }); */
       }
       console.log("antal bord på sena: ", lateSlotTables);
 
@@ -76,6 +68,7 @@ export const BookingsCalendar = () => {
 
   function checkAvailableTables() {
     console.log("bokade bord: ", bookedTables);
+
     // Kolla om första sittningen har bord kvar
     if (bookedTables.early >= 15) {
       setShowTimeslots({ ...showTimeslots, earlySlot: false });
@@ -104,6 +97,7 @@ export const BookingsCalendar = () => {
       <div className="calendar-container">
         <Calendar
           value={date}
+          //@ts-ignore
           onChange={updateDate}
           onClickDay={checkDate}
         ></Calendar>
