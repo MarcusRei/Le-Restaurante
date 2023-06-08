@@ -57,13 +57,11 @@ export const BookingsCalendar = (props: IBookingsCalendarProps) => {
       if (booking.time === timeSlot.EARLY) {
         earlySlotTables = earlySlotTables + Math.ceil(booking.guests / 6);
       }
-      console.log("antal bord: ", earlySlotTables);
 
-      // Kolla andra
+      // Kolla lediga platser på andra
       if (booking.time === timeSlot.LATE) {
         lateSlotTables = lateSlotTables + Math.ceil(booking.guests / 6);
       }
-      console.log("antal bord på sena: ", lateSlotTables);
 
       setBookedTables({
         ...bookedTables,
@@ -72,7 +70,7 @@ export const BookingsCalendar = (props: IBookingsCalendarProps) => {
       });
     });
 
-    console.log("filter", filteredBookings);
+    //console.log("filter", filteredBookings);
   }
 
   function checkAvailableTables() {

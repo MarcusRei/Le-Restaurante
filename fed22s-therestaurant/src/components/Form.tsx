@@ -2,6 +2,7 @@ import {
   ChangeEvent,
   FormEvent,
   useContext,
+  useEffect,
   useReducer,
   useState,
 } from "react";
@@ -68,6 +69,10 @@ export const Form = (props: IFormProps) => {
     time: "",
   });
 
+  useEffect(() => {
+    console.log(booking);
+  }, [booking]);
+
   /* const [booking, setBooking] = useState<BookingClass>({
     name: "",
     email: "",
@@ -83,9 +88,8 @@ export const Form = (props: IFormProps) => {
     e.preventDefault();
 
     dispatch({ type: actionType.INFOADDED, payload: newBooking });
-    console.log(newBooking);
+    //console.log(booking);
 
-    /* setConfirm(true); */
     setChecks({ ...checks, confirm: true });
   };
 
@@ -116,10 +120,6 @@ export const Form = (props: IFormProps) => {
 
     //console.log("date and time set!");
   };
-
-  function closeCalendar() {
-    props.closeCalendar();
-  }
 
   return (
     <>

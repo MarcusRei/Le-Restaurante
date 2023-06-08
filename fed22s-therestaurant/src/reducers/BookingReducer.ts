@@ -11,7 +11,6 @@ export interface IAction {
 export const BookingReducer = (booking: BookingClass, action: IAction) => {
   switch (action.type) {
     case actionType.TIMEADDED:
-      //booking{name: "", email: "", time: "18:00"}
       booking.time = action.payload.time;
       return booking;
 

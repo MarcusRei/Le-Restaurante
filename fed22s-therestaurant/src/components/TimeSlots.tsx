@@ -29,6 +29,7 @@ export const TimeSlots = (props: ITimeSlotsProps) => {
       type: actionType.TIMEADDED,
       payload: { time: time },
     });
+    console.log("bokning: ", booking);
     props.closeCalendar();
   }
 
