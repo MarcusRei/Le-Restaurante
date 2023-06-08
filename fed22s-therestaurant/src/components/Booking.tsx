@@ -28,9 +28,9 @@ export const Booking = () => {
     time: "",
   });
 
-  useEffect(() => {
-    console.log(booking);
-  }, [booking]);
+  /* useEffect(() => {
+    console.log("din bokning: ", booking);
+  }, [booking]); */
 
   // Context
 
@@ -55,11 +55,6 @@ export const Booking = () => {
     setCalendarOpen(false);
   }
 
-  /* function updateBooking(time: string) {
-    setBooking({ ...booking, time: time });
-  } */
-
-  function addEarlyTime() {}
   return (
     <>
       <CenteringWrapper>

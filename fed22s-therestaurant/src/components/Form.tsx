@@ -69,9 +69,9 @@ export const Form = (props: IFormProps) => {
     time: "",
   });
 
-  useEffect(() => {
+  /* useEffect(() => {
     console.log(booking);
-  }, [booking]);
+  }, [booking]); */
 
   /* const [booking, setBooking] = useState<BookingClass>({
     name: "",
@@ -81,8 +81,6 @@ export const Form = (props: IFormProps) => {
     date: "",
     time: "",
   }); */
-
-  function updateBooking() {}
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();

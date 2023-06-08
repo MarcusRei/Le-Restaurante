@@ -15,7 +15,7 @@ export const BookingReducer = (booking: BookingClass, action: IAction) => {
       return booking;
 
     case actionType.INFOADDED:
-      console.log(action.payload.newBooking);
+      console.log("newBooking: ", action.payload.newBooking);
       booking.name = action.payload.newBooking.name;
       booking.email = action.payload.newBooking.email;
       booking.guests = action.payload.newBooking.guests;
