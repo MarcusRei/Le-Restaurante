@@ -1,4 +1,4 @@
-import { FrontPageHeading, Heading } from "../styled/HeadingStyles";
+import { Heading } from "../styled/HeadingStyles";
 import { PTagFrontPage } from "../styled/frontpage/PTagFrontPage";
 import { OuterWrapperOfHeading, WrapperOfHours } from "../styled/HeadingStyles";
 import { HeadingLine, HeadingLineWrapper } from "../styled/HeadingStyles";
