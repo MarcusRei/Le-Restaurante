@@ -15,17 +15,20 @@ import { Navigation } from "./Navigation";
 
 export const Layout = () => {
   return (
-    <VerticalWrapper>
-      <LayoutWrapper>
-        <ImageWrapper>
-          <StyledImage src="/assets/restaurant-4011989_1280.jpg"></StyledImage>
-        </ImageWrapper>
-        <OutletWrapper>
-          <Navigation></Navigation>
-          <Outlet></Outlet>
-        </OutletWrapper>
-      </LayoutWrapper>
-      <StyledFooter></StyledFooter>
-    </VerticalWrapper>
+    <>
+      <VerticalWrapper>
+        <LayoutWrapper>
+          <ImageWrapper>
+            <StyledImage src="/assets/restaurant-4011989_1280.jpg"></StyledImage>
+          </ImageWrapper>
+          <OutletWrapper>
+            <Navigation></Navigation>
+            <Outlet></Outlet>
+          </OutletWrapper>
+        </LayoutWrapper>
+        <StyledFooter></StyledFooter>
+      </VerticalWrapper>
+      <Footer></Footer>
+    </>
   );
 };
