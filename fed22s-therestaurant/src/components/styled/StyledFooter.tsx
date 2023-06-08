@@ -5,12 +5,12 @@ export const StyledFooter = styled.div`
   flex-direction: row;
   background-color: #7a6f6b;
   align-items: center;
-  height: 150px;
   width: 100vw;
+  height: 9em;
   @media (min-width: 844px) {
     justify-content: space-between;
     align-items: center;
-    bottom: 200px;
+    // bottom: 200px;
   }
 `;
 

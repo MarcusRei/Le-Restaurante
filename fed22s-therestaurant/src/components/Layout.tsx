@@ -1,8 +1,6 @@
 import { Outlet } from "react-router-dom";
 import {
-  HorizontalWrapper,
   LayoutWrapper,
-  NavWrapper,
   OutletWrapper,
   VerticalWrapper,
   Wrapper,
