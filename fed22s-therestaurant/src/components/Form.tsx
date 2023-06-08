@@ -40,10 +40,6 @@ interface IFormProps {
 }
 
 export const Form = (props: IFormProps) => {
-  /* const [policyChecked, setPolicyChecked] = useState(false);
-  const [dateChosen, setDateChosen] = useState(false);
-  const [confirm, setConfirm] = useState(false); */
-
   const [checks, setChecks] = useState<IChecks>({
     policyChecked: false,
     dateChosen: false,
@@ -86,7 +82,6 @@ export const Form = (props: IFormProps) => {
     e.preventDefault();
 
     dispatch({ type: actionType.INFOADDED, payload: newBooking });
-    //console.log(booking);
 
     setChecks({ ...checks, confirm: true });
   };
