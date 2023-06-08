@@ -47,9 +47,13 @@ export const Booking = () => {
     getBookings().then((bookings: BookingClass[]) => setBookings(bookings));
   }, []);
 
-  const switchCalendar = () => {
+  function openCalendar() {
     setCalendarOpen(true);
-  };
+  }
+
+  function closeCalendar() {
+    setCalendarOpen(false);
+  }
 
   /* function updateBooking(time: string) {
     setBooking({ ...booking, time: time });
@@ -60,10 +64,17 @@ export const Booking = () => {
     <>
       <CenteringWrapper>
         <NewBookingContext.Provider value={booking}>
-          <Form switchCalendar={switchCalendar}></Form>
+          <Form
+            closeCalendar={closeCalendar}
+            openCalendar={openCalendar}
+          ></Form>
           <BookingsContext.Provider value={bookings}>
             <BookingDispatchContext.Provider value={dispatch}>
-              {calendarOpen && <BookingsCalendar></BookingsCalendar>}
+              {calendarOpen && (
+                <BookingsCalendar
+                  closeCalendar={closeCalendar}
+                ></BookingsCalendar>
+              )}
             </BookingDispatchContext.Provider>
           </BookingsContext.Provider>
         </NewBookingContext.Provider>

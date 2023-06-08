@@ -13,11 +13,11 @@ interface IShowTimeslots {
   lateSlot: boolean;
 }
 
-/* interface IBookingsCalendarProps {
-  updateBooking: (time: string) => string;
-} */
+interface IBookingsCalendarProps {
+  closeCalendar: () => void;
+}
 
-export const BookingsCalendar = () => {
+export const BookingsCalendar = (props: IBookingsCalendarProps) => {
   const bookings = useContext(BookingsContext);
 
   const [date, setDate] = useState(new Date());
@@ -39,6 +39,10 @@ export const BookingsCalendar = () => {
   useEffect(() => {
     checkAvailableTables();
   }, [bookedTables]);
+
+  function closeCalendar() {
+    props.closeCalendar();
+  }
 
   function filterList(chosenDate: string) {
     // Filtrera bokningar på samma dag
@@ -106,7 +110,10 @@ export const BookingsCalendar = () => {
         ></Calendar>
         <div>Valt datum: {date.toDateString()}</div>
         <h2>Tillgängliga tider:</h2>
-        <TimeSlots showTimeSlots={showTimeslots}></TimeSlots>
+        <TimeSlots
+          closeCalendar={closeCalendar}
+          showTimeSlots={showTimeslots}
+        ></TimeSlots>
       </div>
     </>
   );

@@ -11,7 +11,7 @@ interface ITimeSlotsProps {
     earlySlot: boolean;
     lateSlot: boolean;
   };
-  switchCalendar: () =>
+  closeCalendar: () => void;
 }
 
 export interface IPayload {
@@ -29,9 +29,9 @@ export const TimeSlots = (props: ITimeSlotsProps) => {
       type: actionType.TIMEADDED,
       payload: { time: time },
     });
-
-    console.log(booking);
+    props.closeCalendar();
   }
+
   return (
     <>
       <div>

@@ -33,7 +33,8 @@ interface IChecks {
 }
 
 interface IFormProps {
-  switchCalendar: () => void;
+  openCalendar: () => void;
+  closeCalendar: () => void;
   /* updateBooking: (time: string) => void; */
 }
 
@@ -107,7 +108,7 @@ export const Form = (props: IFormProps) => {
 
   const openCalendar = (e: FormEvent) => {
     e.preventDefault();
-    props.switchCalendar();
+    props.openCalendar();
     //setBooking({ ...booking, date: "05-06-2023", time: "18:00-21:00" });
     /* setDateChosen(true); */
 
@@ -115,6 +116,10 @@ export const Form = (props: IFormProps) => {
 
     //console.log("date and time set!");
   };
+
+  function closeCalendar() {
+    props.closeCalendar();
+  }
 
   return (
     <>
