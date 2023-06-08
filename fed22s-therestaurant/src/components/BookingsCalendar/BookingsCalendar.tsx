@@ -11,6 +11,11 @@ interface IShowTimeslots {
   lateSlot: boolean;
 }
 
+enum timeSlot {
+  EARLY = "18.00-21.00",
+  LATE = "21.00-23.00",
+}
+
 export const BookingsCalendar = () => {
   const bookings = useContext(BookingsContext);
 
@@ -20,23 +25,45 @@ export const BookingsCalendar = () => {
     earlySlot: false,
     lateSlot: false,
   });
+  const [bookedTables, setBookedTables] = useState({ early: 0, late: 0 });
 
   useEffect(() => {
     checkDate();
   }, [date]);
 
   function filterList(chosenDate: string) {
+    // Filtrera bokningar på samma dag
     const filteredBookings = bookings.filter((booking) => {
       if (new Date(booking.date).toDateString() === chosenDate) {
         return booking;
       }
     });
-    // Filtrera bokningar på samma dag
+
+    // Kollar om det finns lediga bord på första sittningen
+    filteredBookings.map((booking) => {
+      if (booking.time === timeSlot.EARLY) {
+        console.log(Math.ceil(booking.guests / 6));
+        setBookedTables({
+          ...bookedTables,
+          early: Math.ceil(booking.guests / 6),
+        });
+      }
+
+      if (booking.time === timeSlot.LATE) {
+        console.log(Math.ceil(booking.guests / 6));
+        setBookedTables({
+          ...bookedTables,
+          late: Math.ceil(booking.guests / 6),
+        });
+      }
+    });
+
     console.log("filter", filteredBookings);
   }
+  console.log("bokade bord: ", bookedTables);
 
   function updateDate(nextValue: Date) {
-    console.log("update");
+    //console.log("update");
     setDate(nextValue);
   }
 
