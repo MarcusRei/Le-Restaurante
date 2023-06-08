@@ -2,7 +2,7 @@ import { Customer } from "./Customer";
 
 export class BookingClass {
   constructor(
-    public date: Date,
+    public date: string,
     public time: string,
     public guests: number,
     public name: string,

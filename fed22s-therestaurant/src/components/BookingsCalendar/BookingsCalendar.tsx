@@ -4,6 +4,7 @@ import { useContext, useEffect, useState } from "react";
 import { TimeSlots } from "../TimeSlots";
 import { BookingsContext } from "../../contexts/BookingsContext";
 import { BookingClass } from "../../models/Booking";
+import { Value } from "react-calendar/dist/cjs/shared/types";
 
 interface IShowTimeslots {
   earlySlot: boolean;
@@ -20,35 +21,30 @@ export const BookingsCalendar = () => {
     lateSlot: false,
   });
 
+  useEffect(() => {
+    checkDate();
+  }, [date]);
+
+  function filterList(chosenDate: string) {
+    const filteredBookings = bookings.filter((booking) => {
+      if (new Date(booking.date).toDateString() === chosenDate) {
+        return booking;
+      }
+    });
+    // Filtrera bokningar på samma dag
+    console.log("filter", filteredBookings);
+  }
+
   function updateDate(nextValue: Date) {
+    console.log("update");
     setDate(nextValue);
   }
 
   function checkDate() {
     const chosenDate = date.toDateString();
-    //console.log(chosenDate);
-
-    // Filtrera bokningar på samma dag
-    const filteredBookings = bookings.filter(
-      //(booking) => booking.date.toDateString() === chosenDate
-      (booking) => console.log(booking.date)
-    );
-    console.log("filter", filteredBookings);
-
-    /* const earlyTimeBookings = bookings.filter(
-      (booking) => booking.time === "18.00-21.00"
-    );
-    console.log(earlyTimeBookings); */
-
-    /* if(earlyTimeBookings.length >)
-     */
-
-    /* const lateTimeBookings = bookings.filter(
-      (booking) => booking.time === "21.00-23.00"
-    );
-    console.log(lateTimeBookings); */
 
     setShowTime(true);
+    filterList(chosenDate);
   }
 
   return (
@@ -56,8 +52,8 @@ export const BookingsCalendar = () => {
       <div className="calendar-container">
         <Calendar
           value={date}
-          onChange={() => updateDate(date)}
-          onClickDay={() => checkDate()}
+          onChange={updateDate}
+          onClickDay={checkDate}
         ></Calendar>
         <div>Valt datum: {date.toDateString()}</div>
         <h2>Tillgängliga tider:</h2>
