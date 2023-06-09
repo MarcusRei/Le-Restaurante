@@ -15,6 +15,7 @@ import { getBookings } from "../services/dataService";
 import { NewBookingContext } from "../contexts/NewBookingContext";
 import { BookingDispatchContext } from "../contexts/BookingDispatchContext";
 import { BookingReducer, IAction } from "../reducers/BookingReducer";
+import { actionType } from "../enums/actionType";
 
 export const Booking = () => {
   const [calendarOpen, setCalendarOpen] = useState(false);
@@ -55,11 +56,16 @@ export const Booking = () => {
     setCalendarOpen(false);
   }
 
+  function addTime(value: IAction) {
+    dispatch(value);
+  }
+
   return (
     <>
       <CenteringWrapper>
         <NewBookingContext.Provider value={booking}>
           <Form
+            addTime={addTime}
             closeCalendar={closeCalendar}
             openCalendar={openCalendar}
           ></Form>

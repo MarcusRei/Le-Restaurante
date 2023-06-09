@@ -11,15 +11,17 @@ export const BookingReducer = (booking: BookingClass, action: IAction) => {
   switch (action.type) {
     case actionType.TIMEADDED:
       booking.time = action.payload.time;
-      return booking;
+      return { ...booking, time: action.payload.time };
 
     case actionType.INFOADDED:
-      console.log("newBooking: ", action.payload.newBooking);
-      booking.name = action.payload.newBooking.name;
-      booking.email = action.payload.newBooking.email;
-      booking.guests = action.payload.newBooking.guests;
-      booking.phonenumber = action.payload.newBooking.phonenumber;
-      return booking;
+      console.log("action.name: ", action.payload.name);
+      return {
+        ...booking,
+        name: action.payload.name,
+        email: action.payload.email,
+        guests: action.payload.guests,
+        phonenumber: action.payload.phonenumber,
+      };
   }
 
   return booking;

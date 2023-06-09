@@ -24,7 +24,7 @@ import {
 } from "./styled/Wrappers";
 import { postNewBooking } from "../services/dataService";
 import { NewBookingContext } from "../contexts/NewBookingContext";
-import { BookingReducer } from "../reducers/BookingReducer";
+import { BookingReducer, IAction } from "../reducers/BookingReducer";
 import { actionType } from "../enums/actionType";
 
 interface IChecks {
@@ -36,7 +36,7 @@ interface IChecks {
 interface IFormProps {
   openCalendar: () => void;
   closeCalendar: () => void;
-  /* updateBooking: (time: string) => void; */
+  addTime: (Value: IAction) => void;
 }
 
 export const Form = (props: IFormProps) => {
@@ -55,33 +55,18 @@ export const Form = (props: IFormProps) => {
     time: "",
   });
 
-  //const booking = useContext(NewBookingContext);
-  const [booking, dispatch] = useReducer(BookingReducer, {
-    name: "",
-    email: "",
-    phonenumber: "",
-    guests: 0,
-    date: "",
-    time: "",
-  });
+  const booking = useContext(NewBookingContext);
 
-  /* useEffect(() => {
-    console.log(booking);
-  }, [booking]); */
+  useEffect(() => {
+    if (checks.confirm) {
+      postNewBooking(booking);
+    }
+  }, [checks]);
 
-  /* const [booking, setBooking] = useState<BookingClass>({
-    name: "",
-    email: "",
-    phonenumber: "",
-    guests: 0,
-    date: "",
-    time: "",
-  }); */
+  const handleSubmit = (/* e: FormEvent */) => {
+    //e.preventDefault();
 
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
-
-    dispatch({ type: actionType.INFOADDED, payload: newBooking });
+    props.addTime({ type: actionType.INFOADDED, payload: newBooking });
 
     setChecks({ ...checks, confirm: true });
   };
@@ -89,11 +74,9 @@ export const Form = (props: IFormProps) => {
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const prop = e.target.name;
     if (e.target.type === "text") {
-      //setBooking({ ...booking, [prop]: e.target.value });
       setNewBooking({ ...newBooking, [prop]: e.target.value });
     }
     if (e.target.type === "number") {
-      //setBooking({ ...booking, [prop]: +e.target.value });
       setNewBooking({ ...newBooking, [prop]: +e.target.value });
     }
   };
@@ -116,7 +99,7 @@ export const Form = (props: IFormProps) => {
 
   function stopSubmit(e: FormEvent) {
     e.preventDefault();
-    handleSubmit(e);
+    handleSubmit();
   }
 
   return (
@@ -194,7 +177,7 @@ export const Form = (props: IFormProps) => {
 
           <Button
             disabled={!checks.policyChecked}
-            onClick={checks.dateChosen ? handleSubmit : undefined}
+            /* onClick={checks.dateChosen ? handleSubmit : undefined} */
           >
             Boka
           </Button>
