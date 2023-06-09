@@ -33,15 +33,6 @@ interface IChecks {
   confirm: boolean;
 }
 
-/* export interface IBookingPayload {
-  name: string;
-  email: string;
-  phonenumber: string;
-  guests: number;
-  date: string;
-  time: string;
-} */
-
 interface IFormProps {
   openCalendar: () => void;
   closeCalendar: () => void;
