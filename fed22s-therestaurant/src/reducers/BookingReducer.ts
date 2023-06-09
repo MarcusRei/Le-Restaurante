@@ -20,7 +20,6 @@ export const BookingReducer = (booking: BookingClass, action: IAction) => {
       booking.email = action.payload.newBooking.email;
       booking.guests = action.payload.newBooking.guests;
       booking.phonenumber = action.payload.newBooking.phonenumber;
-      postNewBooking(booking);
       return booking;
   }
 
