@@ -8,6 +8,7 @@ import {
 import axios from "axios";
 import { BookingsList } from "../BookingsList";
 import { useEffect, useState } from "react";
+import AdminDatePicker from "../DatePicker";
 
 export const Admin = () => {
   const [bookings, setBookings] = useState([]);
@@ -33,13 +34,13 @@ export const Admin = () => {
     getBookings();
   }, []);
 
-  useEffect(() => {
-    // Applicera filtrering baserat på valt datum och tid
-    const filtered = bookings.filter((booking) => {
-      // filtreringslogik här
-    });
-    setFilteredBookings(filtered);
-  }, [bookings, selectedDate, selectedTime]);
+  const handleDateChange = (date: Date) => {
+    const selectedDate = date?.toISOString().split("T")[0] ?? "";
+    console.log("===>", date);
+
+    //  setSelectedDate(selectedDate);
+  };
+
   return (
     <AdminWrapper>
       <TableviewWrapper>
@@ -64,6 +65,10 @@ export const Admin = () => {
         </LowerTableWrapper>
       </TableviewWrapper>
       <BookingsList></BookingsList>
+      <AdminDatePicker
+        selected={new Date(selectedDate)}
+        onChange={handleDateChange}
+      />
     </AdminWrapper>
   );
 };
