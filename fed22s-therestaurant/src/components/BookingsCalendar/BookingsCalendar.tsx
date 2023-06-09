@@ -31,17 +31,26 @@ export const BookingsCalendar = (props: IBookingsCalendarProps) => {
   let lateSlotTables = 0;
   let earlySlotTables = 0;
 
+  // Om det valda datumet ändras
   useEffect(() => {
     checkDate();
+    // setBookedTables({ early: 0, late: 0 });
     console.log(bookedTables);
   }, [date]);
 
+  // Om bookedTables ändras
   useEffect(() => {
     checkAvailableTables();
   }, [bookedTables]);
 
-  function closeCalendar() {
-    props.closeCalendar();
+  function updateDate(nextValue: Date) {
+    setDate(nextValue);
+    filterList(nextValue.toDateString());
+  }
+
+  function checkDate() {
+    const chosenDate = date.toDateString();
+    // FilterList anropades här förut
   }
 
   function filterList(chosenDate: string) {
@@ -52,49 +61,50 @@ export const BookingsCalendar = (props: IBookingsCalendarProps) => {
       }
     });
 
-    // Kollar om det finns lediga bord på första sittningen
+    if (filteredBookings.length === 0) {
+      setBookedTables({ early: 0, late: 0 });
+    }
+
+    // Kollar lediga bord på första sittningen
     filteredBookings.map((booking) => {
       if (booking.time === timeSlot.EARLY) {
         earlySlotTables = earlySlotTables + Math.ceil(booking.guests / 6);
       }
 
-      // Kolla lediga platser på andra
+      // Kolla lediga bord på andra sittningen
       if (booking.time === timeSlot.LATE) {
         lateSlotTables = lateSlotTables + Math.ceil(booking.guests / 6);
       }
 
       setBookedTables({
-        ...bookedTables,
         early: earlySlotTables,
         late: lateSlotTables,
       });
     });
-
-    //console.log("filter", filteredBookings);
   }
 
   function checkAvailableTables() {
-    console.log("bokade bord: ", bookedTables);
-
     // Kolla om första sittningen har bord kvar
     if (bookedTables.early >= 15) {
       setShowTimeslots({ ...showTimeslots, earlySlot: false });
+    }
+
+    if (bookedTables.early < 15) {
+      setShowTimeslots({ ...showTimeslots, earlySlot: true });
     }
 
     // Kolla om andra sittningen har bord kvar
     if (bookedTables.late >= 15) {
       setShowTimeslots({ ...showTimeslots, lateSlot: false });
     }
+
+    if (bookedTables.late < 15) {
+      setShowTimeslots({ ...showTimeslots, lateSlot: true });
+    }
   }
 
-  function updateDate(nextValue: Date) {
-    setDate(nextValue);
-  }
-
-  function checkDate() {
-    const chosenDate = date.toDateString();
-
-    filterList(chosenDate);
+  function closeCalendar() {
+    props.closeCalendar();
   }
 
   return (

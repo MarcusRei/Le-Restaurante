@@ -14,11 +14,6 @@ interface ITimeSlotsProps {
   closeCalendar: () => void;
 }
 
-export interface IPayload {
-  time: string;
-  booking: BookingClass;
-}
-
 export const TimeSlots = (props: ITimeSlotsProps) => {
   const booking = useContext(NewBookingContext);
   const dispatch = useContext(BookingDispatchContext);

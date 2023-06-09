@@ -33,6 +33,15 @@ interface IChecks {
   confirm: boolean;
 }
 
+/* export interface IBookingPayload {
+  name: string;
+  email: string;
+  phonenumber: string;
+  guests: number;
+  date: string;
+  time: string;
+} */
+
 interface IFormProps {
   openCalendar: () => void;
   closeCalendar: () => void;
@@ -114,10 +123,15 @@ export const Form = (props: IFormProps) => {
     //console.log("date and time set!");
   };
 
+  function stopSubmit(e: FormEvent) {
+    e.preventDefault();
+    handleSubmit(e);
+  }
+
   return (
     <>
       <VerticalWrapper>
-        <StyledForm>
+        <StyledForm onSubmit={stopSubmit}>
           <Heading>Boka bord</Heading>
           <FormLabel>
             Namn:

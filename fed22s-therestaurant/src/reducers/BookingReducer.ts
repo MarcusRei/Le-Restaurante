@@ -1,4 +1,3 @@
-import { IPayload } from "../components/TimeSlots";
 import { actionType } from "../enums/actionType";
 import { BookingClass } from "../models/Booking";
 import { postNewBooking } from "../services/dataService";
