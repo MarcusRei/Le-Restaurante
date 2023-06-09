@@ -3,7 +3,12 @@ import { TimeSwitcher } from "./TimeSwitcher";
 import { BookingsListWrapper } from "./styled/AdminWrappers";
 import { BookingHeading } from "./styled/BookingHeading";
 
-export const BookingsList = () => {
+export interface BookingListProps {
+  bookings: [];
+}
+
+export const BookingsList = (bookings: BookingListProps) => {
+  console.log("data från bookingslist ===>", bookings);
   return (
     <>
       <BookingsListWrapper>

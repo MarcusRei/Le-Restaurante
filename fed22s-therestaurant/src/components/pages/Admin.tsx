@@ -8,10 +8,11 @@ import {
 import axios from "axios";
 import { BookingsList } from "../BookingsList";
 import { useEffect, useState } from "react";
-import AdminDatePicker from "../DatePicker";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 export const Admin = () => {
-  const [bookings, setBookings] = useState([]);
+  const [bookings, setBookings] = useState<[]>([]);
   const [filteredBookings, setFilteredBookings] = useState([]);
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedTime, setSelectedTime] = useState("");
@@ -24,7 +25,7 @@ export const Admin = () => {
         );
         const bookingsData = response.data;
 
-        console.log("inuti fetch");
+        console.log("inuti fetch", bookingsData);
 
         setBookings(bookingsData);
       } catch (error) {
@@ -34,11 +35,15 @@ export const Admin = () => {
     getBookings();
   }, []);
 
-  const handleDateChange = (date: Date) => {
-    const selectedDate = date?.toISOString().split("T")[0] ?? "";
-    console.log("===>", date);
+  useEffect(() => {
+    console.log("===> STATE", selectedDate);
+  }, [selectedDate]);
 
-    //  setSelectedDate(selectedDate);
+  const handleDateChange = (date: Date) => {
+    const selectedDateISO = date?.toISOString().split("T")[0] ?? "";
+    console.log("===> handleDataChange", date);
+
+    setSelectedDate(selectedDateISO);
   };
 
   return (
@@ -62,13 +67,13 @@ export const Admin = () => {
           <TableSet></TableSet>
           <TableSet></TableSet>
           <TableSet></TableSet>
+          <DatePicker
+            selected={new Date()}
+            onChange={handleDateChange}
+          />
         </LowerTableWrapper>
       </TableviewWrapper>
-      <BookingsList></BookingsList>
-      <AdminDatePicker
-        selected={new Date(selectedDate)}
-        onChange={handleDateChange}
-      />
+      <BookingsList bookings={bookings}></BookingsList>
     </AdminWrapper>
   );
 };
