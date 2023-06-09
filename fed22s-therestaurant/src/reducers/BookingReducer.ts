@@ -14,7 +14,6 @@ export const BookingReducer = (booking: BookingClass, action: IAction) => {
       return { ...booking, time: action.payload.time };
 
     case actionType.INFOADDED:
-      console.log("action.name: ", action.payload.name);
       return {
         ...booking,
         name: action.payload.name,

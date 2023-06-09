@@ -43,6 +43,7 @@ export const getCustomers = async () => {
 
 export const postNewBooking = async (booking: BookingClass) => {
   try {
+    console.log(booking);
     const response = await post(
       "http://localhost:5001/api/v1/bookings",
       booking
