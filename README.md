@@ -2,7 +2,7 @@
 
 ### About the project
 
-Goup assignment at Medieinstitutet to build a booking site for a fictive restaurant where guests can place bookings and an admin can update, delete and also add bookings and guests. The project consists of both front end and backend.
+Goup assignment at Medieinstitutet to build a booking site for a fictive restaurant where guests can place bookings and an admin can update, delete and also add bookings as well as handle guest information in the database. The project consists of both front end and backend.
 
 ### Built with
 
@@ -21,14 +21,22 @@ Goup assignment at Medieinstitutet to build a booking site for a fictive restaur
    ```sh
    npm i
    ```
-3. Run the app
-   ```sh
-   npm run dev
-   ```
-4. Create .env file in the root directory and add the credentials. Add your own API-key in the field.
+3. Create .env file in the root directory and add the credentials. Add your own API-key in the field.
 
    ```sh
    MONGO_CONNECTION_STRING=
+   ```
+
+4. Populate database with mockdata (make sure you are located in the fed22s-backend folder)
+
+   ```sh
+   npm run seedDb
+   ```
+
+5. Run the app (make sure you are located in the fed22s-therestaurant folder)
+
+   ```sh
+   npm run dev
    ```
 
    ## Design
