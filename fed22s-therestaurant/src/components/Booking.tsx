@@ -60,6 +60,10 @@ export const Booking = () => {
     dispatch(value);
   }
 
+  function addDate(value: IAction) {
+    dispatch(value);
+  }
+
   return (
     <>
       <CenteringWrapper>
@@ -73,6 +77,7 @@ export const Booking = () => {
             <BookingDispatchContext.Provider value={dispatch}>
               {calendarOpen && (
                 <BookingsCalendar
+                  addDate={addDate}
                   closeCalendar={closeCalendar}
                 ></BookingsCalendar>
               )}

@@ -7,6 +7,9 @@ import { BookingClass } from "../../models/Booking";
 import { Value } from "react-calendar/dist/cjs/shared/types";
 import { timeSlot } from "../../enums/timeSlots";
 import { updateBooking } from "../../services/dataService";
+import { NewBookingContext } from "../../contexts/NewBookingContext";
+import { IAction } from "../../reducers/BookingReducer";
+import { actionType } from "../../enums/actionType";
 
 interface IShowTimeslots {
   earlySlot: boolean;
@@ -15,10 +18,13 @@ interface IShowTimeslots {
 
 interface IBookingsCalendarProps {
   closeCalendar: () => void;
+  addDate: (Value: IAction) => void;
 }
 
 export const BookingsCalendar = (props: IBookingsCalendarProps) => {
   const bookings = useContext(BookingsContext);
+
+  const booking = useContext(NewBookingContext);
 
   const [date, setDate] = useState(new Date());
   const [showTime, setShowTime] = useState(false);
@@ -45,12 +51,16 @@ export const BookingsCalendar = (props: IBookingsCalendarProps) => {
 
   function updateDate(nextValue: Date) {
     setDate(nextValue);
-    filterList(nextValue.toDateString());
+    const chosenDate = nextValue.toDateString();
+    // filterList(nextValue.toDateString());
   }
 
   function checkDate() {
     const chosenDate = date.toDateString();
+
     // FilterList anropades här förut
+    props.addDate({ type: actionType.DATEADDED, payload: chosenDate });
+    filterList(chosenDate);
   }
 
   function filterList(chosenDate: string) {

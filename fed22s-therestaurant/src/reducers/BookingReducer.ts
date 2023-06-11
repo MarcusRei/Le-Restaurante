@@ -10,7 +10,7 @@ export interface IAction {
 export const BookingReducer = (booking: BookingClass, action: IAction) => {
   switch (action.type) {
     case actionType.TIMEADDED:
-      booking.time = action.payload.time;
+      //booking.time = action.payload.time;
       return { ...booking, time: action.payload.time };
 
     case actionType.INFOADDED:
@@ -21,6 +21,10 @@ export const BookingReducer = (booking: BookingClass, action: IAction) => {
         guests: action.payload.guests,
         phonenumber: action.payload.phonenumber,
       };
+
+    case actionType.DATEADDED:
+      console.log("payload: ", action.payload);
+      return { ...booking, date: action.payload };
   }
 
   return booking;
