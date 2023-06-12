@@ -59,16 +59,24 @@ export const Form = (props: IFormProps) => {
   const booking = useContext(NewBookingContext);
   //const [bookings, dispatch] = useReducer(BookingsReducer, []);
 
-  useEffect(() => {
+  if (checks.confirm) {
+    postNewBooking(booking);
+  }
+
+  if (newBooking.guests > 0) {
+    props.updateGuestCount(newBooking.guests);
+  }
+
+  /* useEffect(() => {
     if (checks.confirm) {
       postNewBooking(booking);
       //getBookings();
     }
-  }, [checks]);
+  }, [checks]); */
 
-  useEffect(() => {
+  /* useEffect(() => {
     props.updateGuestCount(newBooking.guests);
-  }, [newBooking.guests]);
+  }, [newBooking.guests]); */
 
   const handleSubmit = (/* e: FormEvent */) => {
     //e.preventDefault();
