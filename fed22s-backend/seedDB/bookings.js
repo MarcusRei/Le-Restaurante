@@ -5,9 +5,9 @@ exports.mockBookings = [
     guests: 4,
     customer: {
       _id: "647750c6c00de3f00e764371",
-      name: "Junita",
-      email: "junita@gmail.com",
-      phonenumber: "+46735456064",
+      name: "Marcus",
+      email: "marcus@gmail.com",
+      phonenumber: "0760505645",
     },
   },
   {
@@ -16,9 +16,9 @@ exports.mockBookings = [
     guests: 6,
     customer: {
       _id: "647750c6c00de3f00e764371",
-      name: "Junita",
-      email: "junita@gmail.com",
-      phonenumber: "+46735456064",
+      name: "Fannie",
+      email: "fannie@gmail.com",
+      phonenumber: "+46734857864",
     },
   },
   {
@@ -27,9 +27,9 @@ exports.mockBookings = [
     guests: 8,
     customer: {
       _id: "647750c6c00de3f00e764371",
-      name: "Junita",
-      email: "junita@gmail.com",
-      phonenumber: "+46735456064",
+      name: "Jocke",
+      email: "jocke@gmail.com",
+      phonenumber: "+46715665067",
     },
   },
 ];

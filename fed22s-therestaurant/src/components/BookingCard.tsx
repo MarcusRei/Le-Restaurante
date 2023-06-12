@@ -16,9 +16,7 @@ export const BookingCard = ({ booking }: BookingCardProps) => {
     <HorizontalWrapper>
       <TimeSlotBlock>{booking.time}</TimeSlotBlock>
       <VerticalWrapper>
-        <BookingHeading>
-          {booking.customer ? booking.customer.name : ""}
-        </BookingHeading>
+        <BookingHeading>{booking.customer}</BookingHeading>
         <ContactButton>Kontakta</ContactButton>
         <ThinText>{booking.guests}</ThinText>
       </VerticalWrapper>
