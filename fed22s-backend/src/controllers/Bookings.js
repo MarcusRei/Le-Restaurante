@@ -64,7 +64,7 @@ exports.addBooking = async (req, res, next) => {
         from: "hayley.witting17@ethereal.email",
         to: email,
         subject: "Bokningsbekräftelse",
-        text: `Hej ${name}, \n\nTack för din bokning. Här är bokningsdetaljerna: \nNamn: ${name} \nEmail: ${email} \nTelefonnummer: ${phonenumber} \nGäster: ${savedBooking.guests} \nDatum: ${savedBooking.date} \nTid: ${savedBooking.time}`,
+        text: `Hej ${name}, \n\nTack för din bokning. \n\nHär är bokningsdetaljerna: \nNamn: ${name} \nEmail: ${email} \nTelefonnummer: ${phonenumber} \nGäster: ${savedBooking.guests} \nDatum: ${savedBooking.date} \nTid: ${savedBooking.time} \nBokningsnummer: ${savedBooking.id} \n\n I händelse av att du behöver avboka din tid vänligen kontakta oss på telefonnummer 08-89677 och uppger bokningsnummer. Bordet överlåts 15 minuter efter påbörjat sittning om ingen annan överenskommelse gjorts med restaurangen.`,
       };
 
       let info = await transporter.sendMail(mailOptions);
