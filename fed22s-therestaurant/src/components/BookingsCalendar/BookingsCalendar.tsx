@@ -6,7 +6,7 @@ import { BookingsContext } from "../../contexts/BookingsContext";
 import { BookingClass } from "../../models/Booking";
 import { timeSlot } from "../../enums/timeSlots";
 import { NewBookingContext } from "../../contexts/NewBookingContext";
-import { IAction } from "../../reducers/BookingReducer";
+import { IBookingAction } from "../../reducers/BookingReducer";
 import { actionType } from "../../enums/actionType";
 import { DateTime } from "luxon";
 
@@ -17,7 +17,7 @@ interface IShowTimeslots {
 
 interface IBookingsCalendarProps {
   closeCalendar: () => void;
-  addDate: (Value: IAction) => void;
+  addDate: (Value: IBookingAction) => void;
   guestCount: number;
 }
 
@@ -50,6 +50,7 @@ export const BookingsCalendar = (props: IBookingsCalendarProps) => {
 
   function updateDate(nextValue: Date) {
     setDate(nextValue);
+    console.log("bookings", bookings);
   }
 
   function checkDate() {

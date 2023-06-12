@@ -2,12 +2,15 @@ import { actionType } from "../enums/actionType";
 import { BookingClass } from "../models/Booking";
 import { postNewBooking } from "../services/dataService";
 
-export interface IAction {
+export interface IBookingAction {
   type: string;
   payload: any;
 }
 
-export const BookingReducer = (booking: BookingClass, action: IAction) => {
+export const BookingReducer = (
+  booking: BookingClass,
+  action: IBookingAction
+) => {
   switch (action.type) {
     case actionType.TIMEADDED:
       //booking.time = action.payload.time;

@@ -22,10 +22,12 @@ import {
   HorizontalWrapperGap,
   VerticalWrapper,
 } from "./styled/Wrappers";
-import { postNewBooking } from "../services/dataService";
+import { getBookings, postNewBooking } from "../services/dataService";
 import { NewBookingContext } from "../contexts/NewBookingContext";
-import { BookingReducer, IAction } from "../reducers/BookingReducer";
+import { BookingReducer, IBookingAction } from "../reducers/BookingReducer";
 import { actionType } from "../enums/actionType";
+import { BookingsContext } from "../contexts/BookingsContext";
+import { BookingsReducer } from "../reducers/BookingsReducer";
 
 interface IChecks {
   policyChecked: boolean;
@@ -36,7 +38,7 @@ interface IChecks {
 interface IFormProps {
   openCalendar: () => void;
   closeCalendar: () => void;
-  addTime: (Value: IAction) => void;
+  addTime: (Value: IBookingAction) => void;
   updateGuestCount: (value: number) => void;
 }
 
@@ -46,7 +48,6 @@ export const Form = (props: IFormProps) => {
     dateChosen: false,
     confirm: false,
   });
-
   const [newBooking, setNewBooking] = useState<BookingClass>({
     name: "",
     email: "",
@@ -55,12 +56,13 @@ export const Form = (props: IFormProps) => {
     date: "",
     time: "",
   });
-
   const booking = useContext(NewBookingContext);
+  //const [bookings, dispatch] = useReducer(BookingsReducer, []);
 
   useEffect(() => {
     if (checks.confirm) {
       postNewBooking(booking);
+      //getBookings();
     }
   }, [checks]);
 
@@ -87,17 +89,12 @@ export const Form = (props: IFormProps) => {
   };
 
   const handleCheckbox = (e: ChangeEvent<HTMLInputElement>) => {
-    /* setPolicyChecked(e.target.checked); */
     setChecks({ ...checks, policyChecked: e.target.checked });
   };
 
   const openCalendar = (e: FormEvent) => {
     e.preventDefault();
     props.openCalendar();
-
-    //setChecks({ ...checks, dateChosen: true });
-
-    //console.log("date and time set!");
   };
 
   function stopSubmit(e: FormEvent) {
@@ -147,7 +144,7 @@ export const Form = (props: IFormProps) => {
               <NumberInput
                 type="number"
                 min={1}
-                max={10}
+                //max={10}
                 value={newBooking.guests}
                 name="guests"
                 onChange={handleChange}

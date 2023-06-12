@@ -14,7 +14,7 @@ import { BookingClass } from "../models/Booking";
 import { getBookings } from "../services/dataService";
 import { NewBookingContext } from "../contexts/NewBookingContext";
 import { BookingDispatchContext } from "../contexts/BookingDispatchContext";
-import { BookingReducer, IAction } from "../reducers/BookingReducer";
+import { BookingReducer, IBookingAction } from "../reducers/BookingReducer";
 import { actionType } from "../enums/actionType";
 
 export const Booking = () => {
@@ -58,30 +58,30 @@ export const Booking = () => {
     setCalendarOpen(false);
   }
 
-  function addTime(value: IAction) {
+  function addTime(value: IBookingAction) {
     dispatch(value);
   }
 
-  function addDate(value: IAction) {
+  function addDate(value: IBookingAction) {
     dispatch(value);
   }
 
   function updateGuestCount(valueFromForm: number) {
     setGuestCount(valueFromForm);
-    console.log("nu uppdaterades guests");
   }
 
   return (
     <>
       <CenteringWrapper>
         <NewBookingContext.Provider value={booking}>
-          <Form
-            addTime={addTime}
-            closeCalendar={closeCalendar}
-            openCalendar={openCalendar}
-            updateGuestCount={updateGuestCount}
-          ></Form>
           <BookingsContext.Provider value={bookings}>
+            <Form
+              addTime={addTime}
+              closeCalendar={closeCalendar}
+              openCalendar={openCalendar}
+              updateGuestCount={updateGuestCount}
+            ></Form>
+
             <BookingDispatchContext.Provider value={dispatch}>
               {calendarOpen && (
                 <BookingsCalendar
