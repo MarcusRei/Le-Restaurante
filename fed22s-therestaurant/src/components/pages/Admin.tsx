@@ -34,7 +34,7 @@ export const Admin = () => {
         const bookingsWithCustomers = bookingsData.map(
           (booking: Booking) => {
             const customer = customersData.find(
-              (customer: Customer) => customer.name === booking.name
+              (customer: Customer) => customer.email === booking.email
             );
             return { ...booking, customer };
           }
