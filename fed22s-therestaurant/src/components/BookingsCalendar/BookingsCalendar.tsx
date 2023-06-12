@@ -56,7 +56,6 @@ export const BookingsCalendar = (props: IBookingsCalendarProps) => {
   }
 
   function checkDate() {
-    //const chosenDate = date.toISOString().split("T")[0];
     const chosenDate = DateTime.fromJSDate(date).toString().split("T")[0];
 
     props.addDate({ type: actionType.DATEADDED, payload: chosenDate });
