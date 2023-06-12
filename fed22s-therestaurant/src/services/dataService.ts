@@ -43,13 +43,12 @@ export const getCustomers = async () => {
 
 export const postNewBooking = async (booking: BookingClass) => {
   try {
-    console.log(booking);
     const response = await post(
       "http://localhost:5001/api/v1/bookings",
       booking
     );
 
-    console.log("Form sent!");
+    console.log("Form sent!", booking);
     return response.data;
   } catch {
     throw new Error("Could not post booking to API");

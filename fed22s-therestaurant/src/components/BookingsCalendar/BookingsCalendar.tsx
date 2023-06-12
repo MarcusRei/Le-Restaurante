@@ -31,17 +31,14 @@ export const BookingsCalendar = (props: IBookingsCalendarProps) => {
     lateSlot: true,
   });
   const [bookedTables, setBookedTables] = useState({ early: 0, late: 0 });
-  const [guestsPerTable, setGuestsPerTable] = useState(props.guestCount);
+  //const [guestsPerTable, setGuestsPerTable] = useState(props.guestCount);
+
+  /* if (bookedTables.early > 0) {
+    checkAvailableTables();
+  } */
 
   let lateSlotTables = 0;
   let earlySlotTables = 0;
-
-  // Om det valda datumet ändras
-  useEffect(() => {
-    checkDate();
-    // setBookedTables({ early: 0, late: 0 });
-    console.log(bookedTables);
-  }, [date]);
 
   // Om bookedTables ändras
   useEffect(() => {
@@ -50,20 +47,22 @@ export const BookingsCalendar = (props: IBookingsCalendarProps) => {
 
   function updateDate(nextValue: Date) {
     setDate(nextValue);
-    console.log("bookings", bookings);
+    console.log("nextValue", nextValue);
   }
 
-  function checkDate() {
+  function checkDate(date: Date) {
     const chosenDate = DateTime.fromJSDate(date).toString().split("T")[0];
+    console.log("chosenDate", chosenDate);
 
+    // Lägger till datumet i vårt bokningsobjekt
     props.addDate({ type: actionType.DATEADDED, payload: chosenDate });
+
     filterList(chosenDate);
   }
 
   function filterList(chosenDate: String) {
     // Filtrera bokningar på samma dag
     const filteredBookings = bookings.filter((booking) => {
-      console.log(booking.date);
       if (chosenDate === booking.date) {
         return booking;
       }
@@ -125,7 +124,7 @@ export const BookingsCalendar = (props: IBookingsCalendarProps) => {
           onClickDay={checkDate}
           minDate={new Date()}
         ></Calendar>
-        <div>Valt datum: {date.toISOString().split("T")[0] ?? ""}</div>
+        <div>Valt datum: {date.toISOString().split("T")[0]}</div>
         <h2>Tillgängliga tider:</h2>
         <TimeSlots
           closeCalendar={closeCalendar}

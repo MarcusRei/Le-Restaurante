@@ -60,12 +60,12 @@ export const Form = (props: IFormProps) => {
   //const [bookings, dispatch] = useReducer(BookingsReducer, []);
 
   if (checks.confirm) {
-    postNewBooking(booking);
+    sendBooking();
   }
 
-  if (newBooking.guests > 0) {
+  /* if (newBooking.guests > 0) {
     props.updateGuestCount(newBooking.guests);
-  }
+  } */
 
   /* useEffect(() => {
     if (checks.confirm) {
@@ -79,7 +79,7 @@ export const Form = (props: IFormProps) => {
   }, [newBooking.guests]); */
 
   const handleSubmit = (/* e: FormEvent */) => {
-    //e.preventDefault();
+    /* e.preventDefault(); */
 
     props.addTime({ type: actionType.INFOADDED, payload: newBooking });
 
@@ -108,6 +108,19 @@ export const Form = (props: IFormProps) => {
   function stopSubmit(e: FormEvent) {
     e.preventDefault();
     handleSubmit();
+  }
+
+  function sendBooking() {
+    postNewBooking(booking);
+    setChecks({ policyChecked: false, dateChosen: false, confirm: false });
+    setNewBooking({
+      name: "",
+      email: "",
+      phonenumber: "",
+      guests: 0,
+      date: "",
+      time: "",
+    });
   }
 
   return (
