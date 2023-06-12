@@ -16,8 +16,8 @@ export const BookingsList = ({ bookings }: BookingListProps) => {
       <BookingsListWrapper>
         <BookingHeading>Bokningar</BookingHeading>
         <TimeSwitcher></TimeSwitcher>
-        {bookings.map((booking: any) => (
-          <BookingCard key={booking._id} booking={booking} />
+        {bookings.map((bookings: Booking | Customer) => (
+          <BookingCard key={bookings._id} bookings={bookings} />
         ))}
       </BookingsListWrapper>
     </>

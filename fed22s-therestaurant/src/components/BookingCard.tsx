@@ -1,3 +1,5 @@
+import { Booking } from "../models/Booking";
+import { Customer } from "../models/Customer";
 import { BookingHeading } from "./styled/BookingHeading";
 import { ContactButton } from "./styled/Button";
 import { ThinText } from "./styled/ThinText";
@@ -8,13 +10,13 @@ import {
 } from "./styled/Wrappers";
 
 interface BookingCardProps {
-  booking: any;
+  bookings: (Booking | Customer)[];
 }
 
-export const BookingCard = ({ booking }: BookingCardProps) => {
+export const BookingCard = ({ bookings }: BookingCardProps) => {
   return (
     <HorizontalWrapper>
-      <TimeSlotBlock>{booking.time}</TimeSlotBlock>
+      <TimeSlotBlock>{bookings}</TimeSlotBlock>
       <VerticalWrapper>
         <BookingHeading>{booking.customer}</BookingHeading>
         <ContactButton>Kontakta</ContactButton>

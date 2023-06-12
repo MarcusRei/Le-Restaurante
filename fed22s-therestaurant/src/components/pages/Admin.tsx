@@ -29,14 +29,15 @@ export const Admin = () => {
     const fetchData = async () => {
       try {
         const bookingsData = await getBookings();
-        const customersData = await getCustomers();
+
+        console.log("Bokningar från API:", bookingsData);
 
         const bookingsWithCustomers = bookingsData.map(
           (booking: Booking) => {
-            const customer = customersData.find(
-              (customer: Customer) => customer.email === booking.email
-            );
-            return { ...booking, customer };
+            // Här kan du lägga till logiken för att hämta kunder om det behövs
+            // eller göra andra manipulationer av datan
+
+            return booking;
           }
         );
 
