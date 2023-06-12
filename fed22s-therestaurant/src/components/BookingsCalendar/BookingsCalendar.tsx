@@ -11,6 +11,8 @@ import { NewBookingContext } from "../../contexts/NewBookingContext";
 import { IAction } from "../../reducers/BookingReducer";
 import { actionType } from "../../enums/actionType";
 
+import { DateTime } from "luxon";
+
 interface IShowTimeslots {
   earlySlot: boolean;
   lateSlot: boolean;
@@ -51,22 +53,21 @@ export const BookingsCalendar = (props: IBookingsCalendarProps) => {
 
   function updateDate(nextValue: Date) {
     setDate(nextValue);
-    const chosenDate = nextValue.toDateString();
-    // filterList(nextValue.toDateString());
   }
 
   function checkDate() {
-    const chosenDate = date.toDateString();
+    //const chosenDate = date.toISOString().split("T")[0];
+    const chosenDate = DateTime.fromJSDate(date).toString().split("T")[0];
 
-    // FilterList anropades här förut
     props.addDate({ type: actionType.DATEADDED, payload: chosenDate });
     filterList(chosenDate);
   }
 
-  function filterList(chosenDate: string) {
+  function filterList(chosenDate: String) {
     // Filtrera bokningar på samma dag
     const filteredBookings = bookings.filter((booking) => {
-      if (new Date(booking.date).toDateString() === chosenDate) {
+      console.log(booking.date);
+      if (chosenDate === booking.date) {
         return booking;
       }
     });
@@ -126,7 +127,7 @@ export const BookingsCalendar = (props: IBookingsCalendarProps) => {
           onChange={updateDate}
           onClickDay={checkDate}
         ></Calendar>
-        <div>Valt datum: {date.toDateString()}</div>
+        <div>Valt datum: {date.toISOString().split("T")[0] ?? ""}</div>
         <h2>Tillgängliga tider:</h2>
         <TimeSlots
           closeCalendar={closeCalendar}

@@ -48,6 +48,7 @@ exports.addBooking = async (req, res, next) => {
 
       const savedBooking = await newBooking.save();
 
+      console.log(savedBooking.date);
       res.json(savedBooking);
     }
   } catch (error) {

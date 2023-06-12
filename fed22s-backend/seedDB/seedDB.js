@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 
 const Booking = require("../src/models/Booking");
 const Customer = require("../src/models/Customer");
-const { mockBookings } = require("./bookings");
+const { mockBookings, mockBookingsWithString } = require("./bookings");
 const { mockCustomers } = require("./mockdata/customer");
 
 const populateDbWithMockData = async (MONGO_CONNECTION_STRING) => {
@@ -16,7 +16,7 @@ const populateDbWithMockData = async (MONGO_CONNECTION_STRING) => {
 
     await Booking.deleteMany();
     await Customer.create(mockCustomers);
-    await Booking.create(mockBookings);
+    await Booking.create(mockBookingsWithString);
 
     console.log("Database successfully populated with mockdata");
   } catch (error) {
