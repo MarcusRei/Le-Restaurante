@@ -5,39 +5,50 @@ import {
   TableviewWrapper,
   LowerTableWrapper,
 } from "../styled/AdminWrappers";
-import axios from "axios";
 import { BookingsList } from "../BookingsList";
 import { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { Booking } from "../../models/Booking";
+import { Customer } from "../../models/Customer";
+import {
+  getBookings,
+  getCustomers,
+} from "../../services/dataService";
 
 export const Admin = () => {
-  const [bookings, setBookings] = useState<[]>([]);
-  const [filteredBookings, setFilteredBookings] = useState([]);
-  const [selectedDate, setSelectedDate] = useState("");
-  const [selectedTime, setSelectedTime] = useState("");
+  const [bookings, setBookings] = useState<(Booking | Customer)[]>(
+    []
+  );
+  const [filteredBookings, setFilteredBookings] = useState<
+    (Booking | Customer)[]
+  >([]);
+  const [selectedDate, setSelectedDate] = useState<string>("");
 
   useEffect(() => {
-    const getBookings = async () => {
+    const fetchData = async () => {
       try {
-        const response = await axios.get(
-          "http://localhost:5001/api/v1/bookings"
+        const bookingsData = await getBookings();
+        const customersData = await getCustomers();
+
+        const bookingsWithCustomers = bookingsData.map(
+          (booking: Booking) => {
+            const customer = customersData.find(
+              (customer: Customer) => customer.name === booking.name
+            );
+            return { ...booking, customer };
+          }
         );
-        const bookingsData = response.data;
 
-        console.log("inuti fetch", bookingsData);
-
-        setBookings(bookingsData);
+        console.log("Bokningar med kunder:", bookingsWithCustomers);
+        setBookings(bookingsWithCustomers);
       } catch (error) {
         console.error("Inga bokningar hittades", error);
       }
     };
-    getBookings();
-  }, []);
 
-  useEffect(() => {
-    console.log("===> STATE", selectedDate);
-  }, [selectedDate]);
+    fetchData();
+  }, []);
 
   const handleDateChange = (date: Date) => {
     const selectedDateISO = date?.toISOString().split("T")[0] ?? "";
@@ -73,7 +84,7 @@ export const Admin = () => {
           />
         </LowerTableWrapper>
       </TableviewWrapper>
-      <BookingsList bookings={bookings}></BookingsList>
+      <BookingsList bookings={bookings} />
     </AdminWrapper>
   );
 };
