@@ -29,6 +29,8 @@ export const Booking = () => {
     time: "",
   });
 
+  const [guestCount, setGuestCount] = useState(0);
+
   /* useEffect(() => {
     console.log("din bokning: ", booking);
   }, [booking]); */
@@ -64,6 +66,11 @@ export const Booking = () => {
     dispatch(value);
   }
 
+  function updateGuestCount(valueFromForm: number) {
+    setGuestCount(valueFromForm);
+    console.log("nu uppdaterades guests");
+  }
+
   return (
     <>
       <CenteringWrapper>
@@ -72,6 +79,7 @@ export const Booking = () => {
             addTime={addTime}
             closeCalendar={closeCalendar}
             openCalendar={openCalendar}
+            updateGuestCount={updateGuestCount}
           ></Form>
           <BookingsContext.Provider value={bookings}>
             <BookingDispatchContext.Provider value={dispatch}>
@@ -79,6 +87,7 @@ export const Booking = () => {
                 <BookingsCalendar
                   addDate={addDate}
                   closeCalendar={closeCalendar}
+                  guestCount={guestCount}
                 ></BookingsCalendar>
               )}
             </BookingDispatchContext.Provider>

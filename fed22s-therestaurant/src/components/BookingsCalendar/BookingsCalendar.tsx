@@ -18,12 +18,12 @@ interface IShowTimeslots {
 interface IBookingsCalendarProps {
   closeCalendar: () => void;
   addDate: (Value: IAction) => void;
+  guestCount: number;
 }
 
 export const BookingsCalendar = (props: IBookingsCalendarProps) => {
   const bookings = useContext(BookingsContext);
   const booking = useContext(NewBookingContext);
-
   const [date, setDate] = useState(new Date());
   const [showTime, setShowTime] = useState(false);
   const [showTimeslots, setShowTimeslots] = useState<IShowTimeslots>({
@@ -31,6 +31,7 @@ export const BookingsCalendar = (props: IBookingsCalendarProps) => {
     lateSlot: true,
   });
   const [bookedTables, setBookedTables] = useState({ early: 0, late: 0 });
+  const [guestsPerTable, setGuestsPerTable] = useState(props.guestCount);
 
   let lateSlotTables = 0;
   let earlySlotTables = 0;
@@ -91,20 +92,20 @@ export const BookingsCalendar = (props: IBookingsCalendarProps) => {
 
   function checkAvailableTables() {
     // Kolla om första sittningen har bord kvar
-    if (bookedTables.early >= 15) {
+    if (bookedTables.early + Math.ceil(props.guestCount / 6) >= 15) {
       setShowTimeslots({ ...showTimeslots, earlySlot: false });
     }
 
-    if (bookedTables.early < 15) {
+    if (bookedTables.early + Math.ceil(props.guestCount / 6) < 15) {
       setShowTimeslots({ ...showTimeslots, earlySlot: true });
     }
 
     // Kolla om andra sittningen har bord kvar
-    if (bookedTables.late >= 15) {
+    if (bookedTables.late + Math.ceil(props.guestCount / 6) >= 15) {
       setShowTimeslots({ ...showTimeslots, lateSlot: false });
     }
 
-    if (bookedTables.late < 15) {
+    if (bookedTables.late + Math.ceil(props.guestCount / 6) < 15) {
       setShowTimeslots({ ...showTimeslots, lateSlot: true });
     }
   }

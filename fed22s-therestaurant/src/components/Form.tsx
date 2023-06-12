@@ -37,6 +37,7 @@ interface IFormProps {
   openCalendar: () => void;
   closeCalendar: () => void;
   addTime: (Value: IAction) => void;
+  updateGuestCount: (value: number) => void;
 }
 
 export const Form = (props: IFormProps) => {
@@ -62,6 +63,10 @@ export const Form = (props: IFormProps) => {
       postNewBooking(booking);
     }
   }, [checks]);
+
+  useEffect(() => {
+    props.updateGuestCount(newBooking.guests);
+  }, [newBooking.guests]);
 
   const handleSubmit = (/* e: FormEvent */) => {
     //e.preventDefault();
@@ -89,8 +94,6 @@ export const Form = (props: IFormProps) => {
   const openCalendar = (e: FormEvent) => {
     e.preventDefault();
     props.openCalendar();
-    //setBooking({ ...booking, date: "05-06-2023", time: "18:00-21:00" });
-    /* setDateChosen(true); */
 
     //setChecks({ ...checks, dateChosen: true });
 
@@ -151,7 +154,9 @@ export const Form = (props: IFormProps) => {
                 required
               />
             </FormLabel>
-            <Button onClick={openCalendar}>Välj tid</Button>
+            <Button onClick={openCalendar} disabled={newBooking.guests < 1}>
+              Välj tid
+            </Button>
           </HorizontalWrapperGap>
           <HorizontalWrapper>
             {newBooking.date !== "" && (
