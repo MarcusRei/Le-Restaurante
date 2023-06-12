@@ -74,10 +74,6 @@ export const Form = (props: IFormProps) => {
     }
   }, [checks]); */
 
-  /* useEffect(() => {
-    props.updateGuestCount(newBooking.guests);
-  }, [newBooking.guests]); */
-
   const handleSubmit = (/* e: FormEvent */) => {
     /* e.preventDefault(); */
 
@@ -107,6 +103,7 @@ export const Form = (props: IFormProps) => {
 
   function stopSubmit(e: FormEvent) {
     e.preventDefault();
+
     handleSubmit();
   }
 

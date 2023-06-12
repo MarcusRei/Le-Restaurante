@@ -31,15 +31,6 @@ export const Booking = () => {
 
   const [guestCount, setGuestCount] = useState(0);
 
-  /* const [booking, setBooking] = useState<BookingClass>({
-    name: "",
-    email: "",
-    phonenumber: "",
-    guests: 0,
-    date: "",
-    time: "",
-  }); */
-
   useEffect(() => {
     getBookings().then((bookings: BookingClass[]) => setBookings(bookings));
   }, []);
