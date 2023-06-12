@@ -4,13 +4,10 @@ import { useContext, useEffect, useState } from "react";
 import { TimeSlots } from "../TimeSlots";
 import { BookingsContext } from "../../contexts/BookingsContext";
 import { BookingClass } from "../../models/Booking";
-import { Value } from "react-calendar/dist/cjs/shared/types";
 import { timeSlot } from "../../enums/timeSlots";
-import { updateBooking } from "../../services/dataService";
 import { NewBookingContext } from "../../contexts/NewBookingContext";
 import { IAction } from "../../reducers/BookingReducer";
 import { actionType } from "../../enums/actionType";
-
 import { DateTime } from "luxon";
 
 interface IShowTimeslots {
@@ -25,7 +22,6 @@ interface IBookingsCalendarProps {
 
 export const BookingsCalendar = (props: IBookingsCalendarProps) => {
   const bookings = useContext(BookingsContext);
-
   const booking = useContext(NewBookingContext);
 
   const [date, setDate] = useState(new Date());
@@ -125,6 +121,7 @@ export const BookingsCalendar = (props: IBookingsCalendarProps) => {
           //@ts-ignore
           onChange={updateDate}
           onClickDay={checkDate}
+          minDate={new Date()}
         ></Calendar>
         <div>Valt datum: {date.toISOString().split("T")[0] ?? ""}</div>
         <h2>Tillgängliga tider:</h2>
