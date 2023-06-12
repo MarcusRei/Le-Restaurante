@@ -64,30 +64,13 @@ exports.addBooking = async (req, res, next) => {
         from: "hayley.witting17@ethereal.email",
         to: email,
         subject: "Bokningsbekräftelse",
-        text: `Hej ${name}, \n\nTack för din bokning hos oss på Le Restaurante. \n\nHär är bokningsdetaljerna: \nNamn: ${name} \nEmail: ${email} \nTelefonnummer: ${phonenumber} \nGäster: ${savedBooking.guests} \nDatum: ${savedBooking.date} \nTid: ${savedBooking.time} \nBokningsnummer: ${savedBooking.id} \n\n I händelse av att du behöver avboka din tid vänligen kontakta oss på telefonnummer 08-89677 och uppger bokningsnummer. Bordet överlåts 15 minuter efter påbörjat sittning om ingen annan överenskommelse gjorts med restaurangen. \n\n Du hittar oss här: \n Address: Adressvägen 7, 191 91 Stockholm \n\n Öppettider: \n Måndag: 11:00-14:00, 16:30-22:00 \n Tisdag: 11:00-14:00, 16:30-22:00 \n Onsdag: 11:00-14:00, 16:30-22:00 \n Torsdag: 11:00-14:00, 16:30-22:00 \n Fredag: 11:00-14:00, 16:30-22:00 \n Lördag: 16:30-23:00 \n Söndag: Stängt`,
+        text: `Hej ${name}, \n\nTack för din bokning hos oss på Le Restaurante. \n\nHär är bokningsdetaljerna: \nNamn: ${name} \nEmail: ${email} \nTelefonnummer: ${phonenumber} \nGäster: ${savedBooking.guests} \nDatum: ${savedBooking.date} \nTid: ${savedBooking.time} \nBokningsnummer: ${savedBooking.id} \n\n I händelse av att du behöver avboka din tid vänligen kontakta oss på telefonnummer 08-89677 och uppge bokningsnummer. Bordet överlåts 15 minuter efter påbörjad sittning om ingen annan överenskommelse gjorts med restaurangen. \n\n Du hittar oss här: \n Address: Adressvägen 7, 191 91 Stockholm \n\n Öppettider: \n Måndag: 11:00-14:00, 16:30-22:00 \n Tisdag: 11:00-14:00, 16:30-22:00 \n Onsdag: 11:00-14:00, 16:30-22:00 \n Torsdag: 11:00-14:00, 16:30-22:00 \n Fredag: 11:00-14:00, 16:30-22:00 \n Lördag: 16:30-23:00 \n Söndag: Stängt`,
       };
 
       let info = await transporter.sendMail(mailOptions);
       console.log("email sent:", info.response);
 
       res.json(savedBooking);
-
-      // const transporter = nodemailer.createTransport({
-      //   service: "yahoo",
-      //   auth: {
-      //     user: "lerestaurantesthlm@yahoo.com",
-      //     pass: "P!3g7E!st8jjacP",
-      //   },
-      // });
-
-      // const confirmation = {
-      //   from: "lerestaurantesthlm@yahoo.com",
-      //   to: email,
-      //   subject: "Bokningsbekräftelse",
-      //   text: `Hej ${customer.name}, \n\nTack för din bokning. Här är bokningsdetaljerna: \nNamn: ${customer.name} \nEmail: ${customer.email} \nTelefonnummer: ${customer.phonenumber} \nGäster: ${savedBooking.guests} \nDatum: ${savedBooking.date} \nTid: ${savedBooking.time}`,
-      // };
-
-      // await transporter.sendEmail(confirmation);
     }
   } catch (error) {
     console.error(error);
