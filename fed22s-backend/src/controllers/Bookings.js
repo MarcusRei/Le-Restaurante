@@ -49,6 +49,23 @@ exports.addBooking = async (req, res, next) => {
       const savedBooking = await newBooking.save();
 
       res.json(savedBooking);
+
+      const transporter = nodemailer.createTransport({
+        servie: "yahoo",
+        auth: {
+          user: "lerestaurantesthlm@yahoo.com",
+          pass: "P!3g7E!st8jjacP",
+        },
+      });
+
+      const confirmation = {
+        from: "lerestaurantesthlm@yahoo.com",
+        to: email,
+        subject: "Bokningsbekräftelse",
+        text: `Hej ${customer.name}, \n\nTack för din bokning. Här är bokningsdetaljerna: \nNamn: ${customer.name} \nEmail: ${customer.email} \nTelefonnummer: ${customer.phonenumber} \nGäster: ${savedBooking.guests} \nDatum: ${savedBooking.date} \nTid: ${savedBooking.time}`,
+      };
+
+      await transporter.sendEmail(confirmation);
     }
   } catch (error) {
     console.error(error);
