@@ -80,15 +80,6 @@ export const CenterWrapper = styled.div`
   height: 100%;
 `;
 
-export const HorizontalWrapper = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
-
 export const ContactWrapper = styled(CenterWrapper)`
   justify-content: flex-start;
   padding-top: 1.5em;
