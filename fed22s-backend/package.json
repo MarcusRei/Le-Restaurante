@@ -18,6 +18,7 @@
     "nodemailer": "^6.9.3"
   },
   "devDependencies": {
+    "luxon": "^3.3.0",
     "nodemon": "^2.0.22"
   }
 }

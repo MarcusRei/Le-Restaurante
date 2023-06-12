@@ -1,6 +1,6 @@
 import { Customer } from "./Customer";
 
-export class Booking {
+export class BookingClass {
   constructor(
     public date: string,
     public time: string,

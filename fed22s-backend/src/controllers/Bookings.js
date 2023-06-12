@@ -21,7 +21,7 @@ exports.addBooking = async (req, res, next) => {
   try {
     const { name, email, phonenumber, date, time, guests } = req.body;
 
-    const existingCustomer = await customer.findOne({ name: name });
+    const existingCustomer = await customer.findOne({ email: email });
 
     if (!existingCustomer) {
       console.log(existingCustomer);

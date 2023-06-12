@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Booking } from "../models/Booking";
+import { BookingClass } from "../models/Booking";
 import { IUpdatedInfo } from "../models/IUpdatedInfo";
 
 // General Requests Function
@@ -7,7 +7,7 @@ const get = async (url: string) => {
   return await axios.get(url);
 };
 
-const post = async (url: string, booking: Booking) => {
+const post = async (url: string, booking: BookingClass) => {
   return await axios.post(url, booking);
 };
 
@@ -41,8 +41,9 @@ export const getCustomers = async () => {
   }
 };
 
-export const postNewBooking = async (booking: Booking) => {
+export const postNewBooking = async (booking: BookingClass) => {
   try {
+    console.log(booking);
     const response = await post(
       "http://localhost:5001/api/v1/bookings",
       booking

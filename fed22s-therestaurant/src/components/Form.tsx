@@ -1,4 +1,11 @@
-import { ChangeEvent, FormEvent, useContext, useState } from "react";
+import {
+  ChangeEvent,
+  FormEvent,
+  useContext,
+  useEffect,
+  useReducer,
+  useState,
+} from "react";
 import {
   PolicyWrapper,
   StyledForm,
@@ -9,20 +16,39 @@ import {
 import { TextInput, NumberInput } from "./styled/Inputs";
 import { Heading } from "./styled/HeadingStyles";
 import { Button } from "./styled/Buttons";
-import { Booking } from "../models/Booking";
+import { BookingClass } from "../models/Booking";
 import {
   HorizontalWrapper,
   HorizontalWrapperGap,
   VerticalWrapper,
 } from "./styled/Wrappers";
-import { postNewBooking } from "../services/dataService";
+import { getBookings, postNewBooking } from "../services/dataService";
+import { NewBookingContext } from "../contexts/NewBookingContext";
+import { BookingReducer, IBookingAction } from "../reducers/BookingReducer";
+import { actionType } from "../enums/actionType";
+import { BookingsContext } from "../contexts/BookingsContext";
+import { BookingsReducer } from "../reducers/BookingsReducer";
 
-export const Form = () => {
-  const [policyChecked, setPolicyChecked] = useState(false);
-  const [dateChosen, setDateChosen] = useState(false);
-  const [confirm, setConfirm] = useState(false);
+interface IChecks {
+  policyChecked: boolean;
+  dateChosen: boolean;
+  confirm: boolean;
+}
 
-  const [booking, setBooking] = useState<Booking>({
+interface IFormProps {
+  openCalendar: () => void;
+  closeCalendar: () => void;
+  addTime: (Value: IBookingAction) => void;
+  updateGuestCount: (value: number) => void;
+}
+
+export const Form = (props: IFormProps) => {
+  const [checks, setChecks] = useState<IChecks>({
+    policyChecked: false,
+    dateChosen: false,
+    confirm: false,
+  });
+  const [newBooking, setNewBooking] = useState<BookingClass>({
     name: "",
     email: "",
     phonenumber: "",
@@ -30,49 +56,62 @@ export const Form = () => {
     date: "",
     time: "",
   });
+  const booking = useContext(NewBookingContext);
+  //const [bookings, dispatch] = useReducer(BookingsReducer, []);
 
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
+  useEffect(() => {
+    if (checks.confirm) {
+      postNewBooking(booking);
+      //getBookings();
+    }
+  }, [checks]);
 
-    console.log(booking);
+  useEffect(() => {
+    props.updateGuestCount(newBooking.guests);
+  }, [newBooking.guests]);
 
-    postNewBooking(booking);
+  const handleSubmit = (/* e: FormEvent */) => {
+    //e.preventDefault();
 
-    setConfirm(true);
+    props.addTime({ type: actionType.INFOADDED, payload: newBooking });
+
+    setChecks({ ...checks, confirm: true });
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const prop = e.target.name;
     if (e.target.type === "text") {
-      setBooking({ ...booking, [prop]: e.target.value });
+      setNewBooking({ ...newBooking, [prop]: e.target.value });
     }
     if (e.target.type === "number") {
-      setBooking({ ...booking, [prop]: +e.target.value });
+      setNewBooking({ ...newBooking, [prop]: +e.target.value });
     }
   };
 
   const handleCheckbox = (e: ChangeEvent<HTMLInputElement>) => {
-    setPolicyChecked(e.target.checked);
+    setChecks({ ...checks, policyChecked: e.target.checked });
   };
 
   const openCalendar = (e: FormEvent) => {
     e.preventDefault();
-    setBooking({ ...booking, date: "05-06-2023", time: "18:00-21:00" });
-    setDateChosen(true);
-
-    console.log("date and time set!");
+    props.openCalendar();
   };
+
+  function stopSubmit(e: FormEvent) {
+    e.preventDefault();
+    handleSubmit();
+  }
 
   return (
     <>
       <VerticalWrapper>
-        <StyledForm>
+        <StyledForm onSubmit={stopSubmit}>
           <Heading>Boka bord</Heading>
           <FormLabel>
             Namn:
             <TextInput
               type="text"
-              value={booking.name}
+              value={newBooking.name}
               name="name"
               onChange={handleChange}
               required
@@ -82,7 +121,7 @@ export const Form = () => {
             Email:
             <TextInput
               type="text"
-              value={booking.email}
+              value={newBooking.email}
               name="email"
               onChange={handleChange}
               required
@@ -92,7 +131,7 @@ export const Form = () => {
             Telefonnummer:
             <TextInput
               type="text"
-              value={booking.phonenumber}
+              value={newBooking.phonenumber}
               name="phonenumber"
               onChange={handleChange}
               required
@@ -105,20 +144,22 @@ export const Form = () => {
               <NumberInput
                 type="number"
                 min={1}
-                max={10}
-                value={booking.guests}
+                //max={10}
+                value={newBooking.guests}
                 name="guests"
                 onChange={handleChange}
                 required
               />
             </FormLabel>
-            <Button onClick={openCalendar}>Välj tid</Button>
+            <Button onClick={openCalendar} disabled={newBooking.guests < 1}>
+              Välj tid
+            </Button>
           </HorizontalWrapperGap>
           <HorizontalWrapper>
-            {booking.date !== "" && (
+            {newBooking.date !== "" && (
               <VerticalWrapper>
-                <DateTimeText>{booking.date}</DateTimeText>
-                <DateTimeText>{booking.time}</DateTimeText>
+                <DateTimeText>{newBooking.date}</DateTimeText>
+                <DateTimeText>{newBooking.time}</DateTimeText>
               </VerticalWrapper>
             )}
           </HorizontalWrapper>
@@ -137,13 +178,13 @@ export const Form = () => {
           </PolicyWrapper>
 
           <Button
-            disabled={!policyChecked}
-            onClick={dateChosen ? handleSubmit : undefined}
+            disabled={!checks.policyChecked}
+            /* onClick={checks.dateChosen ? handleSubmit : undefined} */
           >
             Boka
           </Button>
         </StyledForm>
-        {confirm && <h2>Din bokning är registrerad!</h2>}
+        {checks.confirm && <h2>Din bokning är registrerad!</h2>}
       </VerticalWrapper>
     </>
   );
