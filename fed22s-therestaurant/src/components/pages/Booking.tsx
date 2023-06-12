@@ -61,7 +61,7 @@ export const Booking = () => {
   }
 
   function updateGuestCount(value: number) {
-    setGuestCount(value);
+    //setGuestCount(value);
   }
 
   return (
