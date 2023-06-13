@@ -5,65 +5,82 @@ import {
   TableviewWrapper,
   LowerTableWrapper,
 } from "../styled/AdminWrappers";
-import axios from "axios";
 import { BookingsList } from "../BookingsList";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useReducer, useState } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { Booking } from "../../models/Booking";
+import { getBookings } from "../../services/dataService";
+import { AdminContext } from "../../contexts/AdminContext";
+import {
+  ActionType,
+  AdminReducer,
+} from "../../reducers/AdminReducer";
 
 export const Admin = () => {
-  const [bookings, setBookings] = useState([]);
-  const [filteredBookings, setFilteredBookings] = useState([]);
-  const [selectedDate, setSelectedDate] = useState("");
-  const [selectedTime, setSelectedTime] = useState("");
+  const [bookings, dispatch] = useReducer(AdminReducer, []);
+
+  const [selectedDate, setSelectedDate] = useState<string>("");
+  //const [state, dispatch] = useReducer(AdminReducer, bookings);
 
   useEffect(() => {
-    const getBookings = async () => {
-      try {
-        const response = await axios.get(
-          "http://localhost:5001/api/v1/bookings"
-        );
-        const bookingsData = response.data;
+    getBookings().then((bookings: Booking[]) => {
+      console.log(bookings);
 
-        console.log("inuti fetch");
-
-        setBookings(bookingsData);
-      } catch (error) {
-        console.error("Inga bokningar hittades", error);
-      }
-    };
-    getBookings();
+      dispatch({
+        type: ActionType.ADDED_BOOKING,
+        payload: JSON.stringify(bookings),
+      });
+    });
   }, []);
 
   useEffect(() => {
-    // Applicera filtrering baserat på valt datum och tid
-    const filtered = bookings.filter((booking) => {
-      // filtreringslogik här
+    dispatch({
+      type: ActionType.FILTER_BOOKINGS,
+      payload: selectedDate,
     });
-    setFilteredBookings(filtered);
-  }, [bookings, selectedDate, selectedTime]);
+  }, [selectedDate]);
+
+  const handleDateChange = (date: Date) => {
+    const selectedDateISO = date?.toISOString().split("T")[0] ?? "";
+    setSelectedDate(selectedDateISO);
+    dispatch({
+      type: ActionType.FILTER_BOOKINGS,
+      payload: selectedDateISO,
+    });
+  };
+
   return (
-    <AdminWrapper>
-      <TableviewWrapper>
-        <UpperTableWrapper>
-          <TableSet></TableSet>
-          <TableSet></TableSet>
-          <TableSet></TableSet>
-          <TableSet></TableSet>
-          <TableSet></TableSet>
-          <TableSet></TableSet>
-          <TableSet></TableSet>
-          <TableSet></TableSet>
-        </UpperTableWrapper>
-        <LowerTableWrapper>
-          <TableSet></TableSet>
-          <TableSet></TableSet>
-          <TableSet></TableSet>
-          <TableSet></TableSet>
-          <TableSet></TableSet>
-          <TableSet></TableSet>
-          <TableSet></TableSet>
-        </LowerTableWrapper>
-      </TableviewWrapper>
-      <BookingsList></BookingsList>
-    </AdminWrapper>
+    <AdminContext.Provider value={{ bookings, dispatch }}>
+      <AdminWrapper>
+        <TableviewWrapper>
+          <UpperTableWrapper>
+            {bookings.length}
+            <TableSet></TableSet>
+            <TableSet></TableSet>
+            <TableSet></TableSet>
+            <TableSet></TableSet>
+            <TableSet></TableSet>
+            <TableSet></TableSet>
+            <TableSet></TableSet>
+            <TableSet></TableSet>
+          </UpperTableWrapper>
+          <LowerTableWrapper>
+            <TableSet></TableSet>
+            <TableSet></TableSet>
+            <TableSet></TableSet>
+            <TableSet></TableSet>
+            <TableSet></TableSet>
+            <TableSet></TableSet>
+            <TableSet></TableSet>
+            <DatePicker
+              selected={new Date()}
+              onChange={handleDateChange}
+            />
+          </LowerTableWrapper>
+        </TableviewWrapper>
+        <BookingsList />
+      </AdminWrapper>
+    </AdminContext.Provider>
   );
 };

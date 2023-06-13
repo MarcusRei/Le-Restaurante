@@ -71,7 +71,6 @@ export const VerticalWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
 `;
 
 export const CenterWrapper = styled.div`

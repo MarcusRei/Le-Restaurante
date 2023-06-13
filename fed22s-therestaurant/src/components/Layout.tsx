@@ -5,10 +5,8 @@ import {
   VerticalWrapper,
   Wrapper,
 } from "./styled/Wrappers";
-import { ImageBackground } from "./styled/ImageBackground";
 import { Footer } from "./Footer";
 import { ImageWrapper, StyledImage } from "./styled/ImageStyling";
-import { StyledFooter } from "./styled/StyledFooter";
 import { Navigation } from "./Navigation";
 
 export const Layout = () => {

@@ -1,3 +1,4 @@
+import { Booking } from "../models/Booking";
 import { BookingHeading } from "./styled/BookingHeading";
 import { ContactButton } from "./styled/Button";
 import { ThinText } from "./styled/ThinText";
@@ -6,20 +7,45 @@ import {
   HorizontalWrapper,
   VerticalWrapper,
 } from "./styled/Wrappers";
+import React, { useContext } from "react";
+import { Button } from "./styled/Button";
+import { AdminContext } from "../contexts/AdminContext";
+import { ActionType } from "../reducers/AdminReducer";
 
-export const BookingCard = () => {
+export const BookingCard = ({ booking }: { booking: Booking }) => {
+  const { dispatch } = useContext(AdminContext);
+
+  const handleUpdateBooking = () => {
+    // Uppdatera
+    const updatedBooking = { ...booking };
+    dispatch({
+      type: ActionType.UPDATE_BOOKING,
+      payload: JSON.stringify(updatedBooking),
+    });
+  };
+
+  const handleDeleteBooking = () => {
+    // Ta bort
+    dispatch({
+      type: ActionType.DELETE_BOOKING,
+      payload: booking._id ? booking._id.toString() : "",
+    });
+  };
+
   return (
     <HorizontalWrapper>
-      <TimeSlotBlock>18:00</TimeSlotBlock>
+      <TimeSlotBlock>{booking.time}</TimeSlotBlock>
       <VerticalWrapper>
-        <BookingHeading>Marcus Reineck</BookingHeading>
-        <ContactButton>Kontakta</ContactButton>
-        <ThinText>6 personer</ThinText>
+        <BookingHeading>{booking.name}</BookingHeading>
+        <ThinText>{booking.guests}</ThinText>
       </VerticalWrapper>
       <VerticalWrapper>
-        <ThinText>Datum: 31-05-23</ThinText>
+        <ThinText>{booking.date}</ThinText>
         <ThinText>Bord 1</ThinText>
       </VerticalWrapper>
+      <ContactButton>Kontakta</ContactButton>
+      <Button onClick={handleUpdateBooking}>Uppdatera</Button>
+      <Button onClick={handleDeleteBooking}>Ta bort</Button>
     </HorizontalWrapper>
   );
 };
