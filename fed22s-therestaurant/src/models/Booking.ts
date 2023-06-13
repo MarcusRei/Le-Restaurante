@@ -7,6 +7,7 @@ export class Booking {
     public guests: number,
     public name: string,
     public email: string,
-    public phonenumber: string
+    public phonenumber: string,
+    public _id?: string
   ) {}
 }
