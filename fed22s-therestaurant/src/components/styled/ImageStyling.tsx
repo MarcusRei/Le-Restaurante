@@ -9,10 +9,12 @@ export const ImageWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 50%;
+  width: 100%;
+  height: 100%;
   z-index: 10;
 
-  @media (max-width: 844px) {
-    width: 100%;
+  @media (min-width: 844px) {
+    width: 50%;
+    height: auto;
   }
 `;

@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const Wrapper = styled.div`
   display: flex;
   justify-content: center;
+  flex-direction: column;
 
   height: 100%;
 
@@ -73,6 +74,7 @@ export const VerticalWrapper = styled.div`
 
 export const CenterWrapper = styled.div`
   position: relative;
+  flex-direction: column;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -82,7 +84,11 @@ export const CenterWrapper = styled.div`
 
 export const ContactWrapper = styled(CenterWrapper)`
   justify-content: flex-start;
-  padding-top: 1.5em;
+  padding-top: 7em;
+  padding-bottom: 2em;
+  @media (min-width: 844px) {
+    padding-top: 1.5em;
+  }
 `;
 
 export const OutletWrapper = styled.div`
@@ -93,6 +99,7 @@ export const OutletWrapper = styled.div`
   align-items: center;
   width: 100%;
   z-index: 100;
+  top: 0;
 
   @media (min-width: 844px) {
     position: relative;
