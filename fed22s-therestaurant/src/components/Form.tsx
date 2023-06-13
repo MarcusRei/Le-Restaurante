@@ -2,7 +2,6 @@ import {
   ChangeEvent,
   FormEvent,
   useContext,
-  useEffect,
   useReducer,
   useState,
 } from "react";
@@ -18,6 +17,7 @@ import { Heading } from "./styled/HeadingStyles";
 import { Button } from "./styled/Buttons";
 import { BookingClass } from "../models/Booking";
 import {
+  FormVerticalWrapper,
   HorizontalWrapper,
   HorizontalWrapperGap,
   VerticalWrapper,
@@ -39,7 +39,7 @@ interface IFormProps {
   openCalendar: () => void;
   closeCalendar: () => void;
   addTime: (Value: IBookingAction) => void;
-  updateGuestCount: (value: number) => void;
+  updateActiveTables: (value: number) => void;
 }
 
 export const Form = (props: IFormProps) => {
@@ -57,33 +57,13 @@ export const Form = (props: IFormProps) => {
     time: "",
   });
   const booking = useContext(NewBookingContext);
-  //const [bookings, dispatch] = useReducer(BookingsReducer, []);
 
-  if (checks.confirm) {
-    postNewBooking(booking);
-  }
-
-  if (newBooking.guests > 0) {
-    props.updateGuestCount(newBooking.guests);
-  }
-
-  /* useEffect(() => {
-    if (checks.confirm) {
-      postNewBooking(booking);
-      //getBookings();
-    }
-  }, [checks]); */
-
-  /* useEffect(() => {
-    props.updateGuestCount(newBooking.guests);
-  }, [newBooking.guests]); */
-
-  const handleSubmit = (/* e: FormEvent */) => {
-    //e.preventDefault();
-
-    props.addTime({ type: actionType.INFOADDED, payload: newBooking });
+  const handleSubmit = () => {
+    //preventDefault redan gjort
 
     setChecks({ ...checks, confirm: true });
+
+    sendBooking();
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -93,11 +73,13 @@ export const Form = (props: IFormProps) => {
     }
     if (e.target.type === "number") {
       setNewBooking({ ...newBooking, [prop]: +e.target.value });
+      props.updateActiveTables(Math.ceil(+e.target.value / 6));
     }
   };
 
   const handleCheckbox = (e: ChangeEvent<HTMLInputElement>) => {
     setChecks({ ...checks, policyChecked: e.target.checked });
+    props.addTime({ type: actionType.INFOADDED, payload: newBooking });
   };
 
   const openCalendar = (e: FormEvent) => {
@@ -107,7 +89,23 @@ export const Form = (props: IFormProps) => {
 
   function stopSubmit(e: FormEvent) {
     e.preventDefault();
+
     handleSubmit();
+  }
+
+  function sendBooking() {
+    postNewBooking(booking);
+
+    setChecks({ policyChecked: false, dateChosen: false, confirm: false });
+
+    setNewBooking({
+      name: "",
+      email: "",
+      phonenumber: "",
+      guests: 0,
+      date: "",
+      time: "",
+    });
   }
 
   return (
@@ -164,11 +162,11 @@ export const Form = (props: IFormProps) => {
             </Button>
           </HorizontalWrapperGap>
           <HorizontalWrapper>
-            {newBooking.date !== "" && (
-              <VerticalWrapper>
-                <DateTimeText>{newBooking.date}</DateTimeText>
-                <DateTimeText>{newBooking.time}</DateTimeText>
-              </VerticalWrapper>
+            {booking.date !== "" && (
+              <FormVerticalWrapper>
+                <DateTimeText>{booking.date}</DateTimeText>
+                <DateTimeText>{booking.time}</DateTimeText>
+              </FormVerticalWrapper>
             )}
           </HorizontalWrapper>
 

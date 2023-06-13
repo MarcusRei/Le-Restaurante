@@ -1,6 +1,6 @@
 import Calendar from "react-calendar";
 import "./BookingsCalendar.css";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { TimeSlots } from "../TimeSlots";
 import { BookingsContext } from "../../contexts/BookingsContext";
 import { BookingClass } from "../../models/Booking";
@@ -15,10 +15,16 @@ interface IShowTimeslots {
   lateSlot: boolean;
 }
 
+export interface ICombinedTables {
+  early: number;
+  late: number;
+}
+
 interface IBookingsCalendarProps {
   closeCalendar: () => void;
   addDate: (Value: IBookingAction) => void;
-  guestCount: number;
+  activeTables: number;
+  addTime: (Value: IBookingAction) => void;
 }
 
 export const BookingsCalendar = (props: IBookingsCalendarProps) => {
@@ -31,44 +37,46 @@ export const BookingsCalendar = (props: IBookingsCalendarProps) => {
     lateSlot: true,
   });
   const [bookedTables, setBookedTables] = useState({ early: 0, late: 0 });
-  const [guestsPerTable, setGuestsPerTable] = useState(props.guestCount);
 
   let lateSlotTables = 0;
   let earlySlotTables = 0;
 
-  // Om det valda datumet ändras
-  useEffect(() => {
-    checkDate();
-    // setBookedTables({ early: 0, late: 0 });
-    console.log(bookedTables);
-  }, [date]);
+  let combinedTables: ICombinedTables = {
+    late: 0,
+    early: 0,
+  };
+
+  /* let combinedLate = 0;
+  let combinedEarly = 0; */
+
+  console.log("bokade bord: ", bookedTables);
+  combineCheck();
 
   // Om bookedTables ändras
-  useEffect(() => {
-    checkAvailableTables();
-  }, [bookedTables]);
 
   function updateDate(nextValue: Date) {
     setDate(nextValue);
-    console.log("bookings", bookings);
   }
 
-  function checkDate() {
+  function checkDate(date: Date) {
     const chosenDate = DateTime.fromJSDate(date).toString().split("T")[0];
+    console.log("chosenDate", chosenDate);
 
+    // Lägger till datumet i vårt bokningsobjekt
     props.addDate({ type: actionType.DATEADDED, payload: chosenDate });
+
     filterList(chosenDate);
   }
 
   function filterList(chosenDate: String) {
-    // Filtrera bokningar på samma dag
+    // Filtrerar en lista med bokningar på samma dag
     const filteredBookings = bookings.filter((booking) => {
-      console.log(booking.date);
       if (chosenDate === booking.date) {
         return booking;
       }
     });
 
+    // Om det inte finns några bokningar på den valda dagen
     if (filteredBookings.length === 0) {
       setBookedTables({ early: 0, late: 0 });
     }
@@ -76,43 +84,59 @@ export const BookingsCalendar = (props: IBookingsCalendarProps) => {
     // Kollar lediga bord på första sittningen
     filteredBookings.map((booking) => {
       if (booking.time === timeSlot.EARLY) {
-        earlySlotTables = earlySlotTables + Math.ceil(booking.guests / 6);
+        earlySlotTables += Math.ceil(booking.guests / 6);
       }
 
       // Kolla lediga bord på andra sittningen
       if (booking.time === timeSlot.LATE) {
-        lateSlotTables = lateSlotTables + Math.ceil(booking.guests / 6);
+        lateSlotTables += Math.ceil(booking.guests / 6);
       }
 
       setBookedTables({
         early: earlySlotTables,
         late: lateSlotTables,
       });
+      checkAvailableTables();
     });
   }
 
   function checkAvailableTables() {
+    let earlyTables = true;
+    let lateTables = true;
     // Kolla om första sittningen har bord kvar
-    if (bookedTables.early + Math.ceil(props.guestCount / 6) >= 15) {
-      setShowTimeslots({ ...showTimeslots, earlySlot: false });
-    }
+    if (bookedTables.early + props.activeTables >= 15) {
+      earlyTables = false;
 
-    if (bookedTables.early + Math.ceil(props.guestCount / 6) < 15) {
-      setShowTimeslots({ ...showTimeslots, earlySlot: true });
+      console.log("Det finns inte tillräckligt med bord på den tidiga!");
+    } else {
+      console.log("det finns bord på den tidiga!");
     }
 
     // Kolla om andra sittningen har bord kvar
-    if (bookedTables.late + Math.ceil(props.guestCount / 6) >= 15) {
-      setShowTimeslots({ ...showTimeslots, lateSlot: false });
+    if (bookedTables.late + props.activeTables >= 15) {
+      lateTables = false;
+
+      console.log("Det finns inte tillräckligt med bord på den sena!");
+    } else {
+      console.log("det finns bord på den sena!");
     }
 
-    if (bookedTables.late + Math.ceil(props.guestCount / 6) < 15) {
-      setShowTimeslots({ ...showTimeslots, lateSlot: true });
-    }
+    setShowTimeslots({ earlySlot: earlyTables, lateSlot: lateTables });
   }
 
   function closeCalendar() {
     props.closeCalendar();
+  }
+
+  function combineCheck() {
+    /* combinedLate = bookedTables.late + props.activeTables;
+    combinedEarly = bookedTables.early + props.activeTables; */
+
+    combinedTables = {
+      late: bookedTables.late + props.activeTables,
+      early: bookedTables.early + props.activeTables,
+    };
+    console.log("combined", combinedTables);
   }
 
   return (
@@ -125,11 +149,11 @@ export const BookingsCalendar = (props: IBookingsCalendarProps) => {
           onClickDay={checkDate}
           minDate={new Date()}
         ></Calendar>
-        <div>Valt datum: {date.toISOString().split("T")[0] ?? ""}</div>
+        <div>Valt datum: {date.toISOString().split("T")[0]}</div>
         <h2>Tillgängliga tider:</h2>
         <TimeSlots
           closeCalendar={closeCalendar}
-          showTimeSlots={showTimeslots}
+          combinedTables={combinedTables}
         ></TimeSlots>
       </div>
     </>
