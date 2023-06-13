@@ -15,6 +15,11 @@ interface IShowTimeslots {
   lateSlot: boolean;
 }
 
+export interface ICombinedTables {
+  early: number;
+  late: number;
+}
+
 interface IBookingsCalendarProps {
   closeCalendar: () => void;
   addDate: (Value: IBookingAction) => void;
@@ -35,6 +40,14 @@ export const BookingsCalendar = (props: IBookingsCalendarProps) => {
 
   let lateSlotTables = 0;
   let earlySlotTables = 0;
+
+  let combinedTables: ICombinedTables = {
+    late: 0,
+    early: 0,
+  };
+
+  /* let combinedLate = 0;
+  let combinedEarly = 0; */
 
   console.log("bokade bord: ", bookedTables);
   combineCheck();
@@ -118,10 +131,14 @@ export const BookingsCalendar = (props: IBookingsCalendarProps) => {
   }
 
   function combineCheck() {
-    const combinedLate = bookedTables.late + props.activeTables;
-    const combinedEarly = bookedTables.early + props.activeTables;
-    console.log("combined", combinedLate);
-    console.log("combined", combinedEarly);
+    /* combinedLate = bookedTables.late + props.activeTables;
+    combinedEarly = bookedTables.early + props.activeTables; */
+
+    combinedTables = {
+      late: bookedTables.late + props.activeTables,
+      early: bookedTables.early + props.activeTables,
+    };
+    console.log("combined", combinedTables);
   }
 
   return (
@@ -139,6 +156,7 @@ export const BookingsCalendar = (props: IBookingsCalendarProps) => {
         <TimeSlots
           closeCalendar={closeCalendar}
           showTimeSlots={showTimeslots}
+          combinedTables={combinedTables}
         ></TimeSlots>
       </div>
     </>
