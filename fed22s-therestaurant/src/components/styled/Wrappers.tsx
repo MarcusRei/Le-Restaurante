@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const Wrapper = styled.div`
   display: flex;
   justify-content: center;
+  flex-direction: column;
 
   height: 100%;
 
@@ -73,6 +74,7 @@ export const VerticalWrapper = styled.div`
 
 export const CenterWrapper = styled.div`
   position: relative;
+  flex-direction: column;
   display: flex;
   justify-content: center;
   align-items: center;
