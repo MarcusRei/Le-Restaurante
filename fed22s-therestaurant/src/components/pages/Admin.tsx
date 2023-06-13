@@ -44,6 +44,10 @@ export const Admin = () => {
   const handleDateChange = (date: Date) => {
     const selectedDateISO = date?.toISOString().split("T")[0] ?? "";
     setSelectedDate(selectedDateISO);
+    dispatch({
+      type: ActionType.FILTER_BOOKINGS,
+      payload: selectedDateISO,
+    });
   };
 
   return (
