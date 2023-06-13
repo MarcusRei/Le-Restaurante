@@ -33,12 +33,12 @@ export const TimeSlots = (props: ITimeSlotsProps) => {
       <div>
         {props.showTimeSlots.earlySlot && (
           <div>
-            <button onClick={() => addTime(timeSlot.EARLY)}>18:00</button>
+            <button onClick={() => addTime(timeSlot.EARLY)}>18:00-21:00</button>
           </div>
         )}
         {props.showTimeSlots.lateSlot && (
           <div>
-            <button onClick={() => addTime(timeSlot.LATE)}>21:00</button>
+            <button onClick={() => addTime(timeSlot.LATE)}>21:00-23:00</button>
           </div>
         )}
       </div>
