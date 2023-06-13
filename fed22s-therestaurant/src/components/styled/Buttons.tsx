@@ -38,4 +38,5 @@ export const BookingButton = styled(Button)`
 
 export const MailUsButton = styled(CallUsButton)`
   height: auto;
+  margin-bottom: 3em;
 `;

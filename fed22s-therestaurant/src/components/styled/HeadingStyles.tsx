@@ -67,7 +67,10 @@ export const OuterWrapperOfHeading = styled.div`
   justify-content: center;
   gap: 2em;
   max-width: 20em;
+  position: relative;
+  top: 3.5em;
   @media (min-width: 844px) {
+    top: 1em;
     width: 70%;
   }
 `;
@@ -78,6 +81,8 @@ export const WrapperOfHours = styled(OuterWrapperOfHeading)`
   justify-content: center;
   gap: 2em;
   width: 16em;
+  position: relative;
+  top: 0;
   @media (min-width: 844px) {
     width: 17em;
   }

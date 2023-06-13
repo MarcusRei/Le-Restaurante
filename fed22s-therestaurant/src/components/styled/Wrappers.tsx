@@ -4,11 +4,13 @@ export const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: column;
+  position: relative;
+  top: 5em;
 
   height: 100%;
 
   @media (min-width: 844px) {
-    position: relative;
+    top: 1em;
   }
 `;
 
@@ -87,7 +89,7 @@ export const ContactWrapper = styled(CenterWrapper)`
   padding-top: 7em;
   padding-bottom: 2em;
   @media (min-width: 844px) {
-    padding-top: 1.5em;
+    padding-top: 5em;
   }
 `;
 
