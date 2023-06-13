@@ -35,13 +35,12 @@ export const TimeSlots = (props: ITimeSlotsProps) => {
             <button onClick={() => addTime(timeSlot.EARLY)}>18:00-21:00</button>
           </div>
         ) : null}
-        {/* {combined.early > 15 && <h2>Inga lediga tider</h2>} */}
-        {props.combinedTables.late <= 15 && (
+
+        {props.combinedTables.late <= 15 ? (
           <div>
             <button onClick={() => addTime(timeSlot.LATE)}>21:00-23:00</button>
           </div>
-        )}
-        {props.combinedTables.late >= 15 && null}
+        ) : null}
       </div>
     </>
   );
