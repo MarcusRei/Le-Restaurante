@@ -24,7 +24,6 @@ export const BookingReducer = (
       };
 
     case actionType.DATEADDED:
-      console.log("payload: ", booking);
       return { ...booking, date: action.payload };
   }
 

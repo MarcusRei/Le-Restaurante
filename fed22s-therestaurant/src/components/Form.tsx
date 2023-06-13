@@ -2,7 +2,6 @@ import {
   ChangeEvent,
   FormEvent,
   useContext,
-  useEffect,
   useReducer,
   useState,
 } from "react";
@@ -18,6 +17,7 @@ import { Heading } from "./styled/HeadingStyles";
 import { Button } from "./styled/Buttons";
 import { BookingClass } from "../models/Booking";
 import {
+  FormVerticalWrapper,
   HorizontalWrapper,
   HorizontalWrapperGap,
   VerticalWrapper,
@@ -57,7 +57,6 @@ export const Form = (props: IFormProps) => {
     time: "",
   });
   const booking = useContext(NewBookingContext);
-  //const [bookings, dispatch] = useReducer(BookingsReducer, []);
 
   const handleSubmit = () => {
     //preventDefault redan gjort
@@ -163,12 +162,12 @@ export const Form = (props: IFormProps) => {
             </Button>
           </HorizontalWrapperGap>
           <HorizontalWrapper>
-            {/* {newBooking.date !== "" && (
-              <VerticalWrapper>
-                <DateTimeText>{newBooking.date}</DateTimeText>
-                <DateTimeText>{newBooking.time}</DateTimeText>
-              </VerticalWrapper>
-            )} */}
+            {booking.date !== "" && (
+              <FormVerticalWrapper>
+                <DateTimeText>{booking.date}</DateTimeText>
+                <DateTimeText>{booking.time}</DateTimeText>
+              </FormVerticalWrapper>
+            )}
           </HorizontalWrapper>
 
           <PolicyWrapper>

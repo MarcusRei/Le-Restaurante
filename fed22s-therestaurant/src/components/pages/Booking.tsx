@@ -55,7 +55,6 @@ export const Booking = () => {
 
   function updateActiveTables(value: number) {
     setActiveTables(value);
-    console.log("uppdaterar gästantal!");
   }
 
   return (

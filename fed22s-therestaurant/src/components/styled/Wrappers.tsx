@@ -99,3 +99,7 @@ export const OutletWrapper = styled.div`
     width: 50%;
   }
 `;
+
+export const FormVerticalWrapper = styled(VerticalWrapper)`
+  height: 100%;
+`;
