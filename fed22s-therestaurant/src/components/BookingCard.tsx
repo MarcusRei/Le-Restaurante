@@ -9,7 +9,6 @@ import {
 } from "./styled/Wrappers";
 import React, { useContext } from "react";
 import { Button } from "./styled/Button";
-import { AdminDispatchContext } from "../contexts/AdminDispatchContext";
 import { AdminContext } from "../contexts/AdminContext";
 import { ActionType } from "../reducers/AdminReducer";
 
@@ -38,13 +37,13 @@ export const BookingCard = ({ booking }: { booking: Booking }) => {
       <TimeSlotBlock>{booking.time}</TimeSlotBlock>
       <VerticalWrapper>
         <BookingHeading>{booking.name}</BookingHeading>
-        <ContactButton>Kontakta</ContactButton>
         <ThinText>{booking.guests}</ThinText>
       </VerticalWrapper>
       <VerticalWrapper>
         <ThinText>{booking.date}</ThinText>
         <ThinText>Bord 1</ThinText>
       </VerticalWrapper>
+      <ContactButton>Kontakta</ContactButton>
       <Button onClick={handleUpdateBooking}>Uppdatera</Button>
       <Button onClick={handleDeleteBooking}>Ta bort</Button>
     </HorizontalWrapper>

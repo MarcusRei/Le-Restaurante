@@ -9,10 +9,13 @@ export enum ActionType {
   UPDATE_BOOKING = "UPDATE_BOOKING",
   FILTER_BOOKINGS = "FILTER_BOOKINGS",
   DELETE_BOOKING = "DELETE_BOOKING",
+  ADDED_BOOKING = "ADDED_BOOKING",
 }
 export const AdminReducer = (state: Booking[], action: IAction) => {
   switch (action.type) {
     case ActionType.FILTER_BOOKINGS: {
+      console.log("Test");
+
       const filteredBookings = state.filter(
         (booking: Booking) => booking.date === action.payload
       );
@@ -20,7 +23,7 @@ export const AdminReducer = (state: Booking[], action: IAction) => {
     }
 
     case ActionType.UPDATE_BOOKING: {
-      const updatedBooking = JSON.parse(action.payload);
+      const updatedBooking: Booking = JSON.parse(action.payload);
       const updatedBookings = state.map((booking: Booking) =>
         booking._id === updatedBooking._id ? updatedBooking : booking
       );
@@ -33,6 +36,14 @@ export const AdminReducer = (state: Booking[], action: IAction) => {
         (booking: Booking) => booking._id !== deletedBookingId
       );
       return filteredBookings;
+    }
+
+    case ActionType.ADDED_BOOKING: {
+      console.log("ACTION PAYLOAD ÄR ==>", action.payload);
+      state = JSON.parse(action.payload);
+      console.log(action.payload);
+
+      return state;
     }
 
     default:
