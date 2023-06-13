@@ -19,6 +19,7 @@ interface IBookingsCalendarProps {
   closeCalendar: () => void;
   addDate: (Value: IBookingAction) => void;
   guestCount: number;
+  addTime: (Value: IBookingAction) => void;
 }
 
 export const BookingsCalendar = (props: IBookingsCalendarProps) => {
@@ -47,7 +48,6 @@ export const BookingsCalendar = (props: IBookingsCalendarProps) => {
 
   function updateDate(nextValue: Date) {
     setDate(nextValue);
-    console.log("nextValue", nextValue);
   }
 
   function checkDate(date: Date) {

@@ -7,8 +7,12 @@ const get = async (url: string) => {
   return await axios.get(url);
 };
 
-const post = async (url: string, booking: BookingClass) => {
+/* const post = async (url: string, booking: BookingClass) => {
   return await axios.post(url, booking);
+}; */
+
+const post = (url: string, booking: BookingClass) => {
+  return axios.post(url, booking);
 };
 
 const put = async (url: string, updatedInfo: {}) => {
@@ -41,7 +45,7 @@ export const getCustomers = async () => {
   }
 };
 
-export const postNewBooking = async (booking: BookingClass) => {
+/* export const postNewBooking = async (booking: BookingClass) => {
   try {
     const response = await post(
       "http://localhost:5001/api/v1/bookings",
@@ -50,6 +54,18 @@ export const postNewBooking = async (booking: BookingClass) => {
 
     console.log("Form sent!", booking);
     return response.data;
+  } catch {
+    throw new Error("Could not post booking to API");
+  }
+}; */
+
+// Utan async
+export const postNewBooking = (booking: BookingClass) => {
+  try {
+    const response = post("http://localhost:5001/api/v1/bookings", booking);
+
+    console.log("Form sent!", booking);
+    return;
   } catch {
     throw new Error("Could not post booking to API");
   }

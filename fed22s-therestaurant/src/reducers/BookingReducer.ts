@@ -1,6 +1,5 @@
 import { actionType } from "../enums/actionType";
 import { BookingClass } from "../models/Booking";
-import { postNewBooking } from "../services/dataService";
 
 export interface IBookingAction {
   type: string;
@@ -13,7 +12,6 @@ export const BookingReducer = (
 ) => {
   switch (action.type) {
     case actionType.TIMEADDED:
-      //booking.time = action.payload.time;
       return { ...booking, time: action.payload.time };
 
     case actionType.INFOADDED:

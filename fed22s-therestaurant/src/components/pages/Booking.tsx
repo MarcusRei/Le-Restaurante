@@ -71,6 +71,7 @@ export const Booking = () => {
               {calendarOpen && (
                 <BookingsCalendar
                   addDate={addDate}
+                  addTime={addTime}
                   closeCalendar={closeCalendar}
                   guestCount={guestCount}
                 ></BookingsCalendar>

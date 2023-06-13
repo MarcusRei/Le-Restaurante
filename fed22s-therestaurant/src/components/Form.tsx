@@ -59,10 +59,6 @@ export const Form = (props: IFormProps) => {
   const booking = useContext(NewBookingContext);
   //const [bookings, dispatch] = useReducer(BookingsReducer, []);
 
-  if (checks.confirm) {
-    sendBooking();
-  }
-
   /* if (newBooking.guests > 0) {
     props.updateGuestCount(newBooking.guests);
   } */
@@ -74,12 +70,12 @@ export const Form = (props: IFormProps) => {
     }
   }, [checks]); */
 
-  const handleSubmit = (/* e: FormEvent */) => {
-    /* e.preventDefault(); */
-
-    props.addTime({ type: actionType.INFOADDED, payload: newBooking });
+  const handleSubmit = () => {
+    //preventDefault redan gjort
 
     setChecks({ ...checks, confirm: true });
+
+    sendBooking();
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -94,6 +90,7 @@ export const Form = (props: IFormProps) => {
 
   const handleCheckbox = (e: ChangeEvent<HTMLInputElement>) => {
     setChecks({ ...checks, policyChecked: e.target.checked });
+    props.addTime({ type: actionType.INFOADDED, payload: newBooking });
   };
 
   const openCalendar = (e: FormEvent) => {
@@ -110,14 +107,14 @@ export const Form = (props: IFormProps) => {
   function sendBooking() {
     postNewBooking(booking);
     setChecks({ policyChecked: false, dateChosen: false, confirm: false });
-    setNewBooking({
+    /* setNewBooking({
       name: "",
       email: "",
       phonenumber: "",
       guests: 0,
       date: "",
       time: "",
-    });
+    }); */
   }
 
   return (
@@ -174,12 +171,12 @@ export const Form = (props: IFormProps) => {
             </Button>
           </HorizontalWrapperGap>
           <HorizontalWrapper>
-            {newBooking.date !== "" && (
+            {/* {newBooking.date !== "" && (
               <VerticalWrapper>
                 <DateTimeText>{newBooking.date}</DateTimeText>
                 <DateTimeText>{newBooking.time}</DateTimeText>
               </VerticalWrapper>
-            )}
+            )} */}
           </HorizontalWrapper>
 
           <PolicyWrapper>
