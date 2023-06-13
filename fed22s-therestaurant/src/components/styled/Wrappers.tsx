@@ -112,3 +112,11 @@ export const OutletWrapper = styled.div`
 export const FormVerticalWrapper = styled(VerticalWrapper)`
   height: 100%;
 `;
+
+export const BookingVerticalWrapper = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+`;

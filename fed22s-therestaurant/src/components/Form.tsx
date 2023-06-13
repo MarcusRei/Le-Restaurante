@@ -17,6 +17,7 @@ import { Heading } from "./styled/HeadingStyles";
 import { Button } from "./styled/Buttons";
 import { BookingClass } from "../models/Booking";
 import {
+  BookingVerticalWrapper,
   FormVerticalWrapper,
   HorizontalWrapper,
   HorizontalWrapperGap,
@@ -110,7 +111,7 @@ export const Form = (props: IFormProps) => {
 
   return (
     <>
-      <VerticalWrapper>
+      <BookingVerticalWrapper>
         <StyledForm onSubmit={stopSubmit}>
           <Heading>Boka bord</Heading>
           <FormLabel>
@@ -191,7 +192,7 @@ export const Form = (props: IFormProps) => {
           </Button>
         </StyledForm>
         {checks.confirm && <h2>Din bokning är registrerad!</h2>}
-      </VerticalWrapper>
+      </BookingVerticalWrapper>
     </>
   );
 };
