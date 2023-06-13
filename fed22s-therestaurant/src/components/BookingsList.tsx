@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { Booking } from "../models/Booking";
+import { BookingClass } from "../models/Booking";
 import { BookingCard } from "./BookingCard";
 import { TimeSwitcher } from "./TimeSwitcher";
 import { BookingsListWrapper } from "./styled/AdminWrappers";
@@ -14,7 +14,7 @@ export const BookingsList = () => {
     <BookingsListWrapper>
       <TimeSwitcher></TimeSwitcher>
       <BookingHeading>Bokningar</BookingHeading>
-      {bookings.map((booking: Booking) => (
+      {bookings.map((booking: BookingClass) => (
         <BookingCard key={booking._id} booking={booking} />
       ))}
     </BookingsListWrapper>

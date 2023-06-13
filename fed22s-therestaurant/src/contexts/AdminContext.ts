@@ -1,9 +1,9 @@
 import { createContext, Dispatch } from "react";
-import { Booking } from "../models/Booking";
+import { BookingClass } from "../models/Booking";
 import { IAction } from "../reducers/AdminReducer";
 
 export interface AdminContextType {
-  bookings: Booking[];
+  bookings: BookingClass[];
   dispatch: Dispatch<IAction>;
 }
 
