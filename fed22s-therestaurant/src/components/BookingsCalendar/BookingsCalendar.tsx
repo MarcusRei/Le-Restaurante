@@ -106,20 +106,18 @@ export const BookingsCalendar = (props: IBookingsCalendarProps) => {
     // Kolla om första sittningen har bord kvar
     if (bookedTables.early + props.activeTables >= 15) {
       earlyTables = false;
-      //setShowTimeslots({ ...showTimeslots, earlySlot: false });
+
       console.log("Det finns inte tillräckligt med bord på den tidiga!");
     } else {
-      //setShowTimeslots({ ...showTimeslots, earlySlot: true });
       console.log("det finns bord på den tidiga!");
     }
 
     // Kolla om andra sittningen har bord kvar
     if (bookedTables.late + props.activeTables >= 15) {
       lateTables = false;
-      //setShowTimeslots({ ...showTimeslots, lateSlot: false });
+
       console.log("Det finns inte tillräckligt med bord på den sena!");
     } else {
-      //setShowTimeslots({ ...showTimeslots, lateSlot: true });
       console.log("det finns bord på den sena!");
     }
 
@@ -155,7 +153,6 @@ export const BookingsCalendar = (props: IBookingsCalendarProps) => {
         <h2>Tillgängliga tider:</h2>
         <TimeSlots
           closeCalendar={closeCalendar}
-          showTimeSlots={showTimeslots}
           combinedTables={combinedTables}
         ></TimeSlots>
       </div>
