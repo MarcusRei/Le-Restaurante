@@ -5,7 +5,7 @@ import {
   HorizontalWrapper,
   Wrapper,
 } from "../styled/Wrappers";
-import { StyledMenuParagraph } from "../styled/styledMenuParagraph";
+import { StyledMenuParagraph } from "../styled/StyledMenuParagraph";
 
 export const Menu = () => {
   return (
