@@ -21,8 +21,6 @@ export const Contact = () => {
           <MailUsButton>
             <FontAwesomeIcon icon={faMailBulk} /> leRestaurante@hello.se
           </MailUsButton>
-        </ContactWrapper>
-        <ContactWrapper>
           <HeadingLineWrapper>
             <Heading>
               <HeadingLine></HeadingLine>

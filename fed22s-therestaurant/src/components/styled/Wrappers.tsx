@@ -84,7 +84,11 @@ export const CenterWrapper = styled.div`
 
 export const ContactWrapper = styled(CenterWrapper)`
   justify-content: flex-start;
-  padding-top: 1.5em;
+  padding-top: 7em;
+  padding-bottom: 2em;
+  @media (min-width: 844px) {
+    padding-top: 1.5em;
+  }
 `;
 
 export const OutletWrapper = styled.div`
@@ -95,6 +99,7 @@ export const OutletWrapper = styled.div`
   align-items: center;
   width: 100%;
   z-index: 100;
+  top: 0;
 
   @media (min-width: 844px) {
     position: relative;
