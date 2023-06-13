@@ -18,7 +18,7 @@ interface IShowTimeslots {
 interface IBookingsCalendarProps {
   closeCalendar: () => void;
   addDate: (Value: IBookingAction) => void;
-  guestCount: number;
+  activeTables: number;
   addTime: (Value: IBookingAction) => void;
 }
 
@@ -32,11 +32,6 @@ export const BookingsCalendar = (props: IBookingsCalendarProps) => {
     lateSlot: true,
   });
   const [bookedTables, setBookedTables] = useState({ early: 0, late: 0 });
-  //const [guestsPerTable, setGuestsPerTable] = useState(props.guestCount);
-
-  /* if (bookedTables.early > 0) {
-    checkAvailableTables();
-  } */
 
   let lateSlotTables = 0;
   let earlySlotTables = 0;
@@ -61,13 +56,14 @@ export const BookingsCalendar = (props: IBookingsCalendarProps) => {
   }
 
   function filterList(chosenDate: String) {
-    // Filtrera bokningar på samma dag
+    // Filtrerar en lista med bokningar på samma dag
     const filteredBookings = bookings.filter((booking) => {
       if (chosenDate === booking.date) {
         return booking;
       }
     });
 
+    // Om det inte finns några bokningar på den valda dagen
     if (filteredBookings.length === 0) {
       setBookedTables({ early: 0, late: 0 });
     }
@@ -75,12 +71,12 @@ export const BookingsCalendar = (props: IBookingsCalendarProps) => {
     // Kollar lediga bord på första sittningen
     filteredBookings.map((booking) => {
       if (booking.time === timeSlot.EARLY) {
-        earlySlotTables = earlySlotTables + Math.ceil(booking.guests / 6);
+        earlySlotTables += Math.ceil(booking.guests / 6);
       }
 
       // Kolla lediga bord på andra sittningen
       if (booking.time === timeSlot.LATE) {
-        lateSlotTables = lateSlotTables + Math.ceil(booking.guests / 6);
+        lateSlotTables += Math.ceil(booking.guests / 6);
       }
 
       setBookedTables({
@@ -92,20 +88,28 @@ export const BookingsCalendar = (props: IBookingsCalendarProps) => {
 
   function checkAvailableTables() {
     // Kolla om första sittningen har bord kvar
-    if (bookedTables.early + Math.ceil(props.guestCount / 6) >= 15) {
+    if (bookedTables.early + Math.ceil(props.activeTables / 6) >= 15) {
       setShowTimeslots({ ...showTimeslots, earlySlot: false });
+      console.log(
+        "bord: ",
+        bookedTables.early + Math.ceil(props.activeTables / 6)
+      );
     }
 
-    if (bookedTables.early + Math.ceil(props.guestCount / 6) < 15) {
+    if (bookedTables.early + Math.ceil(props.activeTables / 6) < 15) {
       setShowTimeslots({ ...showTimeslots, earlySlot: true });
     }
 
     // Kolla om andra sittningen har bord kvar
-    if (bookedTables.late + Math.ceil(props.guestCount / 6) >= 15) {
+    if (bookedTables.late + Math.ceil(props.activeTables / 6) >= 15) {
       setShowTimeslots({ ...showTimeslots, lateSlot: false });
+      console.log(
+        "bord: ",
+        bookedTables.late + Math.ceil(props.activeTables / 6)
+      );
     }
 
-    if (bookedTables.late + Math.ceil(props.guestCount / 6) < 15) {
+    if (bookedTables.late + Math.ceil(props.activeTables / 6) < 15) {
       setShowTimeslots({ ...showTimeslots, lateSlot: true });
     }
   }

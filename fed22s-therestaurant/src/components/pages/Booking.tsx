@@ -20,6 +20,8 @@ import { actionType } from "../../enums/actionType";
 export const Booking = () => {
   const [calendarOpen, setCalendarOpen] = useState(false);
   const [bookings, setBookings] = useState<BookingClass[]>([]);
+  const [activeTables, setActiveTables] = useState(0);
+
   const [booking, dispatch] = useReducer(BookingReducer, {
     name: "",
     email: "",
@@ -29,7 +31,7 @@ export const Booking = () => {
     time: "",
   });
 
-  const [guestCount, setGuestCount] = useState(0);
+  console.log("Antal bord sällskapet tar", activeTables);
 
   useEffect(() => {
     getBookings().then((bookings: BookingClass[]) => setBookings(bookings));
@@ -51,8 +53,9 @@ export const Booking = () => {
     dispatch(value);
   }
 
-  function updateGuestCount(value: number) {
-    setGuestCount(value);
+  function updateActiveTables(value: number) {
+    setActiveTables(value);
+    console.log("uppdaterar gästantal!");
   }
 
   return (
@@ -64,7 +67,7 @@ export const Booking = () => {
               addTime={addTime}
               closeCalendar={closeCalendar}
               openCalendar={openCalendar}
-              updateGuestCount={updateGuestCount}
+              updateActiveTables={updateActiveTables}
             ></Form>
 
             <BookingDispatchContext.Provider value={dispatch}>
@@ -73,7 +76,7 @@ export const Booking = () => {
                   addDate={addDate}
                   addTime={addTime}
                   closeCalendar={closeCalendar}
-                  guestCount={guestCount}
+                  activeTables={activeTables}
                 ></BookingsCalendar>
               )}
             </BookingDispatchContext.Provider>

@@ -39,7 +39,7 @@ interface IFormProps {
   openCalendar: () => void;
   closeCalendar: () => void;
   addTime: (Value: IBookingAction) => void;
-  updateGuestCount: (value: number) => void;
+  updateActiveTables: (value: number) => void;
 }
 
 export const Form = (props: IFormProps) => {
@@ -59,17 +59,6 @@ export const Form = (props: IFormProps) => {
   const booking = useContext(NewBookingContext);
   //const [bookings, dispatch] = useReducer(BookingsReducer, []);
 
-  /* if (newBooking.guests > 0) {
-    props.updateGuestCount(newBooking.guests);
-  } */
-
-  /* useEffect(() => {
-    if (checks.confirm) {
-      postNewBooking(booking);
-      //getBookings();
-    }
-  }, [checks]); */
-
   const handleSubmit = () => {
     //preventDefault redan gjort
 
@@ -85,6 +74,7 @@ export const Form = (props: IFormProps) => {
     }
     if (e.target.type === "number") {
       setNewBooking({ ...newBooking, [prop]: +e.target.value });
+      props.updateActiveTables(Math.ceil(+e.target.value / 6));
     }
   };
 
@@ -106,15 +96,17 @@ export const Form = (props: IFormProps) => {
 
   function sendBooking() {
     postNewBooking(booking);
+
     setChecks({ policyChecked: false, dateChosen: false, confirm: false });
-    /* setNewBooking({
+
+    setNewBooking({
       name: "",
       email: "",
       phonenumber: "",
       guests: 0,
       date: "",
       time: "",
-    }); */
+    });
   }
 
   return (
