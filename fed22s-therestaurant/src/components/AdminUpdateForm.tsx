@@ -1,5 +1,4 @@
-import { ChangeEvent, useContext, useState } from "react";
-import { BookingClass } from "../models/Booking";
+import { ChangeEvent, FormEvent, useContext, useEffect, useState } from "react";
 import { UpdateFormWrapper } from "./styled/AdminWrappers";
 import { Heading } from "./styled/HeadingStyles";
 import { NumberInput, TextInput } from "./styled/Inputs";
@@ -9,22 +8,36 @@ import {
   TinyText,
 } from "./styled/StyledForm";
 import { HorizontalWrapperGap } from "./styled/Wrappers";
-import { Button } from "./styled/Buttons";
+import { AdminButton } from "./styled/Buttons";
 import { CurrentBookingContext } from "../contexts/CurrentBookingContext";
+import { timeSlot } from "../enums/timeSlots";
+import {
+  BookingCustomerExt,
+  emptyBookingCustomerExt,
+} from "../models/BookingCustomerExt";
 
 export const AdminUpdateForm = () => {
-  const [updatedBooking, setUpdatedBooking] = useState<BookingClass>({
-    name: "",
-    email: "",
-    phonenumber: "",
-    guests: 0,
-    date: "",
-    time: "",
+  const currentBooking = useContext(CurrentBookingContext);
+  const [updatedBooking, setUpdatedBooking] = useState<BookingCustomerExt>({
+    ...emptyBookingCustomerExt,
+    guests: currentBooking.guests,
+  });
+  const [finishedBooking, setFinishedBooking] = useState<BookingCustomerExt>({
+    ...emptyBookingCustomerExt,
+    guests: currentBooking.guests,
   });
 
-  const currentBooking = useContext(CurrentBookingContext);
+  const oppositeTime = updatedBooking.time;
+
+  useEffect(() => {
+    console.log("Det här objektet skickas!", finishedBooking);
+  }, [finishedBooking]);
+
+  /* console.log("uppdaterad bokning: ", updatedBooking);
+  console.log("finished", finishedBooking); */
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
+    e.preventDefault();
     const prop = e.target.name;
     if (e.target.type === "text") {
       setUpdatedBooking({ ...updatedBooking, [prop]: e.target.value });
@@ -32,34 +45,54 @@ export const AdminUpdateForm = () => {
     if (e.target.type === "number") {
       setUpdatedBooking({ ...updatedBooking, [prop]: +e.target.value });
     }
-    console.log(updatedBooking);
+  }
+
+  function handleCustomerChange(e: ChangeEvent<HTMLInputElement>) {
+    const prop = e.target.name;
+    setUpdatedBooking({
+      ...updatedBooking,
+      customer: { ...updatedBooking.customer, [prop]: e.target.value },
+    });
   }
 
   function updateBooking() {
-    console.log(updatedBooking);
+    setFinishedBooking({
+      ...updatedBooking,
+      date: currentBooking.date,
+    });
+  }
+
+  function stopSubmit(e: FormEvent) {
+    e.preventDefault();
+
+    handleSubmit();
+  }
+
+  function handleSubmit() {
+    updateBooking();
   }
   return (
     <UpdateFormWrapper>
-      <StyledAdminUpdateForm>
+      <StyledAdminUpdateForm onSubmit={stopSubmit}>
         <Heading>Uppdatera bokning</Heading>
         <FormLabel>
           <TinyText>Nuvaranade namn: {currentBooking.customer.name}</TinyText>
           Namn:
           <TextInput
             type="text"
-            value={updatedBooking.name}
+            value={updatedBooking.customer.name}
             name="name"
-            onChange={handleChange}
+            onChange={handleCustomerChange}
           ></TextInput>
         </FormLabel>
         <FormLabel>
-          <TinyText>Nuvaranade email: {currentBooking.customer.email}</TinyText>
+          <TinyText>Nuvarande email: {currentBooking.customer.email}</TinyText>
           Email:
           <TextInput
             type="text"
-            value={updatedBooking.email}
+            value={updatedBooking.customer.email}
             name="email"
-            onChange={handleChange}
+            onChange={handleCustomerChange}
           />
         </FormLabel>
         <FormLabel>
@@ -69,16 +102,15 @@ export const AdminUpdateForm = () => {
           Telefonnummer:
           <TextInput
             type="text"
-            value={updatedBooking.phonenumber}
+            value={updatedBooking.customer.phonenumber}
             name="phonenumber"
-            onChange={handleChange}
-            required
+            onChange={handleCustomerChange}
           />
         </FormLabel>
 
         <HorizontalWrapperGap>
           <FormLabel>
-            <TinyText>Nuvarande sällskap "tillfälligt"</TinyText>
+            <TinyText>Nuvarande sällskap: {currentBooking.guests}st</TinyText>
             Antal i sällskap:
             <NumberInput
               type="number"
@@ -87,12 +119,26 @@ export const AdminUpdateForm = () => {
               value={updatedBooking.guests}
               name="guests"
               onChange={handleChange}
-              required
             />
           </FormLabel>
-          <Button>Byt sittning</Button>
+          <AdminButton
+            onClick={() =>
+              setUpdatedBooking({
+                ...updatedBooking,
+                time:
+                  updatedBooking.time === timeSlot.EARLY
+                    ? timeSlot.LATE
+                    : timeSlot.EARLY,
+              })
+            }
+          >
+            Byt till
+            {currentBooking.time === timeSlot.EARLY
+              ? timeSlot.LATE
+              : timeSlot.EARLY}
+          </AdminButton>
         </HorizontalWrapperGap>
-        <Button onClick={updateBooking}>Uppdatera bokning!</Button>
+        <AdminButton>Uppdatera bokning!</AdminButton>
       </StyledAdminUpdateForm>
     </UpdateFormWrapper>
   );

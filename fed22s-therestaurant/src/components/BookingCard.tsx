@@ -1,11 +1,11 @@
 import { BookingClass } from "../models/Booking";
 import { BookingHeading } from "./styled/BookingHeading";
-import { ContactButton } from "./styled/Button";
+import { AdminButton, ContactButton } from "./styled/Buttons";
 import { ThinText } from "./styled/ThinText";
 import { TimeSlotBlock } from "./styled/TimeSlotBlock";
 import { HorizontalWrapper, VerticalWrapper } from "./styled/Wrappers";
 import React, { useContext, useEffect, useState } from "react";
-import { Button } from "./styled/Button";
+import { Button } from "./styled/Buttons";
 import { AdminContext } from "../contexts/AdminContext";
 import { ActionType } from "../reducers/AdminReducer";
 import { BookingCustomerExt } from "../models/BookingCustomerExt";
@@ -58,8 +58,8 @@ export const BookingCard = (props: IBookingCardProps) => {
         <ThinText>Bord 1</ThinText>
       </VerticalWrapper>
       <ContactButton>Kontakta</ContactButton>
-      <Button onClick={updateBooking}>Uppdatera</Button>
-      <Button onClick={handleDeleteBooking}>Ta bort</Button>
+      <AdminButton onClick={updateBooking}>Uppdatera</AdminButton>
+      <AdminButton onClick={handleDeleteBooking}>Ta bort</AdminButton>
     </HorizontalWrapper>
   );
 };

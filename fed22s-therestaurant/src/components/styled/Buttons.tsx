@@ -12,6 +12,18 @@ export const Button = styled.button`
   }
 `;
 
+export const ContactButton = styled.button`
+  background-color: transparent;
+  border: 1px solid #424242;
+  border-radius: 10px;
+  padding: 0.2em 1em;
+
+  &:hover {
+    cursor: pointer;
+    background-color: #c3c3c3;
+  }
+`;
+
 export const CallUsButton = styled(Button)`
   border: 1px solid lightgray;
   background-color: white;
@@ -40,3 +52,5 @@ export const MailUsButton = styled(CallUsButton)`
   height: auto;
   margin-bottom: 3em;
 `;
+
+export const AdminButton = styled(ContactButton)``;

@@ -52,5 +52,5 @@ export const UpdateFormWrapper = styled.div`
   align-items: center;
   width: 100vw;
   height: 100%;
-  background-color: #ff0000a8;
+  background-color: #86868658;
 `;
