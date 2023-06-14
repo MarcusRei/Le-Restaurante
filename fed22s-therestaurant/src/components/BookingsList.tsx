@@ -7,25 +7,24 @@ import { BookingHeading } from "./styled/BookingHeading";
 import { AdminContext } from "../contexts/AdminContext";
 import { AdminUpdateForm } from "./AdminUpdateForm";
 import { CurrentBookingContext } from "../contexts/CurrentBookingContext";
+import {
+  BookingCustomerExt,
+  emptyBookingCustomerExt,
+} from "../models/BookingCustomerExt";
 
 export const BookingsList = () => {
   const { bookings } = useContext(AdminContext);
   /* console.log("bookings", bookings); */
   const [updateFormSwitch, setUpdateFormSwitch] = useState(false);
-  const [currentBooking, setChosenBooking] = useState<BookingClass>({
-    name: "",
-    email: "",
-    phonenumber: "",
-    guests: 0,
-    date: "",
-    time: "",
-  });
+  const [currentBooking, setChosenBooking] = useState<BookingCustomerExt>(
+    emptyBookingCustomerExt
+  );
 
   function openUpdateForm() {
     setUpdateFormSwitch(true);
   }
 
-  function updateChosenBooking(current: BookingClass) {
+  function updateChosenBooking(current: any) {
     console.log("current", current);
     setChosenBooking(current);
   }

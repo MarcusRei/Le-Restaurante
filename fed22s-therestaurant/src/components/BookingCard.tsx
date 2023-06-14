@@ -8,11 +8,12 @@ import React, { useContext, useEffect, useState } from "react";
 import { Button } from "./styled/Button";
 import { AdminContext } from "../contexts/AdminContext";
 import { ActionType } from "../reducers/AdminReducer";
+import { BookingCustomerExt } from "../models/BookingCustomerExt";
 
 interface IBookingCardProps {
   openUpdateForm: () => void;
   booking: BookingClass;
-  updateChosenBooking: (current: BookingClass) => void;
+  updateChosenBooking: (current: BookingCustomerExt | BookingClass) => void;
 }
 
 export const BookingCard = (props: IBookingCardProps) => {

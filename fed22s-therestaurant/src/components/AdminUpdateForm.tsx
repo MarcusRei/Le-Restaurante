@@ -23,7 +23,6 @@ export const AdminUpdateForm = () => {
   });
 
   const currentBooking = useContext(CurrentBookingContext);
-  console.log("Halloj", currentBooking);
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     const prop = e.target.name;
@@ -44,7 +43,7 @@ export const AdminUpdateForm = () => {
       <StyledAdminUpdateForm>
         <Heading>Uppdatera bokning</Heading>
         <FormLabel>
-          <TinyText>Nuvaranade namn: "Tillfälligt"</TinyText>
+          <TinyText>Nuvaranade namn: {currentBooking.customer.name}</TinyText>
           Namn:
           <TextInput
             type="text"
@@ -54,7 +53,7 @@ export const AdminUpdateForm = () => {
           ></TextInput>
         </FormLabel>
         <FormLabel>
-          <TinyText>Nuvaranade namn: "Tillfälligt"</TinyText>
+          <TinyText>Nuvaranade email: {currentBooking.customer.email}</TinyText>
           Email:
           <TextInput
             type="text"
@@ -64,7 +63,9 @@ export const AdminUpdateForm = () => {
           />
         </FormLabel>
         <FormLabel>
-          <TinyText>Nuvaranade nummer: "Tillfälligt"</TinyText>
+          <TinyText>
+            Nuvaranade nummer: {currentBooking.customer.phonenumber}
+          </TinyText>
           Telefonnummer:
           <TextInput
             type="text"
