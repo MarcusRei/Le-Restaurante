@@ -1,18 +1,15 @@
-import { Booking } from "../models/Booking";
+import { BookingClass } from "../models/Booking";
 import { BookingHeading } from "./styled/BookingHeading";
 import { ContactButton } from "./styled/Button";
 import { ThinText } from "./styled/ThinText";
 import { TimeSlotBlock } from "./styled/TimeSlotBlock";
-import {
-  HorizontalWrapper,
-  VerticalWrapper,
-} from "./styled/Wrappers";
+import { HorizontalWrapper, VerticalWrapper } from "./styled/Wrappers";
 import React, { useContext } from "react";
 import { Button } from "./styled/Button";
 import { AdminContext } from "../contexts/AdminContext";
 import { ActionType } from "../reducers/AdminReducer";
 
-export const BookingCard = ({ booking }: { booking: Booking }) => {
+export const BookingCard = ({ booking }: { booking: BookingClass }) => {
   const { dispatch } = useContext(AdminContext);
 
   const handleUpdateBooking = () => {
