@@ -107,6 +107,9 @@ export const updateBooking = async (bookingToUpdate: BookingCustomerExt) => {
     date: bookingToUpdate.date,
     time: bookingToUpdate.time,
   };
+
+  console.log(updateParams);
+
   try {
     const response = await put(
       `http://localhost:5001/api/v1/bookings/${bookingId}`,

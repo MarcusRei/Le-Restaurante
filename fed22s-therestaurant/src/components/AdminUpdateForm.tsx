@@ -25,14 +25,18 @@ interface IAdminUpdateFormProps {
 
 export const AdminUpdateForm = (props: IAdminUpdateFormProps) => {
   const currentBooking = useContext(CurrentBookingContext);
+
   const [updatedBooking, setUpdatedBooking] = useState<BookingCustomerExt>({
     ...emptyBookingCustomerExt,
     guests: currentBooking.guests,
   });
+
   const [finishedBooking, setFinishedBooking] = useState<BookingCustomerExt>({
     ...emptyBookingCustomerExt,
     guests: currentBooking.guests,
   });
+
+  console.log("objekt som vi skickar iväg:", finishedBooking);
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     e.preventDefault();
@@ -54,14 +58,30 @@ export const AdminUpdateForm = (props: IAdminUpdateFormProps) => {
   }
 
   function sendBooking() {
+    // Färdigställer objekt
     setFinishedBooking({
       ...updatedBooking,
       customer: {
         ...updatedBooking.customer,
         _id: currentBooking.customer._id,
+        name:
+          updatedBooking.customer.name === ""
+            ? currentBooking.customer.name
+            : updatedBooking.customer.name,
+        email:
+          updatedBooking.customer.email === ""
+            ? currentBooking.customer.email
+            : updatedBooking.customer.email,
+        phonenumber:
+          updatedBooking.customer.phonenumber === ""
+            ? currentBooking.customer.phonenumber
+            : updatedBooking.customer.phonenumber,
       },
       date: currentBooking.date,
+      _id: currentBooking._id,
     });
+
+    // PUT Request
 
     updateBooking(finishedBooking);
   }
@@ -76,7 +96,9 @@ export const AdminUpdateForm = (props: IAdminUpdateFormProps) => {
     sendBooking();
   }
 
-  function changeTime() {
+  function changeTime(e: FormEvent) {
+    e.preventDefault();
+
     if (updatedBooking.time === "") {
       if (currentBooking.time === timeSlot.EARLY) {
         setUpdatedBooking({ ...updatedBooking, time: timeSlot.LATE });
