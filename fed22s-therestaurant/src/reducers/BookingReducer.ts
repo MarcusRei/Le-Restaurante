@@ -1,5 +1,5 @@
 import { actionType } from "../enums/actionType";
-import { BookingClass } from "../models/Booking";
+import { BookingClass } from "../models/BookingClass";
 
 export interface IBookingAction {
   type: string;

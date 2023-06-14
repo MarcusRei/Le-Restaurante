@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Booking } from "../models/Booking";
+import { Booking } from "../models/BookingClass";
 import { useState } from "react";
 
 export const BookingConfirmation = () => {

@@ -1,4 +1,4 @@
-import { BookingClass } from "../models/Booking";
+import { BookingClass } from "../models/BookingClass";
 
 export interface IBookingsAction {
   type: string;

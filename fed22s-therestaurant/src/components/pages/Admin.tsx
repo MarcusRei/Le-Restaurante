@@ -9,16 +9,19 @@ import { BookingsList } from "../BookingsList";
 import { useContext, useEffect, useReducer, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { BookingClass } from "../../models/Booking";
+import { BookingClass } from "../../models/BookingClass";
 import { getBookings } from "../../services/dataService";
 import { AdminContext } from "../../contexts/AdminContext";
-import { ActionType, AdminReducer } from "../../reducers/AdminReducer";
+import {
+  ActionType,
+  AdminReducer,
+} from "../../reducers/AdminReducer";
 
 export const Admin = () => {
   const [bookings, dispatch] = useReducer(AdminReducer, []);
-
   const [selectedDate, setSelectedDate] = useState<string>("");
-  //const [state, dispatch] = useReducer(AdminReducer, bookings);
+  const [filteredBookings, setFilteredBookings] =
+    useState<BookingClass[]>(bookings);
 
   useEffect(() => {
     getBookings().then((bookings: BookingClass[]) => {
@@ -70,7 +73,10 @@ export const Admin = () => {
             <TableSet></TableSet>
             <TableSet></TableSet>
             <TableSet></TableSet>
-            <DatePicker selected={new Date()} onChange={handleDateChange} />
+            <DatePicker
+              selected={new Date()}
+              onChange={handleDateChange}
+            />
           </LowerTableWrapper>
         </TableviewWrapper>
         <BookingsList />

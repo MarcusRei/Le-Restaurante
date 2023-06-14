@@ -1,5 +1,5 @@
 import { createContext, Dispatch } from "react";
-import { BookingClass } from "../models/Booking";
+import { BookingClass } from "../models/BookingClass";
 import { IAction } from "../reducers/AdminReducer";
 
 export interface AdminContextType {

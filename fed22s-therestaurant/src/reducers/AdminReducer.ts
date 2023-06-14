@@ -1,4 +1,4 @@
-import { Booking } from "../models/Booking";
+import { BookingClass } from "../models/BookingClass";
 
 export interface IAction {
   type: ActionType;
@@ -11,20 +11,23 @@ export enum ActionType {
   DELETE_BOOKING = "DELETE_BOOKING",
   ADDED_BOOKING = "ADDED_BOOKING",
 }
-export const AdminReducer = (state: Booking[], action: IAction) => {
+export const AdminReducer = (
+  state: BookingClass[],
+  action: IAction
+) => {
   switch (action.type) {
     case ActionType.FILTER_BOOKINGS: {
-      console.log("Test");
+      console.log("HÄR FILTRERAS LISTAN !!");
 
       const filteredBookings = state.filter(
-        (booking: Booking) => booking.date === action.payload
+        (booking: BookingClass) => booking.date === action.payload
       );
-      return filteredBookings;
+      return [...filteredBookings];
     }
 
     case ActionType.UPDATE_BOOKING: {
-      const updatedBooking: Booking = JSON.parse(action.payload);
-      const updatedBookings = state.map((booking: Booking) =>
+      const updatedBooking: BookingClass = JSON.parse(action.payload);
+      const updatedBookings = state.map((booking: BookingClass) =>
         booking._id === updatedBooking._id ? updatedBooking : booking
       );
       return updatedBookings;
@@ -33,7 +36,7 @@ export const AdminReducer = (state: Booking[], action: IAction) => {
     case ActionType.DELETE_BOOKING: {
       const deletedBookingId = action.payload;
       const filteredBookings = state.filter(
-        (booking: Booking) => booking._id !== deletedBookingId
+        (booking: BookingClass) => booking._id !== deletedBookingId
       );
       return filteredBookings;
     }

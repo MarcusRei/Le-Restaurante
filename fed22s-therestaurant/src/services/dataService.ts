@@ -1,5 +1,5 @@
 import axios from "axios";
-import { BookingClass } from "../models/Booking";
+import { BookingClass } from "../models/BookingClass";
 import { IUpdatedInfo } from "../models/IUpdatedInfo";
 
 // General Requests Function
@@ -27,7 +27,9 @@ const generalDelete = async (url: string) => {
 
 export const getBookings = async () => {
   try {
-    const response = await get("http://localhost:5001/api/v1/bookings");
+    const response = await get(
+      "http://localhost:5001/api/v1/bookings"
+    );
 
     return response.data;
   } catch {
@@ -37,7 +39,9 @@ export const getBookings = async () => {
 
 export const getCustomers = async () => {
   try {
-    const response = await get("http://localhost:5001/api/v1/customers");
+    const response = await get(
+      "http://localhost:5001/api/v1/customers"
+    );
 
     return response.data;
   } catch {
@@ -62,7 +66,10 @@ export const getCustomers = async () => {
 // Utan async
 export const postNewBooking = (booking: BookingClass) => {
   try {
-    const response = post("http://localhost:5001/api/v1/bookings", booking);
+    const response = post(
+      "http://localhost:5001/api/v1/bookings",
+      booking
+    );
 
     console.log("Form sent!", booking);
     return;

@@ -3,7 +3,7 @@ import "./BookingsCalendar.css";
 import { useContext, useState } from "react";
 import { TimeSlots } from "../TimeSlots";
 import { BookingsContext } from "../../contexts/BookingsContext";
-import { BookingClass } from "../../models/Booking";
+import { BookingClass } from "../../models/BookingClass";
 import { timeSlot } from "../../enums/timeSlots";
 import { NewBookingContext } from "../../contexts/NewBookingContext";
 import { IBookingAction } from "../../reducers/BookingReducer";
@@ -36,7 +36,10 @@ export const BookingsCalendar = (props: IBookingsCalendarProps) => {
     earlySlot: true,
     lateSlot: true,
   });
-  const [bookedTables, setBookedTables] = useState({ early: 0, late: 0 });
+  const [bookedTables, setBookedTables] = useState({
+    early: 0,
+    late: 0,
+  });
 
   let lateSlotTables = 0;
   let earlySlotTables = 0;
@@ -59,11 +62,16 @@ export const BookingsCalendar = (props: IBookingsCalendarProps) => {
   }
 
   function checkDate(date: Date) {
-    const chosenDate = DateTime.fromJSDate(date).toString().split("T")[0];
+    const chosenDate = DateTime.fromJSDate(date)
+      .toString()
+      .split("T")[0];
     console.log("chosenDate", chosenDate);
 
     // Lägger till datumet i vårt bokningsobjekt
-    props.addDate({ type: actionType.DATEADDED, payload: chosenDate });
+    props.addDate({
+      type: actionType.DATEADDED,
+      payload: chosenDate,
+    });
 
     filterList(chosenDate);
   }
@@ -107,7 +115,9 @@ export const BookingsCalendar = (props: IBookingsCalendarProps) => {
     if (bookedTables.early + props.activeTables >= 15) {
       earlyTables = false;
 
-      console.log("Det finns inte tillräckligt med bord på den tidiga!");
+      console.log(
+        "Det finns inte tillräckligt med bord på den tidiga!"
+      );
     } else {
       console.log("det finns bord på den tidiga!");
     }
@@ -116,12 +126,17 @@ export const BookingsCalendar = (props: IBookingsCalendarProps) => {
     if (bookedTables.late + props.activeTables >= 15) {
       lateTables = false;
 
-      console.log("Det finns inte tillräckligt med bord på den sena!");
+      console.log(
+        "Det finns inte tillräckligt med bord på den sena!"
+      );
     } else {
       console.log("det finns bord på den sena!");
     }
 
-    setShowTimeslots({ earlySlot: earlyTables, lateSlot: lateTables });
+    setShowTimeslots({
+      earlySlot: earlyTables,
+      lateSlot: lateTables,
+    });
   }
 
   function closeCalendar() {
@@ -147,14 +162,12 @@ export const BookingsCalendar = (props: IBookingsCalendarProps) => {
           //@ts-ignore
           onChange={updateDate}
           onClickDay={checkDate}
-          minDate={new Date()}
-        ></Calendar>
+          minDate={new Date()}></Calendar>
         <div>Valt datum: {date.toISOString().split("T")[0]}</div>
         <h2>Tillgängliga tider:</h2>
         <TimeSlots
           closeCalendar={closeCalendar}
-          combinedTables={combinedTables}
-        ></TimeSlots>
+          combinedTables={combinedTables}></TimeSlots>
       </div>
     </>
   );
