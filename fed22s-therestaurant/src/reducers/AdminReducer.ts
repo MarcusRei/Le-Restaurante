@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Booking } from "../models/Booking";
 
 export interface IAction {
@@ -24,8 +25,9 @@ export const AdminReducer = (state: Booking[], action: IAction) => {
 
     case ActionType.UPDATE_BOOKING: {
       const updatedBooking: Booking = JSON.parse(action.payload);
-      const updatedBookings = state.map((booking: Booking) =>
-        booking._id === updatedBooking._id ? updatedBooking : booking
+      const updatedBookings = state.map(
+        (booking: Booking) => booking._id === updatedBooking._id
+        //? updatedBooking : booking
       );
       return updatedBookings;
     }
@@ -35,7 +37,7 @@ export const AdminReducer = (state: Booking[], action: IAction) => {
       const filteredBookings = state.filter(
         (booking: Booking) => booking._id !== deletedBookingId
       );
-      return filteredBookings;
+      return [...filteredBookings];
     }
 
     case ActionType.ADDED_BOOKING: {
