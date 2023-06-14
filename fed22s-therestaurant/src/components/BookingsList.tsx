@@ -1,4 +1,10 @@
 import { useContext, useState } from "react";
+
+export interface IFormHandling {
+  openForm: () => void;
+  closeForm: () => void;
+}
+
 import { BookingClass } from "../models/Booking";
 import { BookingCard } from "./BookingCard";
 import { TimeSwitcher } from "./TimeSwitcher";
@@ -19,7 +25,11 @@ export const BookingsList = () => {
   const [currentBooking, setChosenBooking] = useState<BookingCustomerExt>(
     emptyBookingCustomerExt
   );
-  console.log("current", currentBooking);
+
+  /* const [formHandling, setFormHandling] = useState<IFormHandling>({
+    openForm: ()=> void,
+    closeForm: () => void
+  }) */
 
   function openUpdateForm() {
     setUpdateFormSwitch(true);

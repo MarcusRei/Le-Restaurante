@@ -54,3 +54,21 @@ export const MailUsButton = styled(CallUsButton)`
 `;
 
 export const AdminButton = styled(ContactButton)``;
+
+export const CloseButton = styled.button`
+  position: absolute;
+  background-color: #29292996;
+  width: 50px;
+  height: 50px;
+  right: 50px;
+  top: 50px;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+
+  &:hover {
+    background-color: #6f6f6f95;
+  }
+`;

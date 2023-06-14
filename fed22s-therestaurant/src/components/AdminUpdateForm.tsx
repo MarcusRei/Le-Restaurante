@@ -8,7 +8,7 @@ import {
   TinyText,
 } from "./styled/StyledForm";
 import { HorizontalWrapperGap } from "./styled/Wrappers";
-import { AdminButton } from "./styled/Buttons";
+import { AdminButton, CloseButton } from "./styled/Buttons";
 import { CurrentBookingContext } from "../contexts/CurrentBookingContext";
 import { timeSlot } from "../enums/timeSlots";
 import {
@@ -17,6 +17,7 @@ import {
 } from "../models/BookingCustomerExt";
 import { updateBooking } from "../services/dataService";
 import { BookingClass } from "../models/Booking";
+import { CrossBarOne, CrossBarTwo } from "./styled/ExitCross";
 
 export const AdminUpdateForm = () => {
   const currentBooking = useContext(CurrentBookingContext);
@@ -28,10 +29,6 @@ export const AdminUpdateForm = () => {
     ...emptyBookingCustomerExt,
     guests: currentBooking.guests,
   });
-
-  /* useEffect(() => {
-    updateBooking(finishedBooking);
-  }, [finishedBooking]); */
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     e.preventDefault();
@@ -93,6 +90,10 @@ export const AdminUpdateForm = () => {
   }
   return (
     <UpdateFormWrapper>
+      <CloseButton>
+        <CrossBarOne></CrossBarOne>
+        <CrossBarTwo></CrossBarTwo>
+      </CloseButton>
       <StyledAdminUpdateForm onSubmit={stopSubmit}>
         <Heading>Uppdatera bokning</Heading>
         <FormLabel>
