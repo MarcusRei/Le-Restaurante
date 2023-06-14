@@ -11,7 +11,7 @@ import { ActionType } from "../reducers/AdminReducer";
 import { BookingCustomerExt } from "../models/BookingCustomerExt";
 
 interface IBookingCardProps {
-  openUpdateForm: () => void;
+  handleUpdateForm: () => void;
   booking: BookingClass;
   updateChosenBooking: (current: BookingCustomerExt | BookingClass) => void;
 }
@@ -26,7 +26,7 @@ export const BookingCard = (props: IBookingCardProps) => {
     props.updateChosenBooking(props.booking);
     const chosenBooking = { ...props.booking };
 
-    props.openUpdateForm();
+    props.handleUpdateForm();
 
     setBookingToUpdate(chosenBooking);
 

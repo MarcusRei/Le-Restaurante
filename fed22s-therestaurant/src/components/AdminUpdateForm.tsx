@@ -19,7 +19,11 @@ import { updateBooking } from "../services/dataService";
 import { BookingClass } from "../models/Booking";
 import { CrossBarOne, CrossBarTwo } from "./styled/ExitCross";
 
-export const AdminUpdateForm = () => {
+interface IAdminUpdateFormProps {
+  handleUpdateForm: () => void;
+}
+
+export const AdminUpdateForm = (props: IAdminUpdateFormProps) => {
   const currentBooking = useContext(CurrentBookingContext);
   const [updatedBooking, setUpdatedBooking] = useState<BookingCustomerExt>({
     ...emptyBookingCustomerExt,
@@ -90,7 +94,7 @@ export const AdminUpdateForm = () => {
   }
   return (
     <UpdateFormWrapper>
-      <CloseButton>
+      <CloseButton onClick={props.handleUpdateForm}>
         <CrossBarOne></CrossBarOne>
         <CrossBarTwo></CrossBarTwo>
       </CloseButton>

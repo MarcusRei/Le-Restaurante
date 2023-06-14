@@ -31,8 +31,8 @@ export const BookingsList = () => {
     closeForm: () => void
   }) */
 
-  function openUpdateForm() {
-    setUpdateFormSwitch(true);
+  function handleUpdateForm() {
+    setUpdateFormSwitch(!updateFormSwitch);
   }
 
   function updateChosenBooking(current: any) {
@@ -47,13 +47,17 @@ export const BookingsList = () => {
       <CurrentBookingContext.Provider value={currentBooking}>
         {bookings.map((booking: BookingClass) => (
           <BookingCard
-            openUpdateForm={openUpdateForm}
+            handleUpdateForm={handleUpdateForm}
             key={booking._id}
             booking={booking}
             updateChosenBooking={updateChosenBooking}
           />
         ))}
-        {updateFormSwitch && <AdminUpdateForm></AdminUpdateForm>}
+        {updateFormSwitch && (
+          <AdminUpdateForm
+            handleUpdateForm={handleUpdateForm}
+          ></AdminUpdateForm>
+        )}
       </CurrentBookingContext.Provider>
     </BookingsListWrapper>
   );
