@@ -52,7 +52,6 @@ export const Admin = () => {
       <AdminWrapper>
         <TableviewWrapper>
           <UpperTableWrapper>
-            {bookings.length}
             <TableSet></TableSet>
             <TableSet></TableSet>
             <TableSet></TableSet>

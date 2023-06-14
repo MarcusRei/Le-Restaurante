@@ -4,44 +4,60 @@ import { ContactButton } from "./styled/Button";
 import { ThinText } from "./styled/ThinText";
 import { TimeSlotBlock } from "./styled/TimeSlotBlock";
 import { HorizontalWrapper, VerticalWrapper } from "./styled/Wrappers";
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Button } from "./styled/Button";
 import { AdminContext } from "../contexts/AdminContext";
 import { ActionType } from "../reducers/AdminReducer";
 
-export const BookingCard = ({ booking }: { booking: BookingClass }) => {
-  const { dispatch } = useContext(AdminContext);
+interface IBookingCardProps {
+  openUpdateForm: () => void;
+  booking: BookingClass;
+  updateChosenBooking: (current: BookingClass) => void;
+}
 
-  const handleUpdateBooking = () => {
-    // Uppdatera
-    const updatedBooking = { ...booking };
-    dispatch({
+export const BookingCard = (props: IBookingCardProps) => {
+  const { dispatch } = useContext(AdminContext);
+  const [bookingToUpdate, setBookingToUpdate] = useState({});
+
+  //useEffect(() => {}, [bookingToUpdate]);
+
+  const updateBooking = () => {
+    props.updateChosenBooking(props.booking);
+    const chosenBooking = { ...props.booking };
+
+    props.openUpdateForm();
+
+    setBookingToUpdate(chosenBooking);
+
+    console.log("chosenBooking", chosenBooking._id);
+
+    /* dispatch({
       type: ActionType.UPDATE_BOOKING,
-      payload: JSON.stringify(updatedBooking),
-    });
+      payload: JSON.stringify(chosenBooking),
+    }); */
   };
 
   const handleDeleteBooking = () => {
     // Ta bort
     dispatch({
       type: ActionType.DELETE_BOOKING,
-      payload: booking._id ? booking._id.toString() : "",
+      payload: props.booking._id ? props.booking._id.toString() : "",
     });
   };
 
   return (
     <HorizontalWrapper>
-      <TimeSlotBlock>{booking.time}</TimeSlotBlock>
+      <TimeSlotBlock>{props.booking.time}</TimeSlotBlock>
       <VerticalWrapper>
-        <BookingHeading>{booking.name}</BookingHeading>
-        <ThinText>{booking.guests}</ThinText>
+        <BookingHeading>{props.booking.name}</BookingHeading>
+        <ThinText>{props.booking.guests}</ThinText>
       </VerticalWrapper>
       <VerticalWrapper>
-        <ThinText>{booking.date}</ThinText>
+        <ThinText>{props.booking.date}</ThinText>
         <ThinText>Bord 1</ThinText>
       </VerticalWrapper>
       <ContactButton>Kontakta</ContactButton>
-      <Button onClick={handleUpdateBooking}>Uppdatera</Button>
+      <Button onClick={updateBooking}>Uppdatera</Button>
       <Button onClick={handleDeleteBooking}>Ta bort</Button>
     </HorizontalWrapper>
   );

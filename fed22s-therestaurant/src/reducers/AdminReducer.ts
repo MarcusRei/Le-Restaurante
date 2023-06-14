@@ -39,9 +39,9 @@ export const AdminReducer = (state: BookingClass[], action: IAction) => {
     }
 
     case ActionType.ADDED_BOOKING: {
-      console.log("ACTION PAYLOAD ÄR ==>", action.payload);
+      //console.log("ACTION PAYLOAD ÄR ==>", action.payload);
       state = JSON.parse(action.payload);
-      console.log(action.payload);
+      //console.log(action.payload);
 
       return state;
     }

@@ -43,3 +43,14 @@ export const TableWrapper = styled.div`
 export const BookingsListWrapper = styled(TableviewWrapper)`
   width: 30vw;
 `;
+
+export const UpdateFormWrapper = styled.div`
+  position: fixed;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100%;
+  background-color: #ff0000a8;
+`;
