@@ -2,11 +2,13 @@ import styled from "styled-components";
 
 interface ITimeSwitchProps {
   switcher: boolean;
+  onClick: () => void;
 }
 
 export const TimeSwitchWrapper = styled.div`
   display: flex;
   position: relative;
+  top: 10px;
   justify-content: center;
   align-items: center;
   background-color: #424242;
@@ -25,9 +27,18 @@ export const TimeSwitchSlider = styled.button`
   border-radius: 5px;
   height: 80%;
   width: 50%;
+  font-size: 14px;
   left: ${(props: ITimeSwitchProps) => (props.switcher ? "-75px" : "75px")};
 
   &:hover {
     cursor: pointer;
   }
+`;
+
+export const BackgroundTextSlider = styled.p`
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  position: absolute;
+  left: ${(props: ITimeSwitchProps) => (props.switcher ? "220px" : "50px")};
 `;
