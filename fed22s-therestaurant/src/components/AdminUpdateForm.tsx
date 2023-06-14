@@ -79,10 +79,19 @@ export const AdminUpdateForm = () => {
   }
 
   function changeTime() {
-    if (currentBooking.time === timeSlot.EARLY) {
-      setUpdatedBooking({ ...updatedBooking, time: timeSlot.LATE });
+    if (updatedBooking.time === "") {
+      if (currentBooking.time === timeSlot.EARLY) {
+        setUpdatedBooking({ ...updatedBooking, time: timeSlot.LATE });
+      } else {
+        setUpdatedBooking({ ...updatedBooking, time: timeSlot.EARLY });
+      }
     } else {
-      setUpdatedBooking({ ...updatedBooking, time: timeSlot.EARLY });
+      if (updatedBooking.time === timeSlot.EARLY) {
+        setUpdatedBooking({ ...updatedBooking, time: timeSlot.LATE });
+      }
+      if (updatedBooking.time === timeSlot.LATE) {
+        setUpdatedBooking({ ...updatedBooking, time: timeSlot.EARLY });
+      }
     }
   }
   return (
@@ -136,7 +145,12 @@ export const AdminUpdateForm = () => {
             />
           </FormLabel>
           <FormLabel>
-            <TinyText>Nuvarande sittning: {currentBooking.time}</TinyText>
+            <TinyText>
+              Nuvarande sittning:{" "}
+              {updatedBooking.time === ""
+                ? currentBooking.time
+                : updatedBooking.time}
+            </TinyText>
             <AdminButton onClick={changeTime}>Byt tid</AdminButton>
           </FormLabel>
         </HorizontalWrapperGap>
