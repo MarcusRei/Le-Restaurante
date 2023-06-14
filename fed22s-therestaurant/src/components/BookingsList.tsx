@@ -19,6 +19,7 @@ export const BookingsList = () => {
   const [currentBooking, setChosenBooking] = useState<BookingCustomerExt>(
     emptyBookingCustomerExt
   );
+  console.log("current", currentBooking);
 
   function openUpdateForm() {
     setUpdateFormSwitch(true);

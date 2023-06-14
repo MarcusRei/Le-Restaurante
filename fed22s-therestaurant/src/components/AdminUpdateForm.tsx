@@ -15,6 +15,8 @@ import {
   BookingCustomerExt,
   emptyBookingCustomerExt,
 } from "../models/BookingCustomerExt";
+import { updateBooking } from "../services/dataService";
+import { BookingClass } from "../models/Booking";
 
 export const AdminUpdateForm = () => {
   const currentBooking = useContext(CurrentBookingContext);
@@ -27,16 +29,9 @@ export const AdminUpdateForm = () => {
     guests: currentBooking.guests,
   });
 
-  console.log("Current", currentBooking);
-
-  const oppositeTime = updatedBooking.time;
-
-  useEffect(() => {
-    console.log("Det här objektet skickas!", finishedBooking);
-  }, [finishedBooking]);
-
-  /* console.log("uppdaterad bokning: ", updatedBooking);
-  console.log("finished", finishedBooking); */
+  /* useEffect(() => {
+    updateBooking(finishedBooking);
+  }, [finishedBooking]); */
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     e.preventDefault();
@@ -57,7 +52,7 @@ export const AdminUpdateForm = () => {
     });
   }
 
-  function updateBooking() {
+  function sendBooking() {
     setFinishedBooking({
       ...updatedBooking,
       customer: {
@@ -66,6 +61,8 @@ export const AdminUpdateForm = () => {
       },
       date: currentBooking.date,
     });
+
+    updateBooking(finishedBooking);
   }
 
   function stopSubmit(e: FormEvent) {
@@ -75,7 +72,7 @@ export const AdminUpdateForm = () => {
   }
 
   function handleSubmit() {
-    updateBooking();
+    sendBooking();
   }
 
   function changeTime() {

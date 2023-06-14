@@ -1,5 +1,6 @@
 export class BookingCustomerExt {
   constructor(
+    public _id: string,
     public date: string,
     public time: string,
     public guests: number,
@@ -13,6 +14,7 @@ export class BookingCustomerExt {
 }
 
 export const emptyBookingCustomerExt = {
+  _id: "",
   date: "",
   time: "",
   guests: 0,
