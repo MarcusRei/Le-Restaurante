@@ -9,7 +9,6 @@ import { Button } from "./styled/Button";
 import { AdminContext } from "../contexts/AdminContext";
 import { ActionType } from "../reducers/AdminReducer";
 import { deleteBooking } from "../services/dataService";
-import { id } from "date-fns/locale";
 
 export const BookingCard = ({ booking }: { booking: Booking }) => {
   const { bookings, dispatch } = useContext(AdminContext);
@@ -33,15 +32,6 @@ export const BookingCard = ({ booking }: { booking: Booking }) => {
     } catch (error) {
       console.error("Could not delete the booking");
     }
-    // Ta bort
-    // bookings.map((booking) => {
-    //   if (id === booking._id) console.log(id);
-    // });
-    // dispatch({
-    //   type: ActionType.DELETE_BOOKING,
-    //   payload: booking._id ? booking._id.toString() : "",
-    // });
-    // console.log(bookings);
   };
 
   return (

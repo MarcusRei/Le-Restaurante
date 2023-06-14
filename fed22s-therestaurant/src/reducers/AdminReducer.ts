@@ -37,7 +37,7 @@ export const AdminReducer = (state: Booking[], action: IAction) => {
       const filteredBookings = state.filter(
         (booking: Booking) => booking._id !== deletedBookingId
       );
-      return [...filteredBookings];
+      return filteredBookings;
     }
 
     case ActionType.ADDED_BOOKING: {
