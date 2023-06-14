@@ -16,7 +16,7 @@ const populateDbWithMockData = async (MONGO_CONNECTION_STRING) => {
 
     await Booking.deleteMany();
     await Customer.create(mockCustomers);
-    await Booking.create(mockBookingsWithString);
+    await Booking.create(mockBookings);
 
     console.log("Database successfully populated with mockdata");
   } catch (error) {

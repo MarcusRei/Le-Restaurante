@@ -17,7 +17,7 @@ exports.mockBookings = [
     guests: 8,
     customer: "647750c6c00de3f00e764373",
   },
-  {
+  /* {
     date: new Date().setDate(9),
     time: "21.00-23.00",
     guests: 11,
@@ -60,7 +60,7 @@ exports.mockBookings = [
       email: "jocke@gmail.com",
       phonenumber: "+46735456064",
     },
-  },
+  }, */
 ];
 
 exports.mockBookingsWithString = [
