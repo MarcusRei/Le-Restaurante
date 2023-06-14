@@ -11,8 +11,8 @@ export const TimeSwitcher = () => {
 
   console.log(switcher);
   return (
-    <TimeSwitchWrapper>
-      <TimeSwitchSlider switcher={switcher} onClick={handleSwitch}>
+    <TimeSwitchWrapper onClick={handleSwitch}>
+      <TimeSwitchSlider switcher={switcher}>
         {" "}
         {switcher ? <p>18:00</p> : <p>21:00</p>}
       </TimeSwitchSlider>
