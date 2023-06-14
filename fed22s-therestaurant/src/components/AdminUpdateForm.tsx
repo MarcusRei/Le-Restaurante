@@ -36,6 +36,12 @@ export const AdminUpdateForm = (props: IAdminUpdateFormProps) => {
     guests: currentBooking.guests,
   });
 
+  useEffect(() => {
+    if (finishedBooking.customer.name !== "") {
+      updateBooking(finishedBooking);
+    }
+  });
+
   console.log("objekt som vi skickar iväg:", finishedBooking);
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
@@ -83,7 +89,7 @@ export const AdminUpdateForm = (props: IAdminUpdateFormProps) => {
 
     // PUT Request
 
-    updateBooking(finishedBooking);
+    //updateBooking(finishedBooking);
   }
 
   function stopSubmit(e: FormEvent) {

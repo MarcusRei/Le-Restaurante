@@ -108,7 +108,7 @@ export const updateBooking = async (bookingToUpdate: BookingCustomerExt) => {
     time: bookingToUpdate.time,
   };
 
-  console.log(updateParams);
+  console.log("updateParams", updateParams);
 
   try {
     const response = await put(
