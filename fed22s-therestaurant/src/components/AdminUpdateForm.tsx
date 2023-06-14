@@ -27,6 +27,8 @@ export const AdminUpdateForm = () => {
     guests: currentBooking.guests,
   });
 
+  console.log("Current", currentBooking);
+
   const oppositeTime = updatedBooking.time;
 
   useEffect(() => {
@@ -58,6 +60,10 @@ export const AdminUpdateForm = () => {
   function updateBooking() {
     setFinishedBooking({
       ...updatedBooking,
+      customer: {
+        ...updatedBooking.customer,
+        _id: currentBooking.customer._id,
+      },
       date: currentBooking.date,
     });
   }
@@ -70,6 +76,14 @@ export const AdminUpdateForm = () => {
 
   function handleSubmit() {
     updateBooking();
+  }
+
+  function changeTime() {
+    if (currentBooking.time === timeSlot.EARLY) {
+      setUpdatedBooking({ ...updatedBooking, time: timeSlot.LATE });
+    } else {
+      setUpdatedBooking({ ...updatedBooking, time: timeSlot.EARLY });
+    }
   }
   return (
     <UpdateFormWrapper>
@@ -121,22 +135,10 @@ export const AdminUpdateForm = () => {
               onChange={handleChange}
             />
           </FormLabel>
-          <AdminButton
-            onClick={() =>
-              setUpdatedBooking({
-                ...updatedBooking,
-                time:
-                  updatedBooking.time === timeSlot.EARLY
-                    ? timeSlot.LATE
-                    : timeSlot.EARLY,
-              })
-            }
-          >
-            Byt till
-            {currentBooking.time === timeSlot.EARLY
-              ? timeSlot.LATE
-              : timeSlot.EARLY}
-          </AdminButton>
+          <FormLabel>
+            <TinyText>Nuvarande sittning: {currentBooking.time}</TinyText>
+            <AdminButton onClick={changeTime}>Byt tid</AdminButton>
+          </FormLabel>
         </HorizontalWrapperGap>
         <AdminButton>Uppdatera bokning!</AdminButton>
       </StyledAdminUpdateForm>

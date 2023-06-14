@@ -14,8 +14,6 @@ export enum ActionType {
 export const AdminReducer = (state: BookingClass[], action: IAction) => {
   switch (action.type) {
     case ActionType.FILTER_BOOKINGS: {
-      console.log("Test");
-
       const filteredBookings = state.filter(
         (booking: BookingClass) => booking.date === action.payload
       );
