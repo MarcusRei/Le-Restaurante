@@ -3,17 +3,15 @@ import { BookingHeading } from "./styled/BookingHeading";
 import { ContactButton } from "./styled/Button";
 import { ThinText } from "./styled/ThinText";
 import { TimeSlotBlock } from "./styled/TimeSlotBlock";
-import {
-  HorizontalWrapper,
-  VerticalWrapper,
-} from "./styled/Wrappers";
+import { HorizontalWrapper, VerticalWrapper } from "./styled/Wrappers";
 import React, { useContext } from "react";
 import { Button } from "./styled/Button";
 import { AdminContext } from "../contexts/AdminContext";
 import { ActionType } from "../reducers/AdminReducer";
+import { deleteBooking } from "../services/dataService";
 
 export const BookingCard = ({ booking }: { booking: Booking }) => {
-  const { dispatch } = useContext(AdminContext);
+  const { bookings, dispatch } = useContext(AdminContext);
 
   const handleUpdateBooking = () => {
     // Uppdatera
@@ -24,12 +22,16 @@ export const BookingCard = ({ booking }: { booking: Booking }) => {
     });
   };
 
-  const handleDeleteBooking = () => {
-    // Ta bort
-    dispatch({
-      type: ActionType.DELETE_BOOKING,
-      payload: booking._id ? booking._id.toString() : "",
-    });
+  const handleDeleteBooking = async () => {
+    try {
+      await deleteBooking(booking._id);
+      dispatch({
+        type: ActionType.DELETE_BOOKING,
+        payload: booking._id ? booking._id.toString() : "",
+      });
+    } catch (error) {
+      console.error("Could not delete the booking");
+    }
   };
 
   return (
