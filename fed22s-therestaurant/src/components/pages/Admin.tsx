@@ -12,7 +12,11 @@ import "react-datepicker/dist/react-datepicker.css";
 import { BookingClass } from "../../models/BookingClass";
 import { getBookings } from "../../services/dataService";
 import { AdminContext } from "../../contexts/AdminContext";
-import { ActionType, AdminReducer, ILists } from "../../reducers/AdminReducer";
+import {
+  ActionType,
+  AdminReducer,
+  ILists,
+} from "../../reducers/AdminReducer";
 import { TimeSwitchContext } from "../../contexts/TimeSwitchContext";
 import { timeSlot } from "../../enums/timeSlots";
 import { TimeSwitchReducer } from "../../reducers/TimeSwitchReducer";
@@ -20,6 +24,7 @@ import { TimeSwitchDispatchContext } from "../../contexts/TimeSwitchDispatchCont
 import { HorizontalWrapper } from "../styled/Wrappers";
 import { Button } from "../styled/Buttons";
 import { BookingCustomerExt } from "../../models/BookingCustomerExt";
+import { DatePickerWrapper } from "../styled/DatePickerWrapper";
 
 export const Admin = () => {
   const startValue: ILists = {
@@ -28,7 +33,10 @@ export const Admin = () => {
   };
 
   //const handleTime = useContext(TimeSwitchContext);
-  const [time, TimeSwitchDispatch] = useReducer(TimeSwitchReducer, false);
+  const [time, TimeSwitchDispatch] = useReducer(
+    TimeSwitchReducer,
+    false
+  );
 
   const [bookings, dispatch] = useReducer(AdminReducer, startValue);
   const [selectedDate, setSelectedDate] = useState<string>("");
@@ -117,12 +125,17 @@ export const Admin = () => {
                 <TableSet></TableSet>
                 <TableSet></TableSet>
                 <TableSet></TableSet>
-                <DatePicker selected={new Date()} onChange={handleDateChange} />
               </LowerTableWrapper>
             </TableviewWrapper>
             {/* <HorizontalWrapper>
               <Button onClick={setTime}>Early</Button>
             </HorizontalWrapper> */}
+            <DatePickerWrapper>
+              <DatePicker
+                selected={new Date()}
+                onChange={handleDateChange}
+              />
+            </DatePickerWrapper>
             <BookingsList />
           </AdminWrapper>
         </TimeSwitchContext.Provider>
