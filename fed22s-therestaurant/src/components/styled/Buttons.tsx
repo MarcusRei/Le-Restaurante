@@ -12,7 +12,7 @@ export const Button = styled.button`
   }
 `;
 
-export const ContactButton = styled.button`
+/* export const ContactButton = styled.button`
   background-color: transparent;
   border: 1px solid #424242;
   border-radius: 10px;
@@ -22,7 +22,7 @@ export const ContactButton = styled.button`
     cursor: pointer;
     background-color: #c3c3c3;
   }
-`;
+`; */
 
 export const CallUsButton = styled(Button)`
   border: 1px solid lightgray;
@@ -53,7 +53,18 @@ export const MailUsButton = styled(CallUsButton)`
   margin-bottom: 3em;
 `;
 
-export const AdminButton = styled(ContactButton)``;
+export const AdminButton = styled.button`
+  background-color: #eaeaea;
+  border: 1px solid #424242;
+  border-radius: 10px;
+  padding: 0.2em 1em;
+  width: 90px;
+
+  &:hover {
+    cursor: pointer;
+    background-color: #c3c3c3;
+  }
+`;
 
 export const CloseButton = styled.button`
   position: absolute;

@@ -16,6 +16,7 @@ import {
   BookingCustomerExt,
   emptyBookingCustomerExt,
 } from "../models/BookingCustomerExt";
+import { VerticalWrapper } from "./styled/Wrappers";
 
 export const BookingsList = () => {
   const { bookings } = useContext(AdminContext);
@@ -44,6 +45,7 @@ export const BookingsList = () => {
     <BookingsListWrapper>
       <TimeSwitcher></TimeSwitcher>
       <BookingHeading>Bokningar</BookingHeading>
+
       <CurrentBookingContext.Provider value={currentBooking}>
         {bookings.filteredList.map((booking) => (
           <BookingCard

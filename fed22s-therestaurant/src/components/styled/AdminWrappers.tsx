@@ -41,7 +41,8 @@ export const TableWrapper = styled.div`
 `;
 
 export const BookingsListWrapper = styled(TableviewWrapper)`
-  width: 30vw;
+  position: relative;
+  width: 30%;
   overflow-y: scroll;
   gap: 1em;
 `;

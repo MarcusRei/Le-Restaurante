@@ -1,11 +1,13 @@
 import { BookingClass } from "../models/BookingClass";
 
 import { BookingHeading } from "./styled/BookingHeading";
-import { AdminButton, ContactButton } from "./styled/Buttons";
-import { ThinText } from "./styled/ThinText";
+import { AdminButton } from "./styled/Buttons";
+import { ThickText, ThinText } from "./styled/BookingCardTexts";
 import { TimeSlotBlock } from "./styled/TimeSlotBlock";
 import {
   BookingCardWrapper,
+  BookingCardWrapperVertical,
+  ButtonWrapper,
   HorizontalWrapper,
   VerticalWrapper,
 } from "./styled/Wrappers";
@@ -60,19 +62,18 @@ export const BookingCard = (props: IBookingCardProps) => {
   return (
     <BookingCardWrapper>
       <TimeSlotBlock>{props.booking.time}</TimeSlotBlock>
-      <VerticalWrapper>
+      <BookingCardWrapperVertical>
         <BookingHeading>{props.booking.customer.name}</BookingHeading>
-        <ThinText>{props.booking.guests}</ThinText>
-      </VerticalWrapper>
-      <VerticalWrapper>
+        <ThinText>Gäster: {props.booking.guests}</ThinText>
+      </BookingCardWrapperVertical>
+      <BookingCardWrapperVertical>
+        <ThickText>Datum:</ThickText>
         <ThinText>{props.booking.date}</ThinText>
-        <ThinText>Bord 1</ThinText>
-      </VerticalWrapper>
-      <VerticalWrapper>
-        <ContactButton>Kontakta</ContactButton>
+      </BookingCardWrapperVertical>
+      <ButtonWrapper>
         <AdminButton onClick={updateBooking}>Uppdatera</AdminButton>
         <AdminButton onClick={handleDeleteBooking}>Ta bort</AdminButton>
-      </VerticalWrapper>
+      </ButtonWrapper>
     </BookingCardWrapper>
   );
 };
