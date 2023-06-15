@@ -1,13 +1,13 @@
 import { createContext, Dispatch } from "react";
-import { BookingClass } from "../models/Booking";
-import { IAction } from "../reducers/AdminReducer";
+import { BookingClass } from "../models/BookingClass";
+import { IAction, ILists } from "../reducers/AdminReducer";
 
 export interface AdminContextType {
-  bookings: BookingClass[];
+  bookings: ILists;
   dispatch: Dispatch<IAction>;
 }
 
 export const AdminContext = createContext<AdminContextType>({
-  bookings: [],
+  bookings: { allBookings: [], filteredList: [] },
   dispatch: () => {},
 });

@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import { BookingClass } from "../models/Booking";
+import { BookingClass } from "../models/BookingClass";
 
 export const NewBookingContext = createContext<BookingClass>({
   name: "",

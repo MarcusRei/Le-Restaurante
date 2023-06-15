@@ -15,7 +15,7 @@ import {
 import { TextInput, NumberInput } from "./styled/Inputs";
 import { Heading } from "./styled/HeadingStyles";
 import { Button } from "./styled/Buttons";
-import { BookingClass } from "../models/Booking";
+import { BookingClass } from "../models/BookingClass";
 import {
   BookingVerticalWrapper,
   FormVerticalWrapper,
@@ -25,7 +25,10 @@ import {
 } from "./styled/Wrappers";
 import { getBookings, postNewBooking } from "../services/dataService";
 import { NewBookingContext } from "../contexts/NewBookingContext";
-import { BookingReducer, IBookingAction } from "../reducers/BookingReducer";
+import {
+  BookingReducer,
+  IBookingAction,
+} from "../reducers/BookingReducer";
 import { actionType } from "../enums/actionType";
 import { BookingsContext } from "../contexts/BookingsContext";
 import { BookingsReducer } from "../reducers/BookingsReducer";
@@ -80,7 +83,10 @@ export const Form = (props: IFormProps) => {
 
   const handleCheckbox = (e: ChangeEvent<HTMLInputElement>) => {
     setChecks({ ...checks, policyChecked: e.target.checked });
-    props.addTime({ type: actionType.INFOADDED, payload: newBooking });
+    props.addTime({
+      type: actionType.INFOADDED,
+      payload: newBooking,
+    });
   };
 
   const openCalendar = (e: FormEvent) => {
@@ -97,7 +103,11 @@ export const Form = (props: IFormProps) => {
   function sendBooking() {
     postNewBooking(booking);
 
-    setChecks({ policyChecked: false, dateChosen: false, confirm: false });
+    setChecks({
+      policyChecked: false,
+      dateChosen: false,
+      confirm: false,
+    });
 
     setNewBooking({
       name: "",
@@ -158,7 +168,9 @@ export const Form = (props: IFormProps) => {
                 required
               />
             </FormLabel>
-            <Button onClick={openCalendar} disabled={newBooking.guests < 1}>
+            <Button
+              onClick={openCalendar}
+              disabled={newBooking.guests < 1}>
               Välj tid
             </Button>
           </HorizontalWrapperGap>
@@ -176,7 +188,8 @@ export const Form = (props: IFormProps) => {
               <input type="checkbox" onChange={handleCheckbox} />
             </FormLabel>
             <FormParagraph>
-              Jag bekräftar att jag har läst och godkänt Le Restaurante's
+              Jag bekräftar att jag har läst och godkänt Le
+              Restaurante's
               <a href="https://book.easytablebooking.com/book/privacy/?id=b6e01&lang=SE">
                 {" "}
                 integritetspolicy

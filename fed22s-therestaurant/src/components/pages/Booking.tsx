@@ -10,11 +10,14 @@ import {
 import { Form } from "../Form";
 import { CenteringWrapper } from "../styled/Wrappers";
 import { BookingsContext } from "../../contexts/BookingsContext";
-import { BookingClass } from "../../models/Booking";
+import { BookingClass } from "../../models/BookingClass";
 import { getBookings } from "../../services/dataService";
 import { NewBookingContext } from "../../contexts/NewBookingContext";
 import { BookingDispatchContext } from "../../contexts/BookingDispatchContext";
-import { BookingReducer, IBookingAction } from "../../reducers/BookingReducer";
+import {
+  BookingReducer,
+  IBookingAction,
+} from "../../reducers/BookingReducer";
 import { actionType } from "../../enums/actionType";
 
 export const Booking = () => {
@@ -34,7 +37,9 @@ export const Booking = () => {
   console.log("Antal bord sällskapet tar", activeTables);
 
   useEffect(() => {
-    getBookings().then((bookings: BookingClass[]) => setBookings(bookings));
+    getBookings().then((bookings: BookingClass[]) =>
+      setBookings(bookings)
+    );
   }, []);
 
   function openCalendar() {
@@ -66,8 +71,7 @@ export const Booking = () => {
               addTime={addTime}
               closeCalendar={closeCalendar}
               openCalendar={openCalendar}
-              updateActiveTables={updateActiveTables}
-            ></Form>
+              updateActiveTables={updateActiveTables}></Form>
 
             <BookingDispatchContext.Provider value={dispatch}>
               {calendarOpen && (
@@ -75,8 +79,7 @@ export const Booking = () => {
                   addDate={addDate}
                   addTime={addTime}
                   closeCalendar={closeCalendar}
-                  activeTables={activeTables}
-                ></BookingsCalendar>
+                  activeTables={activeTables}></BookingsCalendar>
               )}
             </BookingDispatchContext.Provider>
           </BookingsContext.Provider>

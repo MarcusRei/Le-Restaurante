@@ -1,3 +1,5 @@
+import { useContext } from "react";
+import { BookingClass } from "../models/BookingClass";
 import { useContext, useState } from "react";
 
 export interface IFormHandling {
@@ -5,7 +7,6 @@ export interface IFormHandling {
   closeForm: () => void;
 }
 
-import { BookingClass } from "../models/Booking";
 import { BookingCard } from "./BookingCard";
 import { TimeSwitcher } from "./TimeSwitcher";
 import { BookingsListWrapper } from "./styled/AdminWrappers";
@@ -20,6 +21,7 @@ import {
 
 export const BookingsList = () => {
   const { bookings } = useContext(AdminContext);
+
   /* console.log("bookings", bookings); */
   const [updateFormSwitch, setUpdateFormSwitch] = useState(false);
   const [currentBooking, setChosenBooking] = useState<BookingCustomerExt>(
@@ -40,12 +42,13 @@ export const BookingsList = () => {
     setChosenBooking(current);
   }
 
+
   return (
     <BookingsListWrapper>
       <TimeSwitcher></TimeSwitcher>
       <BookingHeading>Bokningar</BookingHeading>
       <CurrentBookingContext.Provider value={currentBooking}>
-        {bookings.map((booking: BookingClass) => (
+        {bookings.filteredList.map((booking: BookingClass) => (
           <BookingCard
             handleUpdateForm={handleUpdateForm}
             key={booking._id}

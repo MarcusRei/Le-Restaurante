@@ -1,4 +1,7 @@
+
+import { BookingClass } from "../models/BookingClass";
 import { BookingClass } from "../models/Booking";
+
 import { BookingHeading } from "./styled/BookingHeading";
 import { AdminButton, ContactButton } from "./styled/Buttons";
 import { ThinText } from "./styled/ThinText";

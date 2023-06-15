@@ -1,5 +1,5 @@
 import axios from "axios";
-import { BookingClass } from "../models/Booking";
+import { BookingClass } from "../models/BookingClass";
 import { IUpdatedInfo } from "../models/IUpdatedInfo";
 import { BookingCustomerExt } from "../models/BookingCustomerExt";
 
