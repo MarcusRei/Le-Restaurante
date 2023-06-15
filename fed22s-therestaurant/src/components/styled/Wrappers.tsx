@@ -49,6 +49,8 @@ export const BookingCardWrapper = styled(HorizontalWrapper)`
   justify-content: center;
   border-bottom: 1px solid grey;
   gap: 1em;
+  border: 1px solid black;
+  height: auto;
 
   @media (min-width: 844px) {
     align-items: center;

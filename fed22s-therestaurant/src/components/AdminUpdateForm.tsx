@@ -16,7 +16,6 @@ import {
   emptyBookingCustomerExt,
 } from "../models/BookingCustomerExt";
 import { updateBooking } from "../services/dataService";
-import { BookingClass } from "../models/Booking";
 import { CrossBarOne, CrossBarTwo } from "./styled/ExitCross";
 
 interface IAdminUpdateFormProps {

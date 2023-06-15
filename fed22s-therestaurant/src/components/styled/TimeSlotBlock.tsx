@@ -9,4 +9,6 @@ export const TimeSlotBlock = styled.div`
   justify-content: center;
   align-items: center;
   color: #cccccc;
+  text-align: center;
+  border-radius: 5px;
 `;
