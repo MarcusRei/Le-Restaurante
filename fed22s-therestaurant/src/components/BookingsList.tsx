@@ -7,14 +7,14 @@ import { BookingHeading } from "./styled/BookingHeading";
 import { AdminContext } from "../contexts/AdminContext";
 
 export const BookingsList = () => {
-  const { bookings: filteredBookings } = useContext(AdminContext);
-  console.log("====> HÅÄR", filteredBookings);
+  const { bookings } = useContext(AdminContext);
+  console.log("====> HÅÄR är inuti bbookingLIST", bookings);
 
   return (
     <BookingsListWrapper>
       <TimeSwitcher></TimeSwitcher>
       <BookingHeading>Bokningar</BookingHeading>
-      {filteredBookings.map((booking: BookingClass) => (
+      {bookings.allBookings.map((booking: BookingClass) => (
         <BookingCard key={booking._id} booking={booking} />
       ))}
     </BookingsListWrapper>

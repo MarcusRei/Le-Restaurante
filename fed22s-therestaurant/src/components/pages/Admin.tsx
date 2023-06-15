@@ -15,13 +15,21 @@ import { AdminContext } from "../../contexts/AdminContext";
 import {
   ActionType,
   AdminReducer,
+  ILists,
 } from "../../reducers/AdminReducer";
 
 export const Admin = () => {
-  const [bookings, dispatch] = useReducer(AdminReducer, []);
+  const startValue: ILists = {
+    allBookings: [],
+    filteredList: [],
+  };
+
+  const [bookings, dispatch] = useReducer(AdminReducer, startValue);
+  //const dispatch = useContext(AdminContext, dispatch)
   const [selectedDate, setSelectedDate] = useState<string>("");
-  const [filteredBookings, setFilteredBookings] =
-    useState<BookingClass[]>(bookings);
+  const [filteredBookings, setFilteredBookings] = useState<
+    BookingClass[]
+  >(bookings.filteredList);
 
   useEffect(() => {
     getBookings().then((bookings: BookingClass[]) => {
@@ -44,10 +52,6 @@ export const Admin = () => {
   const handleDateChange = (date: Date) => {
     const selectedDateISO = date?.toISOString().split("T")[0] ?? "";
     setSelectedDate(selectedDateISO);
-    dispatch({
-      type: ActionType.FILTER_BOOKINGS,
-      payload: selectedDateISO,
-    });
   };
 
   return (
@@ -55,7 +59,7 @@ export const Admin = () => {
       <AdminWrapper>
         <TableviewWrapper>
           <UpperTableWrapper>
-            {bookings.length}
+            {bookings.filteredList.length}
             <TableSet></TableSet>
             <TableSet></TableSet>
             <TableSet></TableSet>

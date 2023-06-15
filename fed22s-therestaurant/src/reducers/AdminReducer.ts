@@ -1,8 +1,15 @@
+import { useContext } from "react";
 import { BookingClass } from "../models/BookingClass";
+import { AdminContext } from "../contexts/AdminContext";
 
 export interface IAction {
   type: ActionType;
   payload: string;
+}
+
+export interface ILists {
+  allBookings: BookingClass[];
+  filteredList: BookingClass[];
 }
 
 export enum ActionType {
@@ -10,43 +17,36 @@ export enum ActionType {
   FILTER_BOOKINGS = "FILTER_BOOKINGS",
   DELETE_BOOKING = "DELETE_BOOKING",
   ADDED_BOOKING = "ADDED_BOOKING",
+  RESET_BOOKINGS = "RESET_BOOKINGS",
 }
+
 export const AdminReducer = (
-  state: BookingClass[],
+  state: ILists,
   action: IAction
-) => {
+): ILists => {
+  console.log({ state, action });
   switch (action.type) {
     case ActionType.FILTER_BOOKINGS: {
-      console.log("HÄR FILTRERAS LISTAN !!");
-
-      const filteredBookings = state.filter(
+      const filteredBookings = state.allBookings.filter(
         (booking: BookingClass) => booking.date === action.payload
       );
-      return [...filteredBookings];
-    }
-
-    case ActionType.UPDATE_BOOKING: {
-      const updatedBooking: BookingClass = JSON.parse(action.payload);
-      const updatedBookings = state.map((booking: BookingClass) =>
-        booking._id === updatedBooking._id ? updatedBooking : booking
-      );
-      return updatedBookings;
+      return { ...state, filteredList: filteredBookings };
     }
 
     case ActionType.DELETE_BOOKING: {
       const deletedBookingId = action.payload;
-      const filteredBookings = state.filter(
+      const filteredBookings = state.allBookings.filter(
         (booking: BookingClass) => booking._id !== deletedBookingId
       );
-      return filteredBookings;
+      return { ...state, filteredList: filteredBookings };
     }
 
     case ActionType.ADDED_BOOKING: {
-      console.log("ACTION PAYLOAD ÄR ==>", action.payload);
-      state = JSON.parse(action.payload);
-      console.log(action.payload);
-
-      return state;
+      return {
+        ...state,
+        allBookings: JSON.parse(action.payload),
+        filteredList: JSON.parse(action.payload),
+      };
     }
 
     default:
