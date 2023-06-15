@@ -9,16 +9,18 @@ import { Button } from "./styled/Buttons";
 import { AdminContext } from "../contexts/AdminContext";
 import { ActionType } from "../reducers/AdminReducer";
 import { BookingCustomerExt } from "../models/BookingCustomerExt";
+import { deleteBooking } from "../services/dataService";
 
 interface IBookingCardProps {
   handleUpdateForm: () => void;
-  booking: BookingClass;
+  booking: BookingCustomerExt;
   updateChosenBooking: (current: BookingCustomerExt | BookingClass) => void;
 }
 
 export const BookingCard = (props: IBookingCardProps) => {
   const { dispatch } = useContext(AdminContext);
   const [bookingToUpdate, setBookingToUpdate] = useState({});
+  console.log(props.booking);
 
   //useEffect(() => {}, [bookingToUpdate]);
 
@@ -38,13 +40,12 @@ export const BookingCard = (props: IBookingCardProps) => {
     }); */
   };
 
-
   const handleDeleteBooking = async () => {
     try {
-      await deleteBooking(booking._id);
+      await deleteBooking(props.booking._id);
       dispatch({
         type: ActionType.DELETE_BOOKING,
-        payload: booking._id ? booking._id.toString() : "",
+        payload: props.booking._id ? props.booking._id.toString() : "",
       });
     } catch (error) {
       console.error("Could not delete the booking");
@@ -55,7 +56,7 @@ export const BookingCard = (props: IBookingCardProps) => {
     <HorizontalWrapper>
       <TimeSlotBlock>{props.booking.time}</TimeSlotBlock>
       <VerticalWrapper>
-        <BookingHeading>{props.booking.name}</BookingHeading>
+        <BookingHeading>{props.booking.customer.name}</BookingHeading>
         <ThinText>{props.booking.guests}</ThinText>
       </VerticalWrapper>
       <VerticalWrapper>
