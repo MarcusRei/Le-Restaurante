@@ -140,5 +140,5 @@ exports.mockBookingsWithString = [
       email: "jocke@gmail.com",
       phonenumber: "+46735456064",
     },
-  },
+  }, */
 ];

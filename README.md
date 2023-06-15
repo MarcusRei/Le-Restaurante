@@ -1,2 +1,42 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/hi08v2nl)
-[![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-718a45dd9cf7e7f842a935f5ebbe5719a5e09af4491e668f4dbf3b35d5cca122.svg)](https://classroom.github.com/online_ide?assignment_repo_id=11259486&assignment_repo_type=AssignmentRepo)
+# Le Restaurante
+
+### About the project
+
+Goup assignment at Medieinstitutet to build a booking site for a fictive restaurant where guests can place bookings and an admin can update, delete and also add bookings as well as handle guest information in the database. The project consists of both front end and backend.
+
+### Built with
+
+- React
+- Typescript
+- MongoDB
+- Mongoose
+
+### Installation and setup of project
+
+1. Clone the repo
+   ```sh
+   https://github.com/Medieinstitutet/the-restaurant-grupp-8.git
+   ```
+2. Install dependencies
+   ```sh
+   npm i
+   ```
+3. Create .env file in the root directory and add the credentials. Add your own API-key in the field.
+
+   ```sh
+   MONGO_CONNECTION_STRING=
+   ```
+
+4. Populate database with mockdata (make sure you are located in the fed22s-backend folder)
+
+   ```sh
+   npm run seedDb
+   ```
+
+5. Run the app (make sure you are located in the fed22s-therestaurant folder)
+
+   ```sh
+   npm run dev
+   ```
+
+   ## Design

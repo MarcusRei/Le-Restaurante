@@ -38,12 +38,17 @@ export const BookingCard = (props: IBookingCardProps) => {
     }); */
   };
 
-  const handleDeleteBooking = () => {
-    // Ta bort
-    dispatch({
-      type: ActionType.DELETE_BOOKING,
-      payload: props.booking._id ? props.booking._id.toString() : "",
-    });
+
+  const handleDeleteBooking = async () => {
+    try {
+      await deleteBooking(booking._id);
+      dispatch({
+        type: ActionType.DELETE_BOOKING,
+        payload: booking._id ? booking._id.toString() : "",
+      });
+    } catch (error) {
+      console.error("Could not delete the booking");
+    }
   };
 
   return (
