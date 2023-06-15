@@ -20,10 +20,7 @@ export enum ActionType {
   TIMEFILTER_BOOKINGS = "TIMEFILTER_BOOKINGS",
 }
 
-export const AdminReducer = (
-  state: ILists,
-  action: IAction
-): ILists => {
+export const AdminReducer = (state: ILists, action: IAction): ILists => {
   switch (action.type) {
     case ActionType.DATEFILTER_BOOKINGS: {
       const filteredBookings = state.allBookings.filter(
@@ -48,8 +45,16 @@ export const AdminReducer = (
       };
     }
     case ActionType.TIMEFILTER_BOOKINGS: {
-      console.log(action.payload);
-      return state;
+      console.log("alla bokningar", state.filteredList);
+      console.log("");
+      const filteredBookings = state.filteredList.filter((booking) => {
+        console.log("payload", action.payload);
+        if (booking.time === action.payload) {
+          return booking;
+        }
+      });
+      console.log("filtrerad på tid", filteredBookings);
+      return { ...state, filteredList: filteredBookings };
     }
 
     default:

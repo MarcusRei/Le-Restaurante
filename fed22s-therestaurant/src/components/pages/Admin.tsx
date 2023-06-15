@@ -12,15 +12,13 @@ import "react-datepicker/dist/react-datepicker.css";
 import { BookingClass } from "../../models/BookingClass";
 import { getBookings } from "../../services/dataService";
 import { AdminContext } from "../../contexts/AdminContext";
-import {
-  ActionType,
-  AdminReducer,
-  ILists,
-} from "../../reducers/AdminReducer";
+import { ActionType, AdminReducer, ILists } from "../../reducers/AdminReducer";
 import { TimeSwitchContext } from "../../contexts/TimeSwitchContext";
 import { timeSlot } from "../../enums/timeSlots";
 import { TimeSwitchReducer } from "../../reducers/TimeSwitchReducer";
 import { TimeSwitchDispatchContext } from "../../contexts/TimeSwitchDispatchContext";
+import { HorizontalWrapper } from "../styled/Wrappers";
+import { Button } from "../styled/Buttons";
 
 export const Admin = () => {
   const startValue: ILists = {
@@ -29,19 +27,16 @@ export const Admin = () => {
   };
 
   //const handleTime = useContext(TimeSwitchContext);
-  const [time, TimeSwitchDispatch] = useReducer(
-    TimeSwitchReducer,
-    false
-  );
+  const [time, TimeSwitchDispatch] = useReducer(TimeSwitchReducer, false);
 
   const [bookings, dispatch] = useReducer(AdminReducer, startValue);
   const [selectedDate, setSelectedDate] = useState<string>("");
-  const [filteredBookings, setFilteredBookings] = useState<
-    BookingClass[]
-  >(bookings.filteredList);
-  const [timeslot, setTimeslot] = useState(timeSlot.EARLY);
+  const [filteredBookings, setFilteredBookings] = useState<BookingClass[]>(
+    bookings.filteredList
+  );
+  const [timeslot, setTimeslot] = useState(false);
 
-  function checkTimeSlot() {
+  /* function checkTimeSlot() {
     if (time === true) {
       setTimeslot(timeSlot.EARLY);
     } else {
@@ -49,23 +44,35 @@ export const Admin = () => {
     }
   }
 
-  checkTimeSlot();
-  filterByTime();
+  checkTimeSlot(); */
+  /* filterByTime(); */
+  /* useEffect(() => {
+    if (timeslot === true) {
+      dispatch({
+        type: ActionType.TIMEFILTER_BOOKINGS,
+        payload: JSON.stringify(timeSlot.LATE),
+      });
+    } else {
+      dispatch({
+        type: ActionType.TIMEFILTER_BOOKINGS,
+        payload: JSON.stringify(timeSlot.EARLY),
+      });
+    }
+  }, [timeslot]);
+ */
+  console.log("timeSlot:", timeslot);
 
-  function filterByTime() {
-    dispatch({
-      type: ActionType.TIMEFILTER_BOOKINGS,
-      payload: JSON.stringify({
-        list: bookings.filteredList,
-        timeSlot: timeslot,
-      }),
-    });
+  function setTime() {
+    /* if (timeslot === timeSlot.EARLY) {
+      setTimeslot(timeSlot.LATE);
+    } else {
+      setTimeslot(timeSlot.EARLY);
+    } */
+    setTimeslot(!timeslot);
   }
 
   useEffect(() => {
     getBookings().then((bookings: BookingClass[]) => {
-      //console.log(bookings);
-
       dispatch({
         type: ActionType.ADDED_BOOKING,
         payload: JSON.stringify(bookings),
@@ -109,13 +116,12 @@ export const Admin = () => {
                 <TableSet></TableSet>
                 <TableSet></TableSet>
                 <TableSet></TableSet>
-                <DatePicker
-                  selected={new Date()}
-                  onChange={handleDateChange}
-                />
+                <DatePicker selected={new Date()} onChange={handleDateChange} />
               </LowerTableWrapper>
             </TableviewWrapper>
-
+            {/* <HorizontalWrapper>
+              <Button onClick={setTime}>Early</Button>
+            </HorizontalWrapper> */}
             <BookingsList />
           </AdminWrapper>
         </TimeSwitchContext.Provider>

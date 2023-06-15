@@ -8,7 +8,6 @@ import { AdminContext } from "../contexts/AdminContext";
 
 export const BookingsList = () => {
   const { bookings } = useContext(AdminContext);
-  console.log("====> HÅÄR är inuti bbookingLIST", bookings);
 
   return (
     <BookingsListWrapper>
