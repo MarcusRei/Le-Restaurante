@@ -49,6 +49,12 @@ export const BookingCardWrapper = styled(HorizontalWrapper)`
   justify-content: center;
   border-bottom: 1px solid grey;
   gap: 1em;
+  border: 1px solid;
+  border-color: #424242;
+  border-radius: 10px;
+  height: auto;
+  width: 80%;
+  padding: 1em 1em;
 
   @media (min-width: 844px) {
     align-items: center;
@@ -129,4 +135,12 @@ export const BookingVerticalWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   height: 100vh;
+`;
+
+export const ButtonWrapper = styled(VerticalWrapper)`
+  gap: 0.3em;
+`;
+
+export const BookingCardWrapperVertical = styled(VerticalWrapper)`
+  gap: 0.3em;
 `;
