@@ -14,19 +14,18 @@ export interface ILists {
 
 export enum ActionType {
   UPDATE_BOOKING = "UPDATE_BOOKING",
-  FILTER_BOOKINGS = "FILTER_BOOKINGS",
+  DATEFILTER_BOOKINGS = "DATEFILTER_BOOKINGS",
   DELETE_BOOKING = "DELETE_BOOKING",
   ADDED_BOOKING = "ADDED_BOOKING",
-  RESET_BOOKINGS = "RESET_BOOKINGS",
+  TIMEFILTER_BOOKINGS = "TIMEFILTER_BOOKINGS",
 }
 
 export const AdminReducer = (
   state: ILists,
   action: IAction
 ): ILists => {
-  console.log({ state, action });
   switch (action.type) {
-    case ActionType.FILTER_BOOKINGS: {
+    case ActionType.DATEFILTER_BOOKINGS: {
       const filteredBookings = state.allBookings.filter(
         (booking: BookingClass) => booking.date === action.payload
       );
@@ -47,6 +46,10 @@ export const AdminReducer = (
         allBookings: JSON.parse(action.payload),
         filteredList: JSON.parse(action.payload),
       };
+    }
+    case ActionType.TIMEFILTER_BOOKINGS: {
+      console.log(action.payload);
+      return state;
     }
 
     default:

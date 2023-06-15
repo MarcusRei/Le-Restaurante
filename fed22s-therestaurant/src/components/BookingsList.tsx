@@ -14,7 +14,7 @@ export const BookingsList = () => {
     <BookingsListWrapper>
       <TimeSwitcher></TimeSwitcher>
       <BookingHeading>Bokningar</BookingHeading>
-      {bookings.allBookings.map((booking: BookingClass) => (
+      {bookings.filteredList.map((booking: BookingClass) => (
         <BookingCard key={booking._id} booking={booking} />
       ))}
     </BookingsListWrapper>

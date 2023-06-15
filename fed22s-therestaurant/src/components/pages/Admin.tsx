@@ -17,6 +17,10 @@ import {
   AdminReducer,
   ILists,
 } from "../../reducers/AdminReducer";
+import { TimeSwitchContext } from "../../contexts/TimeSwitchContext";
+import { timeSlot } from "../../enums/timeSlots";
+import { TimeSwitchReducer } from "../../reducers/TimeSwitchReducer";
+import { TimeSwitchDispatchContext } from "../../contexts/TimeSwitchDispatchContext";
 
 export const Admin = () => {
   const startValue: ILists = {
@@ -24,16 +28,43 @@ export const Admin = () => {
     filteredList: [],
   };
 
+  //const handleTime = useContext(TimeSwitchContext);
+  const [time, TimeSwitchDispatch] = useReducer(
+    TimeSwitchReducer,
+    false
+  );
+
   const [bookings, dispatch] = useReducer(AdminReducer, startValue);
-  //const dispatch = useContext(AdminContext, dispatch)
   const [selectedDate, setSelectedDate] = useState<string>("");
   const [filteredBookings, setFilteredBookings] = useState<
     BookingClass[]
   >(bookings.filteredList);
+  const [timeslot, setTimeslot] = useState(timeSlot.EARLY);
+
+  function checkTimeSlot() {
+    if (time === true) {
+      setTimeslot(timeSlot.EARLY);
+    } else {
+      setTimeslot(timeSlot.LATE);
+    }
+  }
+
+  checkTimeSlot();
+  filterByTime();
+
+  function filterByTime() {
+    dispatch({
+      type: ActionType.TIMEFILTER_BOOKINGS,
+      payload: JSON.stringify({
+        list: bookings.filteredList,
+        timeSlot: timeslot,
+      }),
+    });
+  }
 
   useEffect(() => {
     getBookings().then((bookings: BookingClass[]) => {
-      console.log(bookings);
+      //console.log(bookings);
 
       dispatch({
         type: ActionType.ADDED_BOOKING,
@@ -44,7 +75,7 @@ export const Admin = () => {
 
   useEffect(() => {
     dispatch({
-      type: ActionType.FILTER_BOOKINGS,
+      type: ActionType.DATEFILTER_BOOKINGS,
       payload: selectedDate,
     });
   }, [selectedDate]);
@@ -56,35 +87,39 @@ export const Admin = () => {
 
   return (
     <AdminContext.Provider value={{ bookings, dispatch }}>
-      <AdminWrapper>
-        <TableviewWrapper>
-          <UpperTableWrapper>
-            {bookings.filteredList.length}
-            <TableSet></TableSet>
-            <TableSet></TableSet>
-            <TableSet></TableSet>
-            <TableSet></TableSet>
-            <TableSet></TableSet>
-            <TableSet></TableSet>
-            <TableSet></TableSet>
-            <TableSet></TableSet>
-          </UpperTableWrapper>
-          <LowerTableWrapper>
-            <TableSet></TableSet>
-            <TableSet></TableSet>
-            <TableSet></TableSet>
-            <TableSet></TableSet>
-            <TableSet></TableSet>
-            <TableSet></TableSet>
-            <TableSet></TableSet>
-            <DatePicker
-              selected={new Date()}
-              onChange={handleDateChange}
-            />
-          </LowerTableWrapper>
-        </TableviewWrapper>
-        <BookingsList />
-      </AdminWrapper>
+      <TimeSwitchDispatchContext.Provider value={TimeSwitchDispatch}>
+        <TimeSwitchContext.Provider value={time}>
+          <AdminWrapper>
+            <TableviewWrapper>
+              <UpperTableWrapper>
+                <TableSet></TableSet>
+                <TableSet></TableSet>
+                <TableSet></TableSet>
+                <TableSet></TableSet>
+                <TableSet></TableSet>
+                <TableSet></TableSet>
+                <TableSet></TableSet>
+                <TableSet></TableSet>
+              </UpperTableWrapper>
+              <LowerTableWrapper>
+                <TableSet></TableSet>
+                <TableSet></TableSet>
+                <TableSet></TableSet>
+                <TableSet></TableSet>
+                <TableSet></TableSet>
+                <TableSet></TableSet>
+                <TableSet></TableSet>
+                <DatePicker
+                  selected={new Date()}
+                  onChange={handleDateChange}
+                />
+              </LowerTableWrapper>
+            </TableviewWrapper>
+
+            <BookingsList />
+          </AdminWrapper>
+        </TimeSwitchContext.Provider>
+      </TimeSwitchDispatchContext.Provider>
     </AdminContext.Provider>
   );
 };
