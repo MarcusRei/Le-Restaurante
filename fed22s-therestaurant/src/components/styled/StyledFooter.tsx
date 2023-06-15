@@ -54,6 +54,8 @@ export const AdressWrapper = styled.div`
   justify-content: center;
   width: 12em;
   font-size: 18px;
+  font-weight: 600;
+
   @media (min-width: 844px) {
     width: 15em;
     font-size: 20px;

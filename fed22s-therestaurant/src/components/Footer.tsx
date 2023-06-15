@@ -7,10 +7,7 @@ import {
 } from "./styled/StyledFooter";
 import { SmallLogo } from "./SmallLogo";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faFacebook,
-  faInstagram,
-} from "@fortawesome/free-brands-svg-icons";
+import { faFacebook, faInstagram } from "@fortawesome/free-brands-svg-icons";
 import { Link } from "react-router-dom";
 
 export const Footer = () => {
