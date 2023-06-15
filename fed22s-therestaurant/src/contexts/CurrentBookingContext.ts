@@ -1,5 +1,4 @@
 import { createContext } from "react";
-import { BookingClass } from "../models/Booking";
 import {
   BookingCustomerExt,
   emptyBookingCustomerExt,
