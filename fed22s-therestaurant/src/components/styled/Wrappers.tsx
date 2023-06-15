@@ -44,6 +44,17 @@ export const HorizontalWrapper = styled.div`
   }
 `;
 
+export const BookingCardWrapper = styled(HorizontalWrapper)`
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid grey;
+  gap: 1em;
+
+  @media (min-width: 844px) {
+    align-items: center;
+  }
+`;
+
 export const LayoutWrapper = styled(HorizontalWrapper)`
   position: relative;
   overflow-x: hidden;

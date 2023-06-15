@@ -42,6 +42,8 @@ export const TableWrapper = styled.div`
 
 export const BookingsListWrapper = styled(TableviewWrapper)`
   width: 30vw;
+  overflow-y: scroll;
+  gap: 1em;
 `;
 
 export const UpdateFormWrapper = styled.div`
