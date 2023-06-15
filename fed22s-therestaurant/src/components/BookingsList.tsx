@@ -1,5 +1,3 @@
-import { useContext } from "react";
-import { BookingClass } from "../models/BookingClass";
 import { useContext, useState } from "react";
 
 export interface IFormHandling {
@@ -42,13 +40,12 @@ export const BookingsList = () => {
     setChosenBooking(current);
   }
 
-
   return (
     <BookingsListWrapper>
       <TimeSwitcher></TimeSwitcher>
       <BookingHeading>Bokningar</BookingHeading>
       <CurrentBookingContext.Provider value={currentBooking}>
-        {bookings.filteredList.map((booking: BookingClass) => (
+        {bookings.filteredList.map((booking) => (
           <BookingCard
             handleUpdateForm={handleUpdateForm}
             key={booking._id}

@@ -1,14 +1,9 @@
-
 import { useContext, useState } from "react";
-import { BookingHeading } from "./styled/BookingHeading";
-import {
-  TimeSwitchSlider,
-  TimeSwitchWrapper,
-} from "./styled/TimeSwitchStyled";
+
 import { TimeSwitchContext } from "../contexts/TimeSwitchContext";
 import { TimeSwitchDispatchContext } from "../contexts/TimeSwitchDispatchContext";
 import { ActionType } from "../reducers/TimeSwitchReducer";
-import { useState } from "react";
+
 import { BookingHeading } from "./styled/BookingHeading";
 import {
   BackgroundTextSlider,
@@ -32,7 +27,8 @@ export const TimeSwitcher = () => {
 
   console.log(switcher);
   return (
-    <TimeSwitchWrapper onClick={handleSwitch}>
+    <></>
+    /*  <TimeSwitchWrapper onClick={handleSwitch}>
       <BackgroundTextSlider switcher={switcher}>
         {switcher ? "21:00" : "18:00"}
       </BackgroundTextSlider>
@@ -41,7 +37,6 @@ export const TimeSwitcher = () => {
       ) : (
         <TimeSwitchSlider switcher={switcher}>21:00</TimeSwitchSlider>
       )}
-
-    </TimeSwitchWrapper>
+    </TimeSwitchWrapper> */
   );
 };

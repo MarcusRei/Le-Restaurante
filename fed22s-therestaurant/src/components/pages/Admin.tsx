@@ -19,6 +19,7 @@ import { TimeSwitchReducer } from "../../reducers/TimeSwitchReducer";
 import { TimeSwitchDispatchContext } from "../../contexts/TimeSwitchDispatchContext";
 import { HorizontalWrapper } from "../styled/Wrappers";
 import { Button } from "../styled/Buttons";
+import { BookingCustomerExt } from "../../models/BookingCustomerExt";
 
 export const Admin = () => {
   const startValue: ILists = {
@@ -31,9 +32,9 @@ export const Admin = () => {
 
   const [bookings, dispatch] = useReducer(AdminReducer, startValue);
   const [selectedDate, setSelectedDate] = useState<string>("");
-  const [filteredBookings, setFilteredBookings] = useState<BookingClass[]>(
-    bookings.filteredList
-  );
+  const [filteredBookings, setFilteredBookings] = useState<
+    BookingCustomerExt[]
+  >(bookings.filteredList);
   const [timeslot, setTimeslot] = useState(false);
 
   /* function checkTimeSlot() {
@@ -72,7 +73,7 @@ export const Admin = () => {
   }
 
   useEffect(() => {
-    getBookings().then((bookings: BookingClass[]) => {
+    getBookings().then((bookings: BookingCustomerExt[]) => {
       dispatch({
         type: ActionType.ADDED_BOOKING,
         payload: JSON.stringify(bookings),
@@ -94,7 +95,6 @@ export const Admin = () => {
 
   return (
     <AdminContext.Provider value={{ bookings, dispatch }}>
-
       <TimeSwitchDispatchContext.Provider value={TimeSwitchDispatch}>
         <TimeSwitchContext.Provider value={time}>
           <AdminWrapper>
@@ -127,7 +127,6 @@ export const Admin = () => {
           </AdminWrapper>
         </TimeSwitchContext.Provider>
       </TimeSwitchDispatchContext.Provider>
-
     </AdminContext.Provider>
   );
 };
