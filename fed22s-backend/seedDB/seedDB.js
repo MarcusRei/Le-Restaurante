@@ -15,6 +15,7 @@ const populateDbWithMockData = async (MONGO_CONNECTION_STRING) => {
     console.log(`MongoDB connected: ${conn.connection.host}`);
 
     await Booking.deleteMany();
+    await Customer.deleteMany();
     await Customer.create(mockCustomers);
     await Booking.create(mockBookings);
 

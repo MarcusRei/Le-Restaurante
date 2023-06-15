@@ -1,6 +1,7 @@
 import axios from "axios";
 import { BookingClass } from "../models/Booking";
 import { IUpdatedInfo } from "../models/IUpdatedInfo";
+import { BookingCustomerExt } from "../models/BookingCustomerExt";
 
 // General Requests Function
 const get = async (url: string) => {
@@ -95,14 +96,24 @@ export const deleteCustomer = async (bookingId: string) => {
   }
 };
 
-export const updateBooking = async (
-  updatedInfo: IUpdatedInfo,
-  bookingId: string
-) => {
+export const updateBooking = async (bookingToUpdate: BookingCustomerExt) => {
+  const bookingId = bookingToUpdate._id;
+
+  const updateParams: BookingClass = {
+    name: bookingToUpdate.customer.name,
+    email: bookingToUpdate.customer.email,
+    phonenumber: bookingToUpdate.customer.phonenumber,
+    guests: bookingToUpdate.guests,
+    date: bookingToUpdate.date,
+    time: bookingToUpdate.time,
+  };
+
+  console.log("updateParams", updateParams);
+
   try {
     const response = await put(
       `http://localhost:5001/api/v1/bookings/${bookingId}`,
-      updatedInfo
+      updateParams
     );
 
     return response.data;
