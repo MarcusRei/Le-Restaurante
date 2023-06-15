@@ -4,6 +4,7 @@ export const ThinText = styled.p`
   font-family: Arial, Helvetica, sans-serif;
   color: #424242;
   font-weight: 100;
+  font-size: small;
   margin: 0;
 `;
 

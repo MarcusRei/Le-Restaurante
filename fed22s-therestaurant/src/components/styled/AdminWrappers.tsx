@@ -16,6 +16,13 @@ export const TableviewWrapper = styled.div`
   border-radius: 15px;
 `;
 
+export const BookingsListWrapper = styled(TableviewWrapper)`
+  width: 30vw;
+
+  overflow-y: scroll;
+  gap: 1em;
+`;
+
 export const UpperTableWrapper = styled.div`
   width: 100%;
   height: 50%;
@@ -38,13 +45,6 @@ export const TableWrapper = styled.div`
   position: relative;
   width: 60%;
   height: 60%;
-`;
-
-export const BookingsListWrapper = styled(TableviewWrapper)`
-  position: relative;
-  width: 30%;
-  overflow-y: scroll;
-  gap: 1em;
 `;
 
 export const UpdateFormWrapper = styled.div`

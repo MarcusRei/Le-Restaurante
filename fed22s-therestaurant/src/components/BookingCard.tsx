@@ -62,14 +62,17 @@ export const BookingCard = (props: IBookingCardProps) => {
   return (
     <BookingCardWrapper>
       <TimeSlotBlock>{props.booking.time}</TimeSlotBlock>
+
       <BookingCardWrapperVertical>
-        <BookingHeading>{props.booking.customer.name}</BookingHeading>
+        <ThickText>{props.booking.customer.name}</ThickText>
         <ThinText>Gäster: {props.booking.guests}</ThinText>
       </BookingCardWrapperVertical>
+
       <BookingCardWrapperVertical>
         <ThickText>Datum:</ThickText>
         <ThinText>{props.booking.date}</ThinText>
       </BookingCardWrapperVertical>
+
       <ButtonWrapper>
         <AdminButton onClick={updateBooking}>Uppdatera</AdminButton>
         <AdminButton onClick={handleDeleteBooking}>Ta bort</AdminButton>
