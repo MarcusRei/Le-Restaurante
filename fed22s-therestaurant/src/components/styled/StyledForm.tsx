@@ -51,3 +51,30 @@ export const DateTimeText = styled.p`
 export const CenteringWrapperForm = styled(CenteringWrapper)`
   //flex-direction: column;
 `;
+
+// Admin Update styles
+
+export const StyledAdminUpdateForm = styled(StyledForm)`
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  position: relative;
+  font-size: medium;
+  width: 30%;
+
+  @media (min-width: 844px) {
+    top: 0;
+    width: 50%;
+    background-color: #e1e1e1;
+    position: relative;
+
+    p {
+      font-size: small;
+    }
+  }
+`;
+
+export const TinyText = styled.p`
+  padding: 0;
+  margin: 0;
+  font-weight: 100;
+  font-style: italic;
+`;

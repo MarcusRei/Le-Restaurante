@@ -1,6 +1,8 @@
+
 import { useContext } from "react";
 import { BookingClass } from "../models/BookingClass";
 import { AdminContext } from "../contexts/AdminContext";
+
 
 export interface IAction {
   type: ActionType;
@@ -25,12 +27,14 @@ export const AdminReducer = (state: ILists, action: IAction): ILists => {
     case ActionType.DATEFILTER_BOOKINGS: {
       const filteredBookings = state.allBookings.filter(
         (booking: BookingClass) => booking.date === action.payload
+
       );
       return { ...state, filteredList: filteredBookings };
     }
 
     case ActionType.DELETE_BOOKING: {
       const deletedBookingId = action.payload;
+
       const filteredBookings = state.allBookings.filter(
         (booking: BookingClass) => booking._id !== deletedBookingId
       );
@@ -38,6 +42,7 @@ export const AdminReducer = (state: ILists, action: IAction): ILists => {
     }
 
     case ActionType.ADDED_BOOKING: {
+
       return {
         ...state,
         allBookings: JSON.parse(action.payload),
@@ -55,6 +60,7 @@ export const AdminReducer = (state: ILists, action: IAction): ILists => {
       });
       console.log("filtrerad på tid", filteredBookings);
       return { ...state, filteredList: filteredBookings };
+
     }
 
     default:

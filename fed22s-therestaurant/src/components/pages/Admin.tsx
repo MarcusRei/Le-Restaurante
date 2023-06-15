@@ -94,6 +94,7 @@ export const Admin = () => {
 
   return (
     <AdminContext.Provider value={{ bookings, dispatch }}>
+
       <TimeSwitchDispatchContext.Provider value={TimeSwitchDispatch}>
         <TimeSwitchContext.Provider value={time}>
           <AdminWrapper>
@@ -126,6 +127,7 @@ export const Admin = () => {
           </AdminWrapper>
         </TimeSwitchContext.Provider>
       </TimeSwitchDispatchContext.Provider>
+
     </AdminContext.Provider>
   );
 };
