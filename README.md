@@ -38,5 +38,6 @@ Goup assignment at Medieinstitutet to build a booking site for a fictive restaur
    ```sh
    npm run dev
    ```
-
-   ## Design
+   
+   ## Links
+   [Trello](https://trello.com/b/PAm9gxCk/bokningssystem)
