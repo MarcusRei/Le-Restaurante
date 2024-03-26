@@ -1,4 +1,4 @@
-# Le Restaurante
+# Le Restaurante 🧆
 
 ### About the project
 
