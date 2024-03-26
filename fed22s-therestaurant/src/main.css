@@ -14,15 +14,36 @@ p {
   font-weight: 600;
 }
 
+form {
+  background-color: rgba(212, 212, 212, 0.563);
+  border-radius: 10px;
+  padding: 1rem;
+}
+
+input {
+  padding: 5px;
+  border-radius: 6px;
+  border: 1px solid rgb(148, 148, 148);
+  height: 20px;
+}
+
+.full-width {
+  width: 100%;
+}
+
 .font-bold {
   font-weight: 600;
 }
 
-.font-medium {
+.font.small {
+  font-size: 0.8rem;
+}
+
+.font.medium {
   font-size: 1.3rem;
 }
 
-.font-large {
+.font.large {
   font-size: 1.5rem;
 }
 
@@ -30,10 +51,19 @@ p {
   outline: 1px solid red;
 }
 
-.frontpage-button {
+.primary-button {
   font-family: inherit;
   padding: 0.8rem;
   background-color: transparent;
+  border: 1px solid lightgrey;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.secondary-button {
+  font-family: inherit;
+  padding: 0.8rem;
+  background-color: white;
   border: 1px solid lightgrey;
   font-weight: 600;
   font-size: 1rem;
@@ -68,14 +98,35 @@ p {
   gap: 1.5rem;
 }
 
-.frontpage-paragraph {
-  max-width: 50%;
-}
-
 .spacing.small {
   height: 1rem;
 }
 
 .spacing.medium {
   height: 2rem;
+}
+
+.position-relative {
+  position: relative;
+}
+
+.position-absolute {
+  position: absolute;
+}
+
+.frontpage-paragraph {
+  max-width: 50%;
+}
+
+.menu-item {
+  width: 60%;
+}
+
+.half-width {
+  width: 60%;
+}
+
+.button-position {
+  right: -85px;
+  top: 10px;
 }

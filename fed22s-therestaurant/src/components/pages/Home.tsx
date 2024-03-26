@@ -17,10 +17,10 @@ export const Home = () => {
           miljö. Välkomna att boka bord!
         </p>
         <section className="flex-row gap-small">
-          <button className="frontpage-button">
+          <button className="primary-button">
             <FontAwesomeIcon icon={faMobile} /> 08 - 89677
           </button>
-          <button className="frontpage-button">
+          <button className="primary-button">
             <FontAwesomeIcon icon={faArrowUpRightFromSquare} /> BORDSBOKNING
           </button>
         </section>
