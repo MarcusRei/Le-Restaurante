@@ -1,0 +1,81 @@
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  position: relative;
+}
+
+:root {
+  font-family: "Italiana", sans-serif;
+}
+
+p {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.font-bold {
+  font-weight: 600;
+}
+
+.font-medium {
+  font-size: 1.3rem;
+}
+
+.font-large {
+  font-size: 1.5rem;
+}
+
+.debug-frame {
+  outline: 1px solid red;
+}
+
+.frontpage-button {
+  font-family: inherit;
+  padding: 0.8rem;
+  background-color: transparent;
+  border: 1px solid lightgrey;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.flex-row {
+  display: flex;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.gap-small {
+  gap: 0.5rem;
+}
+
+.gap-medium {
+  gap: 1rem;
+}
+
+.gap-large {
+  gap: 1.5rem;
+}
+
+.frontpage-paragraph {
+  max-width: 50%;
+}
+
+.spacing.small {
+  height: 1rem;
+}
+
+.spacing.medium {
+  height: 2rem;
+}

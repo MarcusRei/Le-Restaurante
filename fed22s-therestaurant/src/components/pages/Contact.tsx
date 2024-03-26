@@ -1,41 +1,21 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { CallUsButton, MailUsButton } from "../styled/Buttons";
 import { faMailBulk, faMobile } from "@fortawesome/free-solid-svg-icons";
-import {
-  Heading,
-  HeadingLine,
-  HeadingLineWrapper,
-  WrapperOfHours,
-} from "../styled/HeadingStyles";
-import { ParagraphFrontPage } from "../styled/frontpage/ParagraphFrontPage";
-import { CenterWrapper, ContactWrapper } from "../styled/Wrappers";
+import { OpenHours } from "../OpenHours/OpenHours";
 
 export const Contact = () => {
   return (
-    <>
-      <CenterWrapper>
-        <ContactWrapper>
-          <CallUsButton>
-            <FontAwesomeIcon icon={faMobile} /> 08-89677
-          </CallUsButton>
-          <MailUsButton>
-            <FontAwesomeIcon icon={faMailBulk} /> leRestaurante@hello.se
-          </MailUsButton>
-          <HeadingLineWrapper>
-            <Heading>
-              <HeadingLine></HeadingLine>
-              ÖPPETTIDER<HeadingLine></HeadingLine>
-            </Heading>
-          </HeadingLineWrapper>
-          <WrapperOfHours>
-            <ParagraphFrontPage>
-              Måndag: 11:00-14:00, 16:30-22:00 Tisdag: 11:00-14:00, 16:30-22:00
-              Onsdag: 11:00-14:00, 16:30-23:00 Torsdag: 11:00-14:00, 16:30-23:00
-              Fredag: 11:00-14.00, 16:30 – 23:00 Lördag: 16:30 – 23:00
-            </ParagraphFrontPage>
-          </WrapperOfHours>
-        </ContactWrapper>
-      </CenterWrapper>
-    </>
+    <div className="flex-column align-center gap-large">
+      <span className="spacing medium"></span>
+      <section className="flex-row gap-small">
+        <button className="frontpage-button">
+          <FontAwesomeIcon icon={faMobile} /> 08 - 89677
+        </button>
+        <button className="frontpage-button">
+          <FontAwesomeIcon icon={faMailBulk} /> contact@lerestaurante.se
+        </button>
+      </section>
+
+      <OpenHours />
+    </div>
   );
 };
