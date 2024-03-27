@@ -1,8 +1,7 @@
-body {
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  position: relative;
 }
 
 :root {
@@ -129,4 +128,50 @@ input {
 .button-position {
   right: -85px;
   top: 10px;
+}
+
+.address {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.logo-wrapper {
+  width: 300px;
+  height: 300px;
+}
+
+.logo-wrapper.footer {
+  width: 150px;
+  height: 150px;
+}
+
+footer {
+  padding: 0 1rem;
+  width: 100%;
+  background-color: rgba(212, 212, 212, 0.563);
+  justify-content: space-between;
+  position: fixed;
+  bottom: 0;
+}
+
+.layout {
+}
+
+.outlet {
+  width: 50%;
+}
+
+.cover-image-wrapper {
+  width: 50%;
+  overflow: hidden;
+}
+
+@media screen and (max-width: 600px) {
+  .outlet {
+    width: 100%;
+  }
+
+  .cover-image-wrapper {
+    display: none;
+  }
 }

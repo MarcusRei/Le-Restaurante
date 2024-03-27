@@ -1,29 +1,24 @@
 import { Outlet } from "react-router-dom";
-import {
-  LayoutWrapper,
-  OutletWrapper,
-  VerticalWrapper,
-  Wrapper,
-} from "./styled/Wrappers";
 import { Footer } from "./Footer";
-import { ImageWrapper, StyledImage } from "./styled/ImageStyling";
-import { Navigation } from "./Navigation";
+import { Navigation } from "./Navigation/Navigation";
 
 export const Layout = () => {
   return (
-    <>
-      <VerticalWrapper>
-        <LayoutWrapper>
-          <ImageWrapper>
-            <StyledImage src="/assets/restaurant-4011989_1280.jpg"></StyledImage>
-          </ImageWrapper>
-          <OutletWrapper>
-            <Navigation></Navigation>
-            <Outlet></Outlet>
-          </OutletWrapper>
-        </LayoutWrapper>
-        <Footer></Footer>
-      </VerticalWrapper>
-    </>
+    <div className="layout">
+      <div className="flex-row">
+        <article className="cover-image-wrapper position-relative">
+          <img
+            className="cover-image position-absolute"
+            src="/assets/restaurant-4011989_1280.jpg"
+            alt="Uteservering"
+          />
+        </article>
+        <section className="outlet debug-frame">
+          <Navigation></Navigation>
+          <Outlet></Outlet>
+        </section>
+      </div>
+      <Footer></Footer>
+    </div>
   );
 };

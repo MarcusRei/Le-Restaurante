@@ -10,7 +10,9 @@ export const Home = () => {
   return (
     <>
       <div className="flex-column align-center">
-        <Logo></Logo>
+        <div className="logo-wrapper">
+          <Logo></Logo>
+        </div>
         <p className="frontpage-paragraph">
           En äkta italiensk ristorante med rötter från Trieste. Hos oss får du
           det italienska köket när det är som bäst, i en familjär och trivsam

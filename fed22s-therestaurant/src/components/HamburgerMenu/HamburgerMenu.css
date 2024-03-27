@@ -1,0 +1,37 @@
+.hamburger {
+  flex-direction: row-reverse;
+}
+
+.hamburger-symbol {
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+}
+
+.hamburger-line {
+  background-color: black;
+  width: 30px;
+  height: 4px;
+  margin-bottom: 6px;
+}
+
+.hamburger-menu {
+  background-color: rgb(212, 212, 212);
+  top: 50px;
+  left: 0;
+  width: 100%;
+}
+
+.hamburger-menu.hidden {
+  display: none;
+}
+
+.hamburger-menu.open {
+  display: flex;
+}
+
+.hamburger-link {
+  text-decoration: none;
+  color: black;
+  font-size: 2rem;
+}

@@ -1,0 +1,13 @@
+.navigation-link {
+  position: relative;
+  text-decoration: none;
+  font-size: 2em;
+  font-weight: 600;
+  color: #434343;
+  padding: 0.1em;
+  text-align: center;
+}
+
+.navigation-link:hover {
+  color: #8c0303;
+}
