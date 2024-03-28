@@ -9,7 +9,7 @@ import { OpenHours } from "../OpenHours/OpenHours";
 export const Home = () => {
   return (
     <>
-      <div className="flex-column align-center">
+      <div className="flex-column gap-medium align-center">
         <div className="logo-wrapper">
           <Logo></Logo>
         </div>

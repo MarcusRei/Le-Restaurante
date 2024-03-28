@@ -5,7 +5,7 @@ import { Navigation } from "./Navigation/Navigation";
 export const Layout = () => {
   return (
     <div className="layout">
-      <div className="flex-row">
+      <div className="layout flex-row">
         <article className="cover-image-wrapper position-relative">
           <img
             className="cover-image position-absolute"
@@ -13,7 +13,7 @@ export const Layout = () => {
             alt="Uteservering"
           />
         </article>
-        <section className="outlet debug-frame">
+        <section className="outlet">
           <Navigation></Navigation>
           <Outlet></Outlet>
         </section>

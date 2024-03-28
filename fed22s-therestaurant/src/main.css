@@ -54,7 +54,8 @@ input {
   outline: 1px solid red;
 }
 
-.admin-form {
+.layout {
+  height: 100vh;
 }
 
 .primary-button {
@@ -186,11 +187,21 @@ footer {
   width: 100%;
   background-color: rgba(212, 212, 212, 0.563);
   justify-content: space-between;
-  position: fixed;
-  bottom: 0;
 }
 
-.layout {
+.socials {
+  padding-right: 2rem;
+}
+
+.social-icon {
+  width: 50px;
+  height: 50px;
+  color: black;
+  transition: all 0.3s ease;
+}
+
+.social-icon:hover {
+  color: rgb(79, 79, 79);
 }
 
 .outlet {
@@ -200,6 +211,12 @@ footer {
 .cover-image-wrapper {
   width: 50%;
   overflow: hidden;
+}
+
+.cover-image {
+  width: 50vw;
+  left: 0;
+  bottom: -300px;
 }
 
 .seats-wrapper {
