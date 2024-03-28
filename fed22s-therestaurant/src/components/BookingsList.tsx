@@ -1,37 +1,35 @@
 import { useContext, useState } from "react";
+import { BookingCard } from "./BookingCard/BookingCard";
+import { TimeSwitcher } from "./TimeSwitcher";
+import { AdminContext } from "../contexts/AdminContext";
+import { UpdateBookingForm } from "./UpdateBookingForm";
+import { CurrentBookingContext } from "../contexts/CurrentBookingContext";
+import { Booking, emptyBookingCustomerExt } from "../models/Booking";
 
 export interface IFormHandling {
   openForm: () => void;
   closeForm: () => void;
 }
 
-import { BookingCard } from "./BookingCard";
-import { TimeSwitcher } from "./TimeSwitcher";
-import { BookingsListWrapper } from "./styled/AdminWrappers";
-import { BookingHeading } from "./styled/BookingHeading";
-import { AdminContext } from "../contexts/AdminContext";
-import { AdminUpdateForm } from "./AdminUpdateForm";
-import { CurrentBookingContext } from "../contexts/CurrentBookingContext";
-import {
-  BookingCustomerExt,
-  emptyBookingCustomerExt,
-} from "../models/BookingCustomerExt";
-import { VerticalWrapper } from "./styled/Wrappers";
-import { NoBookingAnimation } from "./NoBookingAnimation";
-
 export const BookingsList = () => {
   const { bookings } = useContext(AdminContext);
-
-  /* console.log("bookings", bookings); */
   const [updateFormSwitch, setUpdateFormSwitch] = useState(false);
-  const [currentBooking, setChosenBooking] = useState<BookingCustomerExt>(
+  const [currentBooking, setChosenBooking] = useState<Booking>(
     emptyBookingCustomerExt
   );
 
-  /* const [formHandling, setFormHandling] = useState<IFormHandling>({
-    openForm: ()=> void,
-    closeForm: () => void
-  }) */
+  const testBooking = {
+    _id: "54",
+    date: "2024-03-28",
+    time: "Kl 14:00-15:00",
+    guests: 4,
+    customer: {
+      _id: "40",
+      name: "Stefan Test",
+      email: "stefan.test@gmail.com",
+      phonenumber: "0760505645",
+    },
+  };
 
   function handleUpdateForm() {
     setUpdateFormSwitch(!updateFormSwitch);
@@ -43,30 +41,41 @@ export const BookingsList = () => {
   }
 
   return (
-    <BookingsListWrapper>
-      {/* <TimeSwitcher></TimeSwitcher> */}
-      <BookingHeading>Bokningar</BookingHeading>
+    <div>
+      <div>
+        <TimeSwitcher></TimeSwitcher>
+      </div>
 
       <CurrentBookingContext.Provider value={currentBooking}>
-        {bookings.filteredList.map((booking) => (
+        <article className="booking-list">
           <BookingCard
             handleUpdateForm={handleUpdateForm}
-            key={booking._id}
-            booking={booking}
+            booking={testBooking}
             updateChosenBooking={updateChosenBooking}
           />
-        ))}
 
-        {bookings.filteredList.length === 0 && (
-          <NoBookingAnimation></NoBookingAnimation>
-        )}
+          <BookingCard
+            handleUpdateForm={handleUpdateForm}
+            booking={testBooking}
+            updateChosenBooking={updateChosenBooking}
+          />
+
+          {bookings.filteredList.map((booking) => (
+            <BookingCard
+              handleUpdateForm={handleUpdateForm}
+              key={booking._id}
+              booking={booking}
+              updateChosenBooking={updateChosenBooking}
+            />
+          ))}
+        </article>
 
         {updateFormSwitch && (
-          <AdminUpdateForm
+          <UpdateBookingForm
             handleUpdateForm={handleUpdateForm}
-          ></AdminUpdateForm>
+          ></UpdateBookingForm>
         )}
       </CurrentBookingContext.Provider>
-    </BookingsListWrapper>
+    </div>
   );
 };

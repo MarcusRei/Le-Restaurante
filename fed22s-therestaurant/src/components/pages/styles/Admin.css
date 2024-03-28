@@ -1,0 +1,17 @@
+.table-view {
+  padding-top: 1rem;
+  width: 60%;
+  height: 100vh;
+  border-right: 1px solid rgba(148, 148, 148, 0.431);
+}
+
+.admin-view {
+  padding-top: 1rem;
+  width: 40%;
+}
+
+.section-separator {
+  height: 2px;
+  background-color: rgba(148, 148, 148, 0.431);
+  width: 95%;
+}

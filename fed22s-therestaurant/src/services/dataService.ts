@@ -1,7 +1,7 @@
 import axios from "axios";
 import { BookingClass } from "../models/BookingClass";
 import { IUpdatedInfo } from "../models/IUpdatedInfo";
-import { BookingCustomerExt } from "../models/BookingCustomerExt";
+import { BookingCustomerExt } from "../models/Booking";
 
 // General Requests Function
 const get = async (url: string) => {

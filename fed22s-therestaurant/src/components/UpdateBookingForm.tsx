@@ -1,36 +1,22 @@
 import { ChangeEvent, FormEvent, useContext, useEffect, useState } from "react";
-import { UpdateFormWrapper } from "./styled/AdminWrappers";
-import { Heading } from "./styled/HeadingStyles";
-import { NumberInput, TextInput } from "./styled/Inputs";
-import {
-  FormLabel,
-  StyledAdminUpdateForm,
-  TinyText,
-} from "./styled/StyledForm";
-import { HorizontalWrapperGap } from "./styled/Wrappers";
-import { AdminButton, CloseButton } from "./styled/Buttons";
 import { CurrentBookingContext } from "../contexts/CurrentBookingContext";
 import { timeSlot } from "../enums/timeSlots";
-import {
-  BookingCustomerExt,
-  emptyBookingCustomerExt,
-} from "../models/BookingCustomerExt";
+import { Booking, emptyBookingCustomerExt } from "../models/Booking";
 import { updateBooking } from "../services/dataService";
-import { CrossBarOne, CrossBarTwo } from "./styled/ExitCross";
 
-interface IAdminUpdateFormProps {
+interface IUpdateBookingFormProps {
   handleUpdateForm: () => void;
 }
 
-export const AdminUpdateForm = (props: IAdminUpdateFormProps) => {
+export const UpdateBookingForm = (props: IUpdateBookingFormProps) => {
   const currentBooking = useContext(CurrentBookingContext);
 
-  const [updatedBooking, setUpdatedBooking] = useState<BookingCustomerExt>({
+  const [updatedBooking, setUpdatedBooking] = useState<Booking>({
     ...emptyBookingCustomerExt,
     guests: currentBooking.guests,
   });
 
-  const [finishedBooking, setFinishedBooking] = useState<BookingCustomerExt>({
+  const [finishedBooking, setFinishedBooking] = useState<Booking>({
     ...emptyBookingCustomerExt,
     guests: currentBooking.guests,
   });
@@ -40,8 +26,6 @@ export const AdminUpdateForm = (props: IAdminUpdateFormProps) => {
       updateBooking(finishedBooking);
     }
   });
-
-  console.log("objekt som vi skickar iväg:", finishedBooking);
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     e.preventDefault();
@@ -63,7 +47,6 @@ export const AdminUpdateForm = (props: IAdminUpdateFormProps) => {
   }
 
   function sendBooking() {
-    // Färdigställer objekt
     setFinishedBooking({
       ...updatedBooking,
       customer: {
@@ -85,10 +68,6 @@ export const AdminUpdateForm = (props: IAdminUpdateFormProps) => {
       date: currentBooking.date,
       _id: currentBooking._id,
     });
-
-    // PUT Request
-
-    //updateBooking(finishedBooking);
   }
 
   function stopSubmit(e: FormEvent) {
@@ -120,51 +99,60 @@ export const AdminUpdateForm = (props: IAdminUpdateFormProps) => {
     }
   }
   return (
-    <UpdateFormWrapper>
-      <CloseButton onClick={props.handleUpdateForm}>
-        <CrossBarOne></CrossBarOne>
-        <CrossBarTwo></CrossBarTwo>
-      </CloseButton>
-      <StyledAdminUpdateForm onSubmit={stopSubmit}>
-        <Heading>Uppdatera bokning</Heading>
-        <FormLabel>
-          <TinyText>Nuvaranade namn: {currentBooking.customer.name}</TinyText>
-          Namn:
-          <TextInput
+    <form className="admin-form">
+      <button onClick={props.handleUpdateForm}>Close</button>
+      <form onSubmit={stopSubmit}>
+        <h2 className="font medium">Uppdatera bokning</h2>
+
+        <div className="font-bold">
+          Nuvaranade namn: {currentBooking.customer.name}
+        </div>
+        <article className="flex-row gap-small align-center">
+          <label htmlFor="name">Namn:</label>
+          <input
             type="text"
             value={updatedBooking.customer.name}
             name="name"
             onChange={handleCustomerChange}
-          ></TextInput>
-        </FormLabel>
-        <FormLabel>
-          <TinyText>Nuvarande email: {currentBooking.customer.email}</TinyText>
-          Email:
-          <TextInput
+          ></input>
+        </article>
+
+        <div className="spacing small" />
+
+        <article>
+          <div className="font-bold">
+            Nuvarande email: {currentBooking.customer.email}
+          </div>
+          <label htmlFor="email">Email:</label>
+          <input
             type="text"
             value={updatedBooking.customer.email}
             name="email"
             onChange={handleCustomerChange}
           />
-        </FormLabel>
-        <FormLabel>
-          <TinyText>
-            Nuvaranade nummer: {currentBooking.customer.phonenumber}
-          </TinyText>
-          Telefonnummer:
-          <TextInput
+        </article>
+
+        <div className="spacing small" />
+
+        <div className="font-bold">
+          Nuvarande nummer: {currentBooking.customer.phonenumber}
+        </div>
+        <article>
+          <label htmlFor="phone">Telefonnummer:</label>
+          <input
             type="text"
             value={updatedBooking.customer.phonenumber}
             name="phonenumber"
             onChange={handleCustomerChange}
           />
-        </FormLabel>
+        </article>
 
-        <HorizontalWrapperGap>
-          <FormLabel>
-            <TinyText>Nuvarande sällskap: {currentBooking.guests}st</TinyText>
+        <div className="spacing small" />
+
+        <article>
+          <label>
             Antal i sällskap:
-            <NumberInput
+            <input
               type="number"
               min={1}
               //max={10}
@@ -172,19 +160,30 @@ export const AdminUpdateForm = (props: IAdminUpdateFormProps) => {
               name="guests"
               onChange={handleChange}
             />
-          </FormLabel>
-          <FormLabel>
-            <TinyText>
-              Nuvarande sittning:{" "}
-              {updatedBooking.time === ""
-                ? currentBooking.time
-                : updatedBooking.time}
-            </TinyText>
-            <AdminButton onClick={changeTime}>Byt tid</AdminButton>
-          </FormLabel>
-        </HorizontalWrapperGap>
-        <AdminButton>Uppdatera bokning!</AdminButton>
-      </StyledAdminUpdateForm>
-    </UpdateFormWrapper>
+          </label>
+        </article>
+
+        <div className="spacing small" />
+
+        <article className="flex-row align-center gap-small">
+          <div className="font-bold">
+            Nuvarande sittning:
+            {updatedBooking.time === ""
+              ? currentBooking.time
+              : updatedBooking.time}
+          </div>
+
+          <button className="admin-button" onClick={changeTime}>
+            Byt tid
+          </button>
+        </article>
+
+        <div className="spacing small" />
+
+        <div className="flex-row justify-center">
+          <button className="admin-button font-bold">Uppdatera bokning!</button>
+        </div>
+      </form>
+    </form>
   );
 };

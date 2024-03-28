@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { BookingClass } from "../models/BookingClass";
 import { AdminContext } from "../contexts/AdminContext";
-import { BookingCustomerExt } from "../models/BookingCustomerExt";
+import { BookingCustomerExt } from "../models/Booking";
 
 export interface IAction {
   type: ActionType;

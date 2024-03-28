@@ -1,14 +1,14 @@
 import { BookingsCalendar } from "../BookingsCalendar/BookingsCalendar";
 import { useEffect, useReducer, useRef, useState } from "react";
-import { BookingClass } from "../../models/BookingClass";
 import { getBookings } from "../../services/dataService";
 import { BookingReducer, IBookingAction } from "../../reducers/BookingReducer";
+import { Booking } from "../../models/Booking";
 
-export const Booking = () => {
+export const BookingPage = () => {
   const calendarRef = useRef<HTMLDialogElement>(null);
   const [policy, setPolicy] = useState(false);
   const [calendarOpen, setCalendarOpen] = useState(false);
-  const [bookings, setBookings] = useState<BookingClass[]>([]);
+  const [bookings, setBookings] = useState<Booking[]>([]);
   const [activeTables, setActiveTables] = useState(0);
 
   const [booking, dispatch] = useReducer(BookingReducer, {
@@ -21,7 +21,7 @@ export const Booking = () => {
   });
 
   useEffect(() => {
-    getBookings().then((bookings: BookingClass[]) => setBookings(bookings));
+    getBookings().then((bookings: Booking[]) => setBookings(bookings));
   }, []);
 
   function openCalendar() {

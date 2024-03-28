@@ -1,80 +1,38 @@
-import { TableSet } from "../TableSet";
-import {
-  AdminWrapper,
-  UpperTableWrapper,
-  TableviewWrapper,
-  LowerTableWrapper,
-} from "../styled/AdminWrappers";
 import { BookingsList } from "../BookingsList";
-import { useContext, useEffect, useReducer, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { BookingClass } from "../../models/BookingClass";
 import { getBookings } from "../../services/dataService";
 import { AdminContext } from "../../contexts/AdminContext";
 import { ActionType, AdminReducer, ILists } from "../../reducers/AdminReducer";
 import { TimeSwitchContext } from "../../contexts/TimeSwitchContext";
-import { timeSlot } from "../../enums/timeSlots";
 import { TimeSwitchReducer } from "../../reducers/TimeSwitchReducer";
 import { TimeSwitchDispatchContext } from "../../contexts/TimeSwitchDispatchContext";
-import { HorizontalWrapper } from "../styled/Wrappers";
-import { Button } from "../styled/Buttons";
-import { BookingCustomerExt } from "../../models/BookingCustomerExt";
-import { DatePickerWrapper } from "../styled/DatePickerWrapper";
+import "./styles/Admin.css";
+import { FourSeats } from "../seats/FourSeats/FourSeats";
+import { FourSeatsRound } from "../seats/FourSeatsRound/FourSeatsRound";
+import { TwoSeats } from "../seats/TwoSeats/TwoSeats";
+import { Booking } from "../../models/Booking";
 
 export const Admin = () => {
   const startValue: ILists = {
     allBookings: [],
     filteredList: [],
   };
-
-  //const handleTime = useContext(TimeSwitchContext);
   const [time, TimeSwitchDispatch] = useReducer(TimeSwitchReducer, false);
-
   const [bookings, dispatch] = useReducer(AdminReducer, startValue);
   const [selectedDate, setSelectedDate] = useState<string>("");
-  const [filteredBookings, setFilteredBookings] = useState<
-    BookingCustomerExt[]
-  >(bookings.filteredList);
+  const [filteredBookings, setFilteredBookings] = useState<Booking[]>(
+    bookings.filteredList
+  );
   const [timeslot, setTimeslot] = useState(false);
 
-  /* function checkTimeSlot() {
-    if (time === true) {
-      setTimeslot(timeSlot.EARLY);
-    } else {
-      setTimeslot(timeSlot.LATE);
-    }
-  }
+  console.log("selected date:", selectedDate);
 
-  checkTimeSlot(); */
-  /* filterByTime(); */
-  /* useEffect(() => {
-    if (timeslot === true) {
-      dispatch({
-        type: ActionType.TIMEFILTER_BOOKINGS,
-        payload: JSON.stringify(timeSlot.LATE),
-      });
-    } else {
-      dispatch({
-        type: ActionType.TIMEFILTER_BOOKINGS,
-        payload: JSON.stringify(timeSlot.EARLY),
-      });
-    }
-  }, [timeslot]);
- */
   console.log("timeSlot:", timeslot);
 
-  function setTime() {
-    /* if (timeslot === timeSlot.EARLY) {
-      setTimeslot(timeSlot.LATE);
-    } else {
-      setTimeslot(timeSlot.EARLY);
-    } */
-    setTimeslot(!timeslot);
-  }
-
   useEffect(() => {
-    getBookings().then((bookings: BookingCustomerExt[]) => {
+    getBookings().then((bookings: Booking[]) => {
       dispatch({
         type: ActionType.ADDED_BOOKING,
         payload: JSON.stringify(bookings),
@@ -89,7 +47,7 @@ export const Admin = () => {
     });
   }, [selectedDate]);
 
-  const handleDateChange = (date: Date) => {
+  const setDate = (date: Date) => {
     const selectedDateISO = date?.toISOString().split("T")[0] ?? "";
     setSelectedDate(selectedDateISO);
   };
@@ -98,36 +56,45 @@ export const Admin = () => {
     <AdminContext.Provider value={{ bookings, dispatch }}>
       <TimeSwitchDispatchContext.Provider value={TimeSwitchDispatch}>
         <TimeSwitchContext.Provider value={time}>
-          <AdminWrapper>
-            <TableviewWrapper>
-              <UpperTableWrapper>
-                <TableSet></TableSet>
-                <TableSet></TableSet>
-                <TableSet></TableSet>
-                <TableSet></TableSet>
-                <TableSet></TableSet>
-                <TableSet></TableSet>
-                <TableSet></TableSet>
-                <TableSet></TableSet>
-              </UpperTableWrapper>
-              <LowerTableWrapper>
-                <TableSet></TableSet>
-                <TableSet></TableSet>
-                <TableSet></TableSet>
-                <TableSet></TableSet>
-                <TableSet></TableSet>
-                <TableSet></TableSet>
-                <TableSet></TableSet>
-              </LowerTableWrapper>
-            </TableviewWrapper>
-            {/* <HorizontalWrapper>
-              <Button onClick={setTime}>Early</Button>
-            </HorizontalWrapper> */}
-            <DatePickerWrapper>
-              <DatePicker selected={new Date()} onChange={handleDateChange} />
-            </DatePickerWrapper>
-            <BookingsList />
-          </AdminWrapper>
+          <div className="flex-row">
+            <section className="table-view">
+              <article className="flex-row justify-center full-width">
+                <h2>Bordsvy</h2>
+              </article>
+
+              <div>
+                <FourSeats />
+                <FourSeatsRound />
+                <TwoSeats />
+              </div>
+            </section>
+            <section className="admin-view">
+              <article className="flex-row justify-center full-width">
+                <h2>Admin</h2>
+              </article>
+
+              <div className="spacing small"></div>
+
+              <div className="flex-row gap-small padding small">
+                <h3 className="font large">Bokningar</h3>
+
+                <div className="flex-resize"></div>
+                <div className="flex-row">
+                  <label htmlFor="date-picker">Datum:</label>
+                  <DatePicker selected={new Date()} onChange={setDate} />
+                </div>
+              </div>
+
+              <div className="flex-row justify-center">
+                <div className="section-separator"></div>
+                <div className="spacing small"></div>
+              </div>
+
+              <BookingsList />
+
+              <div className="spacing medium"></div>
+            </section>
+          </div>
         </TimeSwitchContext.Provider>
       </TimeSwitchDispatchContext.Provider>
     </AdminContext.Provider>
