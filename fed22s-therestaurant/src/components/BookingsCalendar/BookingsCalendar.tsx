@@ -3,7 +3,6 @@ import "./BookingsCalendar.css";
 import { useContext, useState } from "react";
 import { TimeSlots } from "../TimeSlots";
 import { BookingsContext } from "../../contexts/BookingsContext";
-import { BookingClass } from "../../models/BookingClass";
 import { timeSlot } from "../../enums/timeSlots";
 import { NewBookingContext } from "../../contexts/NewBookingContext";
 import { IBookingAction } from "../../reducers/BookingReducer";
@@ -49,25 +48,17 @@ export const BookingsCalendar = (props: IBookingsCalendarProps) => {
     early: 0,
   };
 
-  /* let combinedLate = 0;
-  let combinedEarly = 0; */
-
   console.log("bokade bord: ", bookedTables);
   combineCheck();
-
-  // Om bookedTables ändras
 
   function updateDate(nextValue: Date) {
     setDate(nextValue);
   }
 
   function checkDate(date: Date) {
-    const chosenDate = DateTime.fromJSDate(date)
-      .toString()
-      .split("T")[0];
+    const chosenDate = DateTime.fromJSDate(date).toString().split("T")[0];
     console.log("chosenDate", chosenDate);
 
-    // Lägger till datumet i vårt bokningsobjekt
     props.addDate({
       type: actionType.DATEADDED,
       payload: chosenDate,
@@ -77,25 +68,21 @@ export const BookingsCalendar = (props: IBookingsCalendarProps) => {
   }
 
   function filterList(chosenDate: String) {
-    // Filtrerar en lista med bokningar på samma dag
     const filteredBookings = bookings.filter((booking) => {
       if (chosenDate === booking.date) {
         return booking;
       }
     });
 
-    // Om det inte finns några bokningar på den valda dagen
     if (filteredBookings.length === 0) {
       setBookedTables({ early: 0, late: 0 });
     }
 
-    // Kollar lediga bord på första sittningen
     filteredBookings.map((booking) => {
       if (booking.time === timeSlot.EARLY) {
         earlySlotTables += Math.ceil(booking.guests / 6);
       }
 
-      // Kolla lediga bord på andra sittningen
       if (booking.time === timeSlot.LATE) {
         lateSlotTables += Math.ceil(booking.guests / 6);
       }
@@ -111,24 +98,19 @@ export const BookingsCalendar = (props: IBookingsCalendarProps) => {
   function checkAvailableTables() {
     let earlyTables = true;
     let lateTables = true;
-    // Kolla om första sittningen har bord kvar
+
     if (bookedTables.early + props.activeTables >= 15) {
       earlyTables = false;
 
-      console.log(
-        "Det finns inte tillräckligt med bord på den tidiga!"
-      );
+      console.log("Det finns inte tillräckligt med bord på den tidiga!");
     } else {
       console.log("det finns bord på den tidiga!");
     }
 
-    // Kolla om andra sittningen har bord kvar
     if (bookedTables.late + props.activeTables >= 15) {
       lateTables = false;
 
-      console.log(
-        "Det finns inte tillräckligt med bord på den sena!"
-      );
+      console.log("Det finns inte tillräckligt med bord på den sena!");
     } else {
       console.log("det finns bord på den sena!");
     }
@@ -144,9 +126,6 @@ export const BookingsCalendar = (props: IBookingsCalendarProps) => {
   }
 
   function combineCheck() {
-    /* combinedLate = bookedTables.late + props.activeTables;
-    combinedEarly = bookedTables.early + props.activeTables; */
-
     combinedTables = {
       late: bookedTables.late + props.activeTables,
       early: bookedTables.early + props.activeTables,
@@ -155,20 +134,25 @@ export const BookingsCalendar = (props: IBookingsCalendarProps) => {
   }
 
   return (
-    <>
+    <div className="padding small">
+      <div className="calendar-button-wrapper">
+        <button className="secondary-button">Stäng</button>
+      </div>
       <div className="calendar-container">
         <Calendar
           value={date}
           //@ts-ignore
           onChange={updateDate}
           onClickDay={checkDate}
-          minDate={new Date()}></Calendar>
+          minDate={new Date()}
+        ></Calendar>
         <div>Valt datum: {date.toISOString().split("T")[0]}</div>
         <h2>Tillgängliga tider:</h2>
         <TimeSlots
           closeCalendar={closeCalendar}
-          combinedTables={combinedTables}></TimeSlots>
+          combinedTables={combinedTables}
+        ></TimeSlots>
       </div>
-    </>
+    </div>
   );
 };

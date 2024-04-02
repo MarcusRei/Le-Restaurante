@@ -15,6 +15,8 @@ export const Menu = () => {
           Pris: 170:- Avhämtning: 170:-
         </p>
 
+        <div className="spacing small" />
+
         <p className="menu-item">
           <div>PUTTANESCA</div>
           <div>
@@ -25,6 +27,8 @@ export const Menu = () => {
           Pris: 195:- Avhämtning: 195:-
         </p>
 
+        <div className="spacing small" />
+
         <p className="menu-item">
           <div>PASTA FUNGHI</div>
           <div>
@@ -34,6 +38,8 @@ export const Menu = () => {
           </div>
           Pris: 225:- Avhämtning: 225:-
         </p>
+
+        <div className="spacing small" />
 
         <p className="menu-item">
           <div>PASTA POLLO</div>

@@ -1,10 +1,8 @@
 export interface Booking {
-  _id: string;
   date: string;
-  time: string;
+  timeSlot: string;
   guests: number;
   customer: {
-    _id: string;
     name: string;
     email: string;
     phonenumber: string;
