@@ -3,11 +3,12 @@ import "./BookingsCalendar.css";
 import { useContext, useState } from "react";
 import { TimeSlots } from "../TimeSlots";
 import { BookingsContext } from "../../contexts/BookingsContext";
-import { timeSlot } from "../../enums/timeSlots";
+import { TimeSlot } from "../../enums/timeSlots";
 import { NewBookingContext } from "../../contexts/NewBookingContext";
 import { IBookingAction } from "../../reducers/BookingReducer";
 import { actionType } from "../../enums/actionType";
 import { DateTime } from "luxon";
+import { BookingDispatchContext } from "../../contexts/BookingDispatchContext";
 
 interface IShowTimeslots {
   earlySlot: boolean;
@@ -20,15 +21,16 @@ export interface ICombinedTables {
 }
 
 interface IBookingsCalendarProps {
-  closeCalendar: () => void;
+  closeCalendar: Function;
   addDate: (Value: IBookingAction) => void;
-  activeTables: number;
   addTime: (Value: IBookingAction) => void;
+  activeTables: number;
 }
 
 export const BookingsCalendar = (props: IBookingsCalendarProps) => {
   const bookings = useContext(BookingsContext);
   const booking = useContext(NewBookingContext);
+  const dispatch = useContext(BookingDispatchContext);
   const [date, setDate] = useState(new Date());
   const [showTime, setShowTime] = useState(false);
   const [showTimeslots, setShowTimeslots] = useState<IShowTimeslots>({
@@ -48,7 +50,6 @@ export const BookingsCalendar = (props: IBookingsCalendarProps) => {
     early: 0,
   };
 
-  console.log("bokade bord: ", bookedTables);
   combineCheck();
 
   function updateDate(nextValue: Date) {
@@ -57,7 +58,6 @@ export const BookingsCalendar = (props: IBookingsCalendarProps) => {
 
   function checkDate(date: Date) {
     const chosenDate = DateTime.fromJSDate(date).toString().split("T")[0];
-    console.log("chosenDate", chosenDate);
 
     props.addDate({
       type: actionType.DATEADDED,
@@ -79,11 +79,11 @@ export const BookingsCalendar = (props: IBookingsCalendarProps) => {
     }
 
     filteredBookings.map((booking) => {
-      if (booking.time === timeSlot.EARLY) {
+      if (booking.timeSlot === TimeSlot.EARLY) {
         earlySlotTables += Math.ceil(booking.guests / 6);
       }
 
-      if (booking.time === timeSlot.LATE) {
+      if (booking.timeSlot === TimeSlot.LATE) {
         lateSlotTables += Math.ceil(booking.guests / 6);
       }
 
@@ -101,18 +101,10 @@ export const BookingsCalendar = (props: IBookingsCalendarProps) => {
 
     if (bookedTables.early + props.activeTables >= 15) {
       earlyTables = false;
-
-      console.log("Det finns inte tillräckligt med bord på den tidiga!");
-    } else {
-      console.log("det finns bord på den tidiga!");
     }
 
     if (bookedTables.late + props.activeTables >= 15) {
       lateTables = false;
-
-      console.log("Det finns inte tillräckligt med bord på den sena!");
-    } else {
-      console.log("det finns bord på den sena!");
     }
 
     setShowTimeslots({
@@ -121,22 +113,22 @@ export const BookingsCalendar = (props: IBookingsCalendarProps) => {
     });
   }
 
-  function closeCalendar() {
-    props.closeCalendar();
-  }
-
   function combineCheck() {
     combinedTables = {
       late: bookedTables.late + props.activeTables,
       early: bookedTables.early + props.activeTables,
     };
-    console.log("combined", combinedTables);
   }
 
   return (
     <div className="padding small">
       <div className="calendar-button-wrapper">
-        <button className="secondary-button">Stäng</button>
+        <button
+          className="secondary-button"
+          onClick={() => props.closeCalendar()}
+        >
+          Stäng
+        </button>
       </div>
       <div className="calendar-container">
         <Calendar
@@ -149,7 +141,7 @@ export const BookingsCalendar = (props: IBookingsCalendarProps) => {
         <div>Valt datum: {date.toISOString().split("T")[0]}</div>
         <h2>Tillgängliga tider:</h2>
         <TimeSlots
-          closeCalendar={closeCalendar}
+          closeCalendar={() => props.closeCalendar()}
           combinedTables={combinedTables}
         ></TimeSlots>
       </div>

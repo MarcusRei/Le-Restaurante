@@ -1,11 +1,11 @@
 import { createContext } from "react";
-import { BookingClass } from "../models/BookingClass";
+import { Booking } from "../models/Booking";
 
-export const NewBookingContext = createContext<BookingClass>({
+export const NewBookingContext = createContext<Booking>({
   name: "",
   email: "",
   phonenumber: "",
   guests: 0,
   date: "",
-  time: "",
+  timeSlot: null,
 });

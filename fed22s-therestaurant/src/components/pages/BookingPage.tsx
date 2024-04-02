@@ -1,44 +1,46 @@
 import { BookingsCalendar } from "../BookingsCalendar/BookingsCalendar";
-import { ChangeEvent, useEffect, useReducer, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { getBookings } from "../../services/dataService";
-import { BookingReducer, IBookingAction } from "../../reducers/BookingReducer";
 import { Booking } from "../../models/Booking";
+import { BookingDispatchContext } from "../../contexts/BookingDispatchContext";
+import { NewBookingContext } from "../../contexts/NewBookingContext";
+import { ActionType } from "../../reducers/BookingReducer";
 
 export const BookingPage = () => {
   const calendarRef = useRef<HTMLDialogElement>(null);
-  const [bookingInfo, setBookingInfo] = useState<Booking>({} as Booking);
   const [policy, setPolicy] = useState(false);
-  const [calendarOpen, setCalendarOpen] = useState(false);
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [activeTables, setActiveTables] = useState(0);
+  const booking = useContext(NewBookingContext);
+  const dispatch = useContext(BookingDispatchContext);
 
   useEffect(() => {
     getBookings().then((bookings: Booking[]) => setBookings(bookings));
   }, []);
 
-  function handleInput(e: ChangeEvent<HTMLInputElement>) {
-    const input = e.target;
+  function closeCalendar() {
+    calendarRef.current?.close();
+  }
 
-    if (input.name === "guests") {
-      setBookingInfo({
-        ...bookingInfo,
-        guests: Number(e.target.value),
-      });
-    } else {
-      setBookingInfo({
-        ...bookingInfo,
-        [input.name]: input.value,
-      });
+  function publishBooking() {
+    if (
+      booking.name === "" ||
+      booking.email === "" ||
+      booking.phonenumber === "" ||
+      booking.date === "" ||
+      booking.timeSlot === null
+    ) {
+      alert("Du måste fylla i alla fält för att kunna lägga en bokning!");
     }
   }
 
-  function closeCalendar() {
-    setCalendarOpen(false);
+  function addDate() {
+    console.log("add date");
   }
 
-  function addTime(value: IBookingAction) {}
-
-  function addDate(value: IBookingAction) {}
+  function addTimeSlot() {
+    console.log("add time slot");
+  }
 
   return (
     <>
@@ -50,7 +52,16 @@ export const BookingPage = () => {
             <label className="font medium font-bold" htmlFor="name">
               Namn:
             </label>
-            <input type="text" name="name" />
+            <input
+              type="text"
+              name="name"
+              onChange={(e) => {
+                dispatch({
+                  type: ActionType.NAME,
+                  payload: { name: e.target.value },
+                });
+              }}
+            />
           </article>
 
           <div className="spacing small" />
@@ -59,7 +70,16 @@ export const BookingPage = () => {
             <label className="font medium font-bold" htmlFor="email">
               Email:
             </label>
-            <input type="text" name="email" onChange={(e) => handleInput(e)} />
+            <input
+              type="text"
+              name="email"
+              onChange={(e) => {
+                dispatch({
+                  type: ActionType.EMAIL,
+                  payload: { email: e.target.value },
+                });
+              }}
+            />
           </article>
 
           <div className="spacing small" />
@@ -68,7 +88,16 @@ export const BookingPage = () => {
             <label className="font medium font-bold" htmlFor="phone">
               Telefonnummer:
             </label>
-            <input type="text" name="phone" />
+            <input
+              type="text"
+              name="phone"
+              onChange={(e) => {
+                dispatch({
+                  type: ActionType.PHONE,
+                  payload: { phonenumber: e.target.value },
+                });
+              }}
+            />
           </article>
 
           <div className="spacing small" />
@@ -84,6 +113,12 @@ export const BookingPage = () => {
                 defaultValue={2}
                 min={1}
                 name="guests"
+                onChange={(e) => {
+                  dispatch({
+                    type: ActionType.GUESTS,
+                    payload: { guests: Number(e.target.value) },
+                  });
+                }}
               />
               <button
                 className="secondary-button button-position"
@@ -114,16 +149,23 @@ export const BookingPage = () => {
 
         <span className="spacing small" />
 
-        <button disabled={!policy} className="secondary-button">
+        <button
+          disabled={!policy}
+          className="secondary-button"
+          onClick={(e) => {
+            e.preventDefault();
+            publishBooking();
+          }}
+        >
           Boka
         </button>
       </form>
 
       <dialog ref={calendarRef}>
         <BookingsCalendar
-          addDate={addDate}
-          addTime={addTime}
-          closeCalendar={closeCalendar}
+          addDate={() => addDate()}
+          addTime={() => addTimeSlot()}
+          closeCalendar={() => closeCalendar()}
           activeTables={activeTables}
         ></BookingsCalendar>
       </dialog>

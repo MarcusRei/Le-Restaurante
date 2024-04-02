@@ -1,23 +1,10 @@
+import { TimeSlot } from "../enums/timeSlots";
+
 export interface Booking {
   date: string;
-  timeSlot: string;
+  timeSlot: TimeSlot | null;
   guests: number;
-  customer: {
-    name: string;
-    email: string;
-    phonenumber: string;
-  };
+  name: string;
+  email: string;
+  phonenumber: string;
 }
-
-export const emptyBookingCustomerExt = {
-  _id: "",
-  date: "",
-  time: "",
-  guests: 0,
-  customer: {
-    _id: "",
-    name: "",
-    email: "",
-    phonenumber: "",
-  },
-};

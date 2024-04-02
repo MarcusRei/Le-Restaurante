@@ -1,31 +1,37 @@
-import { actionType } from "../enums/actionType";
-import { BookingClass } from "../models/BookingClass";
+import { Booking } from "../models/Booking";
 
 export interface IBookingAction {
   type: string;
   payload: any;
 }
 
-export const BookingReducer = (
-  booking: BookingClass,
-  action: IBookingAction
-) => {
+export enum ActionType {
+  NAME = "name changed",
+  EMAIL = "email changed",
+  GUESTS = "guests changed",
+  PHONE = "phone changed",
+  DATE = "date changed",
+  TIMESLOT = "time changed",
+}
+
+export const BookingReducer = (booking: Booking, action: IBookingAction) => {
   switch (action.type) {
-    case actionType.TIMEADDED:
-      return { ...booking, time: action.payload.time };
+    case ActionType.NAME:
+      return { ...booking, name: action.payload.name };
 
-    case actionType.INFOADDED:
-      return {
-        ...booking,
-        name: action.payload.name,
-        email: action.payload.email,
-        guests: action.payload.guests,
-        phonenumber: action.payload.phonenumber,
-      };
+    case ActionType.EMAIL:
+      return { ...booking, email: action.payload.email };
 
-    case actionType.DATEADDED:
-      return { ...booking, date: action.payload };
+    case ActionType.GUESTS:
+      return { ...booking, guests: action.payload.guests };
+
+    case ActionType.DATE:
+      return { ...booking, date: action.payload.date };
+
+    case ActionType.TIMESLOT:
+      return { ...booking, timeSlot: action.payload.time };
+
+    default:
+      console.log("no type matched");
   }
-
-  return booking;
 };

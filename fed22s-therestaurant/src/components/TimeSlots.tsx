@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { NewBookingContext } from "../contexts/NewBookingContext";
-import { timeSlot } from "../enums/timeSlots";
+import { TimeSlot } from "../enums/timeSlots";
 import { BookingDispatchContext } from "../contexts/BookingDispatchContext";
 import { actionType } from "../enums/actionType";
 import { ICombinedTables } from "./BookingsCalendar/BookingsCalendar";
@@ -16,32 +16,27 @@ export const TimeSlots = (props: ITimeSlotsProps) => {
   const newBooking = useContext(NewBookingContext);
   const [combined, setCombined] = useState(props.combinedTables);
 
-  function addTime(time: string) {
+  function addTime(time: TimeSlot) {
     dispatch({
       type: actionType.TIMEADDED,
       payload: { time: time },
     });
-    console.log("tid tillagd i bokning");
     props.closeCalendar();
   }
 
-  console.log("i timeslots", props.combinedTables);
-
   return (
     <>
-      <div>
-        {props.combinedTables.early <= 15 ? (
-          <div>
-            <button onClick={() => addTime(timeSlot.EARLY)}>18:00-21:00</button>
-          </div>
-        ) : null}
+      {props.combinedTables.early <= 15 ? (
+        <div>
+          <button onClick={() => addTime(TimeSlot.EARLY)}>18:00-21:00</button>
+        </div>
+      ) : null}
 
-        {props.combinedTables.late <= 15 ? (
-          <div>
-            <button onClick={() => addTime(timeSlot.LATE)}>21:00-23:00</button>
-          </div>
-        ) : null}
-      </div>
+      {props.combinedTables.late <= 15 ? (
+        <div>
+          <button onClick={() => addTime(TimeSlot.LATE)}>21:00-23:00</button>
+        </div>
+      ) : null}
     </>
   );
 };

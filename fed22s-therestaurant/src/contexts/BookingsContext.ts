@@ -1,5 +1,4 @@
 import { createContext } from "react";
-import { BookingClass } from "../models/BookingClass";
-import { getBookings } from "../services/dataService";
+import { Booking } from "../models/Booking";
 
-export const BookingsContext = createContext<BookingClass[]>([]);
+export const BookingsContext = createContext<Booking[]>([]);
