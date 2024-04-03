@@ -1,6 +1,8 @@
 import { Outlet } from "react-router-dom";
 import { Footer } from "./Footer";
 import { Navigation } from "./Navigation/Navigation";
+import { Booking } from "../models/Booking";
+import { BookingsContext } from "../contexts/BookingsContext";
 
 export const Layout = () => {
   return (
@@ -15,7 +17,9 @@ export const Layout = () => {
         </article>
         <section className="outlet">
           <Navigation></Navigation>
-          <Outlet></Outlet>
+          <BookingsContext.Provider value={[]}>
+            <Outlet></Outlet>
+          </BookingsContext.Provider>
         </section>
       </div>
       <Footer></Footer>

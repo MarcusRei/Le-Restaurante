@@ -15,8 +15,10 @@ export enum ActionType {
 }
 
 export const BookingReducer = (booking: Booking, action: IBookingAction) => {
+  console.log(action);
   switch (action.type) {
     case ActionType.NAME:
+      console.log("name");
       return { ...booking, name: action.payload.name };
 
     case ActionType.EMAIL:

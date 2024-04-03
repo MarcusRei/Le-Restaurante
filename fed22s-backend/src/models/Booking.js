@@ -4,9 +4,9 @@ const mongoose = require("mongoose");
 const BookingSchema = new mongoose.Schema({
   date: {
     type: String,
-    // required: true,
+    required: true,
   },
-  time: {
+  timeSlot: {
     type: String,
     required: true,
   },
@@ -14,9 +14,17 @@ const BookingSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  customer: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Customer",
+  name: {
+    type: String,
+    required: true,
+  },
+  email: {
+    type: String,
+    required: true,
+  },
+  phonenumber: {
+    type: String,
+    required: true,
   },
 });
 

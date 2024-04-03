@@ -4,7 +4,7 @@ const nodemailer = require("nodemailer");
 
 exports.getAllBookings = async (req, res, next) => {
   try {
-    const bookings = await booking.find().populate("customer");
+    const bookings = await booking.find();
 
     if (!bookings) {
       throw new NotFoundError("There are no bookings");

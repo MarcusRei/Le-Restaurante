@@ -1,42 +1,101 @@
-import axios from "axios";
-import { BookingClass } from "../models/BookingClass";
-import { IUpdatedInfo } from "../models/IUpdatedInfo";
-import { BookingCustomerExt } from "../models/Booking";
+import { Booking } from "../models/Booking";
 
 // General Requests Function
-const get = async (url: string) => {
-  return await axios.get(url);
-};
+async function getData(url: string) {
+  const response = await fetch(url);
+  if (response.ok) {
+    const data = await response.json();
 
-/* const post = async (url: string, booking: BookingClass) => {
-  return await axios.post(url, booking);
-}; */
-
-const post = (url: string, booking: BookingClass) => {
-  return axios.post(url, booking);
-};
-
-const put = async (url: string, updatedInfo: {}) => {
-  return await axios.put(url, updatedInfo);
-};
-
-const generalDelete = async (url: string) => {
-  return await axios.delete(url);
-};
+    return data;
+  } else {
+    return response;
+  }
+}
 
 // Specific Get functions
 
-export const getBookings = async () => {
-  try {
-    const response = await get("http://localhost:5001/api/v1/bookings");
+export async function getBookings() {
+  const response = await getData("http://localhost:5001/api/v1/bookings");
 
-    return response.data;
-  } catch {
-    throw new Error("Could not get bookings from API");
+  if (response.ok) {
+    const bookings = await response.json();
+    return bookings;
+  } else {
+    return response;
   }
-};
+}
 
-export const getCustomers = async () => {
+export async function getIndivdualBooking(bookingId: string) {
+  const response = await getData(
+    `http://localhost:5001/api/v1/bookings/${bookingId}`
+  );
+
+  if (response.ok) {
+    const booking = await response.json();
+    return booking;
+  } else {
+    return response;
+  }
+}
+
+export async function postNewBooking(booking: Booking) {
+  const response = await fetch("http://localhost:5001/api/v1/bookings", {
+    method: "POST",
+    body: JSON.stringify(booking),
+  });
+
+  if (response.ok) {
+    const data = await response.json();
+    return data;
+  } else {
+    return response;
+  }
+}
+
+export async function deleteBooking(bookingId: string) {
+  const response = await fetch(
+    `http://localhost:5001/api/v1/bookings/${bookingId}`,
+    {
+      method: "DELETE",
+    }
+  );
+
+  if (response.ok) {
+    const data = await response.json();
+  } else {
+    return response;
+  }
+}
+
+export async function updateBooking(
+  bookingId: string,
+  updatedBooking: Booking
+) {
+  const response = await fetch(
+    `http://localhost:5001/api/v1/bookings/${bookingId}`,
+    {
+      method: "PUT",
+      body: JSON.stringify(updatedBooking),
+    }
+  );
+  if (response.ok) {
+    const data = await response.json();
+    return data;
+  } else {
+    return response;
+  }
+}
+
+//!Broken
+/* export async function deleteCustomer(bookingId: string) {
+  const response = await generalDelete(
+    `http://localhost:5001/api/v1/customers/${bookingId}`
+  );
+
+  return response.data;
+} */
+
+/* export async function getCustomers() {
   try {
     const response = await get("http://localhost:5001/api/v1/customers");
 
@@ -44,80 +103,4 @@ export const getCustomers = async () => {
   } catch {
     throw new Error("Could not get customers from API");
   }
-};
-
-/* export const postNewBooking = async (booking: BookingClass) => {
-  try {
-    const response = await post(
-      "http://localhost:5001/api/v1/bookings",
-      booking
-    );
-
-    console.log("Form sent!", booking);
-    return response.data;
-  } catch {
-    throw new Error("Could not post booking to API");
-  }
-}; */
-
-// Utan async
-export const postNewBooking = (booking: BookingClass) => {
-  try {
-    const response = post("http://localhost:5001/api/v1/bookings", booking);
-
-    console.log("Form sent!", booking);
-    return;
-  } catch {
-    throw new Error("Could not post booking to API");
-  }
-};
-
-export const deleteBooking = async (bookingId: string) => {
-  try {
-    const response = await generalDelete(
-      `http://localhost:5001/api/v1/bookings/${bookingId}`
-    );
-
-    return response.data;
-  } catch {
-    throw new Error("Could not delete the requested booking to API");
-  }
-};
-
-export const deleteCustomer = async (bookingId: string) => {
-  try {
-    const response = await generalDelete(
-      `http://localhost:5001/api/v1/customers/${bookingId}`
-    );
-
-    return response.data;
-  } catch {
-    throw new Error("Could not delete the requested customer to API");
-  }
-};
-
-export const updateBooking = async (bookingToUpdate: BookingCustomerExt) => {
-  const bookingId = bookingToUpdate._id;
-
-  const updateParams: BookingClass = {
-    name: bookingToUpdate.customer.name,
-    email: bookingToUpdate.customer.email,
-    phonenumber: bookingToUpdate.customer.phonenumber,
-    guests: bookingToUpdate.guests,
-    date: bookingToUpdate.date,
-    time: bookingToUpdate.time,
-  };
-
-  console.log("updateParams", updateParams);
-
-  try {
-    const response = await put(
-      `http://localhost:5001/api/v1/bookings/${bookingId}`,
-      updateParams
-    );
-
-    return response.data;
-  } catch {
-    throw new Error("Could not post booking to API");
-  }
-};
+} */

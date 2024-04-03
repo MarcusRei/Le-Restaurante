@@ -14,9 +14,18 @@ export const BookingPage = () => {
   const booking = useContext(NewBookingContext);
   const dispatch = useContext(BookingDispatchContext);
 
+  console.log(booking);
+
   useEffect(() => {
-    getBookings().then((bookings: Booking[]) => setBookings(bookings));
+    loadInBookings();
   }, []);
+
+  async function loadInBookings() {
+    const response = await getBookings();
+
+    setBookings(response);
+    console.log(response);
+  }
 
   function closeCalendar() {
     calendarRef.current?.close();
