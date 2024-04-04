@@ -1,7 +1,6 @@
 import { useContext, useState } from "react";
-import { NewBookingContext } from "../contexts/NewBookingContext";
 import { TimeSlot } from "../enums/timeSlots";
-import { BookingDispatchContext } from "../contexts/BookingDispatchContext";
+import { BookingDispatchContext } from "../contexts/BookingContext";
 import { actionType } from "../enums/actionType";
 import { ICombinedTables } from "./BookingsCalendar/BookingsCalendar";
 
@@ -11,9 +10,7 @@ interface ITimeSlotsProps {
 }
 
 export const TimeSlots = (props: ITimeSlotsProps) => {
-  const booking = useContext(NewBookingContext);
   const dispatch = useContext(BookingDispatchContext);
-  const newBooking = useContext(NewBookingContext);
   const [combined, setCombined] = useState(props.combinedTables);
 
   function addTime(time: TimeSlot) {

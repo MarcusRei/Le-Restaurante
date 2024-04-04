@@ -1,10 +1,16 @@
 import { Outlet } from "react-router-dom";
 import { Footer } from "./Footer";
 import { Navigation } from "./Navigation/Navigation";
+import {
+  BookingContext,
+  BookingDispatchContext,
+} from "../contexts/BookingContext";
 import { Booking } from "../models/Booking";
-import { BookingsContext } from "../contexts/BookingsContext";
+import { useReducer } from "react";
+import { BookingReducer } from "../reducers/BookingReducer";
 
 export const Layout = () => {
+  const [emptyBooking, dispatch] = useReducer(BookingReducer, {} as Booking);
   return (
     <div className="layout">
       <div className="layout flex-row">
@@ -17,9 +23,11 @@ export const Layout = () => {
         </article>
         <section className="outlet">
           <Navigation></Navigation>
-          <BookingsContext.Provider value={[]}>
-            <Outlet></Outlet>
-          </BookingsContext.Provider>
+          <BookingDispatchContext.Provider value={dispatch}>
+            <BookingContext.Provider value={emptyBooking}>
+              <Outlet></Outlet>
+            </BookingContext.Provider>
+          </BookingDispatchContext.Provider>
         </section>
       </div>
       <Footer></Footer>

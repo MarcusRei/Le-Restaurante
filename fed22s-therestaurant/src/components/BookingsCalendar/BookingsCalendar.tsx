@@ -1,14 +1,16 @@
 import Calendar from "react-calendar";
 import "./BookingsCalendar.css";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { TimeSlots } from "../TimeSlots";
-import { BookingsContext } from "../../contexts/BookingsContext";
 import { TimeSlot } from "../../enums/timeSlots";
-import { NewBookingContext } from "../../contexts/NewBookingContext";
 import { IBookingAction } from "../../reducers/BookingReducer";
-import { actionType } from "../../enums/actionType";
 import { DateTime } from "luxon";
-import { BookingDispatchContext } from "../../contexts/BookingDispatchContext";
+import {
+  BookingContext,
+  BookingDispatchContext,
+} from "../../contexts/BookingContext";
+import { getBookings } from "../../services/dataService";
+import { Booking } from "../../models/Booking";
 
 interface IShowTimeslots {
   earlySlot: boolean;
@@ -22,14 +24,12 @@ export interface ICombinedTables {
 
 interface IBookingsCalendarProps {
   closeCalendar: Function;
-  addDate: (Value: IBookingAction) => void;
   addTime: (Value: IBookingAction) => void;
   activeTables: number;
 }
 
 export const BookingsCalendar = (props: IBookingsCalendarProps) => {
-  const bookings = useContext(BookingsContext);
-  const booking = useContext(NewBookingContext);
+  const [bookings, setBookings] = useState<Booking[]>([]);
   const dispatch = useContext(BookingDispatchContext);
   const [date, setDate] = useState(new Date());
   const [showTime, setShowTime] = useState(false);
@@ -50,6 +50,17 @@ export const BookingsCalendar = (props: IBookingsCalendarProps) => {
     early: 0,
   };
 
+  useEffect(() => {
+    loadInBookings();
+  }, []);
+
+  async function loadInBookings() {
+    const response = await getBookings();
+
+    setBookings(response);
+    console.log(response);
+  }
+
   combineCheck();
 
   function updateDate(nextValue: Date) {
@@ -58,11 +69,6 @@ export const BookingsCalendar = (props: IBookingsCalendarProps) => {
 
   function checkDate(date: Date) {
     const chosenDate = DateTime.fromJSDate(date).toString().split("T")[0];
-
-    props.addDate({
-      type: actionType.DATEADDED,
-      payload: chosenDate,
-    });
 
     filterList(chosenDate);
   }

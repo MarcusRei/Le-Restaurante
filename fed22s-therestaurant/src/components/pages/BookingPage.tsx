@@ -1,31 +1,19 @@
 import { BookingsCalendar } from "../BookingsCalendar/BookingsCalendar";
 import { useContext, useEffect, useRef, useState } from "react";
-import { getBookings } from "../../services/dataService";
-import { Booking } from "../../models/Booking";
-import { BookingDispatchContext } from "../../contexts/BookingDispatchContext";
-import { NewBookingContext } from "../../contexts/NewBookingContext";
+import {
+  BookingContext,
+  BookingDispatchContext,
+} from "../../contexts/BookingContext";
 import { ActionType } from "../../reducers/BookingReducer";
 
 export const BookingPage = () => {
   const calendarRef = useRef<HTMLDialogElement>(null);
   const [policy, setPolicy] = useState(false);
-  const [bookings, setBookings] = useState<Booking[]>([]);
   const [activeTables, setActiveTables] = useState(0);
-  const booking = useContext(NewBookingContext);
+  const booking = useContext(BookingContext);
   const dispatch = useContext(BookingDispatchContext);
 
   console.log(booking);
-
-  useEffect(() => {
-    loadInBookings();
-  }, []);
-
-  async function loadInBookings() {
-    const response = await getBookings();
-
-    setBookings(response);
-    console.log(response);
-  }
 
   function closeCalendar() {
     calendarRef.current?.close();
@@ -41,10 +29,6 @@ export const BookingPage = () => {
     ) {
       alert("Du måste fylla i alla fält för att kunna lägga en bokning!");
     }
-  }
-
-  function addDate() {
-    console.log("add date");
   }
 
   function addTimeSlot() {
@@ -172,7 +156,6 @@ export const BookingPage = () => {
 
       <dialog ref={calendarRef}>
         <BookingsCalendar
-          addDate={() => addDate()}
           addTime={() => addTimeSlot()}
           closeCalendar={() => closeCalendar()}
           activeTables={activeTables}
