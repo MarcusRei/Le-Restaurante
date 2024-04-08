@@ -1,23 +1,16 @@
 import Calendar from "react-calendar";
 import "./BookingsCalendar.css";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { TimeSlots } from "../TimeSlots";
 import { TimeSlot } from "../../enums/timeSlots";
 import { IBookingAction } from "../../reducers/BookingReducer";
 import { DateTime } from "luxon";
-import { BookingDispatchContext } from "../../contexts/BookingContext";
-import { getBookings, getBookingsByDate } from "../../services/dataService";
+import {
+  BookingContext,
+  BookingDispatchContext,
+} from "../../contexts/BookingContext";
+import { getBookingsByDate } from "../../services/dataService";
 import { Booking } from "../../models/Booking";
-
-interface IShowTimeslots {
-  earlySlot: boolean;
-  lateSlot: boolean;
-}
-
-export interface ICombinedTables {
-  early: number;
-  late: number;
-}
 
 interface IBookingsCalendarProps {
   closeCalendar: Function;
@@ -26,39 +19,19 @@ interface IBookingsCalendarProps {
 }
 
 export const BookingsCalendar = (props: IBookingsCalendarProps) => {
-  const [bookings, setBookings] = useState<Booking[]>([]);
   const dispatch = useContext(BookingDispatchContext);
+  const booking = useContext(BookingContext);
   const [date, setDate] = useState(DateTime.local().toJSDate());
-  const [showTime, setShowTime] = useState(false);
-  const [showTimeslots, setShowTimeslots] = useState<IShowTimeslots>({
-    earlySlot: true,
-    lateSlot: true,
-  });
-  const [bookedTables, setBookedTables] = useState({
-    early: 0,
-    late: 0,
-  });
+  const [earlySlot, setEarlySlot] = useState(false);
+  const [lateSlot, setLateSlot] = useState(false);
 
-  let lateSlotTables = 0;
-  let earlySlotTables = 0;
-
-  let combinedTables: ICombinedTables = {
-    late: 0,
-    early: 0,
-  };
-
-  /* useEffect(() => {
-    loadInBookings();
-  }, []); */
+  console.log(earlySlot, lateSlot);
 
   async function loadInBookings(date: string) {
     const response = await getBookingsByDate(date);
-
-    setBookings(response);
+    checkAvailability(response);
     console.log(response);
   }
-
-  combineCheck();
 
   function changeDate(date: Date) {
     const chosenDate = DateTime.fromJSDate(date).toString().split("T")[0];
@@ -66,61 +39,37 @@ export const BookingsCalendar = (props: IBookingsCalendarProps) => {
     setDate(date);
 
     console.log(date);
-
-    filterList(chosenDate);
   }
 
-  function filterList(chosenDate: String) {
-    const filteredBookings = bookings.filter((booking) => {
-      if (chosenDate === booking.date) {
-        return booking;
-      }
-    });
+  function checkAvailability(bookings: Booking[]) {
+    let earlySitting = 0;
+    let lateSitting = 0;
+    console.log("bookings: ", bookings);
 
-    if (filteredBookings.length === 0) {
-      setBookedTables({ early: 0, late: 0 });
-    }
-
-    filteredBookings.map((booking) => {
+    for (let i = 0; i < bookings.length; i++) {
+      const booking = bookings[i];
       if (booking.timeSlot === TimeSlot.EARLY) {
-        earlySlotTables += Math.ceil(booking.guests / 6);
+        earlySitting += booking.guests;
+      } else {
+        lateSitting += booking.guests;
       }
-
-      if (booking.timeSlot === TimeSlot.LATE) {
-        lateSlotTables += Math.ceil(booking.guests / 6);
-      }
-
-      setBookedTables({
-        early: earlySlotTables,
-        late: lateSlotTables,
-      });
-      checkAvailableTables();
-    });
-  }
-
-  function checkAvailableTables() {
-    let earlyTables = true;
-    let lateTables = true;
-
-    if (bookedTables.early + props.activeTables >= 15) {
-      earlyTables = false;
     }
 
-    if (bookedTables.late + props.activeTables >= 15) {
-      lateTables = false;
+    console.log("early:", earlySitting, "late:", lateSitting);
+
+    console.log(earlySitting + booking.guests);
+
+    if (earlySitting + booking.guests < 36) {
+      setEarlySlot(true);
+    } else {
+      setEarlySlot(false);
     }
 
-    setShowTimeslots({
-      earlySlot: earlyTables,
-      lateSlot: lateTables,
-    });
-  }
-
-  function combineCheck() {
-    combinedTables = {
-      late: bookedTables.late + props.activeTables,
-      early: bookedTables.early + props.activeTables,
-    };
+    if (lateSitting + booking.guests < 36) {
+      setLateSlot(true);
+    } else {
+      setLateSlot(false);
+    }
   }
 
   return (
@@ -136,7 +85,6 @@ export const BookingsCalendar = (props: IBookingsCalendarProps) => {
       <div className="calendar-container">
         <Calendar
           value={date}
-          //@ts-ignore
           onClickDay={(value) => changeDate(value)}
           minDate={DateTime.local().toJSDate()}
         ></Calendar>
@@ -145,7 +93,8 @@ export const BookingsCalendar = (props: IBookingsCalendarProps) => {
         <h2>Tillgängliga tider:</h2>
         <TimeSlots
           closeCalendar={() => props.closeCalendar()}
-          combinedTables={combinedTables}
+          earlySlot={earlySlot}
+          lateSlot={lateSlot}
         ></TimeSlots>
       </div>
     </div>

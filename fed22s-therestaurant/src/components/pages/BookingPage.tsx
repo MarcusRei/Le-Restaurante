@@ -124,6 +124,11 @@ export const BookingPage = () => {
                 Välj tid
               </button>
             </div>
+            <div className="font-bold">
+              {booking.timeSlot !== null
+                ? "Vald sittning: " + booking.timeSlot
+                : null}
+            </div>
           </article>
         </div>
 

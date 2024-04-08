@@ -2,20 +2,20 @@ import { useContext, useState } from "react";
 import { TimeSlot } from "../enums/timeSlots";
 import { BookingDispatchContext } from "../contexts/BookingContext";
 import { actionType } from "../enums/actionType";
-import { ICombinedTables } from "./BookingsCalendar/BookingsCalendar";
+import { ActionType } from "../reducers/BookingReducer";
 
 interface ITimeSlotsProps {
   closeCalendar: () => void;
-  combinedTables: ICombinedTables;
+  earlySlot: boolean;
+  lateSlot: boolean;
 }
 
 export const TimeSlots = (props: ITimeSlotsProps) => {
   const dispatch = useContext(BookingDispatchContext);
-  const [combined, setCombined] = useState(props.combinedTables);
 
   function addTime(time: TimeSlot) {
     dispatch({
-      type: actionType.TIMEADDED,
+      type: ActionType.TIMESLOT,
       payload: { time: time },
     });
     props.closeCalendar();
@@ -23,7 +23,7 @@ export const TimeSlots = (props: ITimeSlotsProps) => {
 
   return (
     <div className="flex-row gap-small padding small">
-      {props.combinedTables.early <= 15 ? (
+      {props.earlySlot ? (
         <div>
           <button
             className="secondary-button"
@@ -34,7 +34,7 @@ export const TimeSlots = (props: ITimeSlotsProps) => {
         </div>
       ) : null}
 
-      {props.combinedTables.late <= 15 ? (
+      {props.lateSlot ? (
         <div>
           <button
             className="secondary-button"

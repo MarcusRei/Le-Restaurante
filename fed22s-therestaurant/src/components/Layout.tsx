@@ -5,12 +5,18 @@ import {
   BookingContext,
   BookingDispatchContext,
 } from "../contexts/BookingContext";
-import { Booking } from "../models/Booking";
 import { useReducer } from "react";
 import { BookingReducer } from "../reducers/BookingReducer";
 
 export const Layout = () => {
-  const [emptyBooking, dispatch] = useReducer(BookingReducer, {} as Booking);
+  const [emptyBooking, dispatch] = useReducer(BookingReducer, {
+    name: "",
+    email: "",
+    phonenumber: "",
+    guests: 2,
+    date: "",
+    timeSlot: null,
+  });
   return (
     <div className="layout">
       <div className="layout flex-row">

@@ -14,24 +14,24 @@ export enum ActionType {
   TIMESLOT = "time changed",
 }
 
-export const BookingReducer = (booking: Booking, action: IBookingAction) => {
+export const BookingReducer = (state: Booking, action: IBookingAction) => {
   console.log(action);
   switch (action.type) {
     case ActionType.NAME:
       console.log(action.payload);
-      return { ...booking, name: action.payload.name };
+      return { ...state, name: action.payload.name };
 
     case ActionType.EMAIL:
-      return { ...booking, email: action.payload.email };
+      return { ...state, email: action.payload.email };
 
     case ActionType.GUESTS:
-      return { ...booking, guests: action.payload.guests };
+      return { ...state, guests: action.payload.guests };
 
     case ActionType.DATE:
-      return { ...booking, date: action.payload.date };
+      return { ...state, date: action.payload.date };
 
     case ActionType.TIMESLOT:
-      return { ...booking, timeSlot: action.payload.time };
+      return { ...state, timeSlot: action.payload.time };
 
     default:
       console.log("no type matched");
