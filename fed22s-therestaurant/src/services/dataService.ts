@@ -52,14 +52,20 @@ export async function getIndivdualBooking(bookingId: string) {
 }
 
 export async function postNewBooking(booking: Booking) {
+  console.log("booking i dataService", booking);
+
+  console.log(JSON.stringify(booking));
   const response = await fetch("http://localhost:5001/api/v1/bookings", {
     method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
     body: JSON.stringify(booking),
   });
 
   if (response.ok) {
-    const data = await response.json();
-    return data;
+    /* const data = await response.json(); */
+    return true;
   } else {
     return response;
   }

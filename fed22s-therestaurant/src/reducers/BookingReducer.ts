@@ -24,6 +24,9 @@ export const BookingReducer = (state: Booking, action: IBookingAction) => {
     case ActionType.EMAIL:
       return { ...state, email: action.payload.email };
 
+    case ActionType.PHONE:
+      return { ...state, phonenumber: action.payload.phonenumber };
+
     case ActionType.GUESTS:
       return { ...state, guests: action.payload.guests };
 
@@ -31,7 +34,7 @@ export const BookingReducer = (state: Booking, action: IBookingAction) => {
       return { ...state, date: action.payload.date };
 
     case ActionType.TIMESLOT:
-      return { ...state, timeSlot: action.payload.time };
+      return { ...state, timeSlot: action.payload.timeSlot };
 
     default:
       console.log("no type matched");

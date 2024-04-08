@@ -6,6 +6,8 @@ import {
 } from "../../contexts/BookingContext";
 import { ActionType } from "../../reducers/BookingReducer";
 import "./styles/BookingPage.css";
+import { postNewBooking } from "../../services/dataService";
+import { useNavigate } from "react-router-dom";
 
 export const BookingPage = () => {
   const calendarRef = useRef<HTMLDialogElement>(null);
@@ -13,6 +15,7 @@ export const BookingPage = () => {
   const [activeTables, setActiveTables] = useState(0);
   const booking = useContext(BookingContext);
   const dispatch = useContext(BookingDispatchContext);
+  let navigate = useNavigate();
 
   console.log(booking);
 
@@ -20,7 +23,7 @@ export const BookingPage = () => {
     calendarRef.current?.close();
   }
 
-  function publishBooking() {
+  async function publishBooking() {
     if (
       booking.name === "" ||
       booking.email === "" ||
@@ -30,10 +33,15 @@ export const BookingPage = () => {
     ) {
       alert("Du måste fylla i alla fält för att kunna lägga en bokning!");
     }
-  }
 
-  function addTimeSlot() {
-    console.log("add time slot");
+    console.log("booking i BookingPage", booking);
+
+    const response = await postNewBooking(booking);
+
+    if (response) {
+      alert("Bokningen har skapats!");
+      navigate("/");
+    }
   }
 
   return (
@@ -49,6 +57,7 @@ export const BookingPage = () => {
             <input
               type="text"
               name="name"
+              required
               onChange={(e) => {
                 dispatch({
                   type: ActionType.NAME,
@@ -67,6 +76,7 @@ export const BookingPage = () => {
             <input
               type="text"
               name="email"
+              required
               onChange={(e) => {
                 dispatch({
                   type: ActionType.EMAIL,
@@ -85,6 +95,7 @@ export const BookingPage = () => {
             <input
               type="text"
               name="phone"
+              required
               onChange={(e) => {
                 dispatch({
                   type: ActionType.PHONE,
@@ -106,6 +117,7 @@ export const BookingPage = () => {
                 type="number"
                 defaultValue={2}
                 min={1}
+                max={36}
                 name="guests"
                 onChange={(e) => {
                   dispatch({
@@ -124,6 +136,7 @@ export const BookingPage = () => {
                 Välj tid
               </button>
             </div>
+            <div className="spacing small" />
             <div className="font-bold">
               {booking.timeSlot !== null
                 ? "Vald sittning: " + booking.timeSlot
@@ -137,7 +150,7 @@ export const BookingPage = () => {
         <article className="flex-row justify-center align-center gap-small half-width">
           <input
             type="checkbox"
-            name="guests"
+            name="policy"
             onChange={() => setPolicy(!policy)}
           />
           <div className="half-width font-bold">
@@ -162,9 +175,7 @@ export const BookingPage = () => {
 
       <dialog ref={calendarRef}>
         <BookingsCalendar
-          addTime={() => addTimeSlot()}
           closeCalendar={() => closeCalendar()}
-          activeTables={activeTables}
         ></BookingsCalendar>
       </dialog>
     </>

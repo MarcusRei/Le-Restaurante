@@ -1,9 +1,9 @@
 import Calendar from "react-calendar";
 import "./BookingsCalendar.css";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { TimeSlots } from "../TimeSlots";
 import { TimeSlot } from "../../enums/timeSlots";
-import { IBookingAction } from "../../reducers/BookingReducer";
+import { ActionType } from "../../reducers/BookingReducer";
 import { DateTime } from "luxon";
 import {
   BookingContext,
@@ -14,8 +14,6 @@ import { Booking } from "../../models/Booking";
 
 interface IBookingsCalendarProps {
   closeCalendar: Function;
-  addTime: (Value: IBookingAction) => void;
-  activeTables: number;
 }
 
 export const BookingsCalendar = (props: IBookingsCalendarProps) => {
@@ -27,15 +25,25 @@ export const BookingsCalendar = (props: IBookingsCalendarProps) => {
 
   console.log(earlySlot, lateSlot);
 
-  async function loadInBookings(date: string) {
+  useEffect(() => {
+    loadBookings(DateTime.fromJSDate(date).toISODate()!);
+  }, [date]);
+
+  /* loadBookings(DateTime.fromJSDate(date).toISODate()!); */
+
+  async function loadBookings(date: string) {
     const response = await getBookingsByDate(date);
     checkAvailability(response);
     console.log(response);
   }
 
   function changeDate(date: Date) {
-    const chosenDate = DateTime.fromJSDate(date).toString().split("T")[0];
-    loadInBookings(chosenDate);
+    const chosenDate = DateTime.fromJSDate(date).toISODate()!;
+    dispatch({
+      type: ActionType.DATE,
+      payload: { date: chosenDate },
+    });
+    loadBookings(chosenDate);
     setDate(date);
 
     console.log(date);
@@ -44,7 +52,6 @@ export const BookingsCalendar = (props: IBookingsCalendarProps) => {
   function checkAvailability(bookings: Booking[]) {
     let earlySitting = 0;
     let lateSitting = 0;
-    console.log("bookings: ", bookings);
 
     for (let i = 0; i < bookings.length; i++) {
       const booking = bookings[i];
@@ -56,8 +63,6 @@ export const BookingsCalendar = (props: IBookingsCalendarProps) => {
     }
 
     console.log("early:", earlySitting, "late:", lateSitting);
-
-    console.log(earlySitting + booking.guests);
 
     if (earlySitting + booking.guests < 36) {
       setEarlySlot(true);

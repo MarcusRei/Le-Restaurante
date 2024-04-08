@@ -1,7 +1,6 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { TimeSlot } from "../enums/timeSlots";
 import { BookingDispatchContext } from "../contexts/BookingContext";
-import { actionType } from "../enums/actionType";
 import { ActionType } from "../reducers/BookingReducer";
 
 interface ITimeSlotsProps {
@@ -16,7 +15,7 @@ export const TimeSlots = (props: ITimeSlotsProps) => {
   function addTime(time: TimeSlot) {
     dispatch({
       type: ActionType.TIMESLOT,
-      payload: { time: time },
+      payload: { timeSlot: time },
     });
     props.closeCalendar();
   }
