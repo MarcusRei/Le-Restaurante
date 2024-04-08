@@ -17,6 +17,18 @@ exports.getAllBookings = async (req, res, next) => {
   }
 };
 
+exports.getBookingByDate = async (req, res, next) => {
+  console.log("getBookingByDate");
+  try {
+    const date = req.params.date;
+    const bookings = await booking.find({ date: date });
+
+    return res.json(bookings);
+  } catch {
+    return res.status(500).json({ message: error.message });
+  }
+};
+
 exports.addBooking = async (req, res, next) => {
   try {
     const { name, email, phonenumber, date, time, guests } = req.body;

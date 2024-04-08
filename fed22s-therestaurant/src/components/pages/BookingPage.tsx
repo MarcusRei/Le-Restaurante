@@ -5,6 +5,7 @@ import {
   BookingDispatchContext,
 } from "../../contexts/BookingContext";
 import { ActionType } from "../../reducers/BookingReducer";
+import "./styles/BookingPage.css";
 
 export const BookingPage = () => {
   const calendarRef = useRef<HTMLDialogElement>(null);

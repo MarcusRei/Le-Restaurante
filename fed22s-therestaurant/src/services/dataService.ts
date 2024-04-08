@@ -15,7 +15,20 @@ async function getData(url: string) {
 // Specific Get functions
 
 export async function getBookings() {
-  const response = await getData("http://localhost:5001/api/v1/bookings");
+  const response = await getData("http://localhost:5001/api/v1/bookings/all");
+
+  if (response.ok) {
+    const bookings = await response.json();
+    return bookings;
+  } else {
+    return response;
+  }
+}
+
+export async function getBookingsByDate(date: string) {
+  const response = await getData(
+    `http://localhost:5001/api/v1/bookings/date/${date}`
+  );
 
   if (response.ok) {
     const bookings = await response.json();

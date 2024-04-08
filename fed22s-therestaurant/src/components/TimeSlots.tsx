@@ -22,18 +22,28 @@ export const TimeSlots = (props: ITimeSlotsProps) => {
   }
 
   return (
-    <>
+    <div className="flex-row gap-small padding small">
       {props.combinedTables.early <= 15 ? (
         <div>
-          <button onClick={() => addTime(TimeSlot.EARLY)}>18:00-21:00</button>
+          <button
+            className="secondary-button"
+            onClick={() => addTime(TimeSlot.EARLY)}
+          >
+            18:00-21:00
+          </button>
         </div>
       ) : null}
 
       {props.combinedTables.late <= 15 ? (
         <div>
-          <button onClick={() => addTime(TimeSlot.LATE)}>21:00-23:00</button>
+          <button
+            className="secondary-button"
+            onClick={() => addTime(TimeSlot.LATE)}
+          >
+            21:00-23:00
+          </button>
         </div>
       ) : null}
-    </>
+    </div>
   );
 };

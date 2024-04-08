@@ -5,11 +5,8 @@ import { TimeSlots } from "../TimeSlots";
 import { TimeSlot } from "../../enums/timeSlots";
 import { IBookingAction } from "../../reducers/BookingReducer";
 import { DateTime } from "luxon";
-import {
-  BookingContext,
-  BookingDispatchContext,
-} from "../../contexts/BookingContext";
-import { getBookings } from "../../services/dataService";
+import { BookingDispatchContext } from "../../contexts/BookingContext";
+import { getBookings, getBookingsByDate } from "../../services/dataService";
 import { Booking } from "../../models/Booking";
 
 interface IShowTimeslots {
@@ -31,7 +28,7 @@ interface IBookingsCalendarProps {
 export const BookingsCalendar = (props: IBookingsCalendarProps) => {
   const [bookings, setBookings] = useState<Booking[]>([]);
   const dispatch = useContext(BookingDispatchContext);
-  const [date, setDate] = useState(new Date());
+  const [date, setDate] = useState(DateTime.local().toJSDate());
   const [showTime, setShowTime] = useState(false);
   const [showTimeslots, setShowTimeslots] = useState<IShowTimeslots>({
     earlySlot: true,
@@ -50,12 +47,12 @@ export const BookingsCalendar = (props: IBookingsCalendarProps) => {
     early: 0,
   };
 
-  useEffect(() => {
+  /* useEffect(() => {
     loadInBookings();
-  }, []);
+  }, []); */
 
-  async function loadInBookings() {
-    const response = await getBookings();
+  async function loadInBookings(date: string) {
+    const response = await getBookingsByDate(date);
 
     setBookings(response);
     console.log(response);
@@ -63,12 +60,12 @@ export const BookingsCalendar = (props: IBookingsCalendarProps) => {
 
   combineCheck();
 
-  function updateDate(nextValue: Date) {
-    setDate(nextValue);
-  }
-
-  function checkDate(date: Date) {
+  function changeDate(date: Date) {
     const chosenDate = DateTime.fromJSDate(date).toString().split("T")[0];
+    loadInBookings(chosenDate);
+    setDate(date);
+
+    console.log(date);
 
     filterList(chosenDate);
   }
@@ -127,7 +124,7 @@ export const BookingsCalendar = (props: IBookingsCalendarProps) => {
   }
 
   return (
-    <div className="padding small">
+    <div className="flex-column padding small">
       <div className="calendar-button-wrapper">
         <button
           className="secondary-button"
@@ -140,11 +137,11 @@ export const BookingsCalendar = (props: IBookingsCalendarProps) => {
         <Calendar
           value={date}
           //@ts-ignore
-          onChange={updateDate}
-          onClickDay={checkDate}
-          minDate={new Date()}
+          onClickDay={(value) => changeDate(value)}
+          minDate={DateTime.local().toJSDate()}
         ></Calendar>
-        <div>Valt datum: {date.toISOString().split("T")[0]}</div>
+        <div>Valt datum: {DateTime.fromJSDate(date).toISODate()}</div>
+        <div className="spacing small" />
         <h2>Tillgängliga tider:</h2>
         <TimeSlots
           closeCalendar={() => props.closeCalendar()}
