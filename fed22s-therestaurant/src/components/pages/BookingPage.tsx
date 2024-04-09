@@ -1,5 +1,5 @@
 import { BookingsCalendar } from "../BookingsCalendar/BookingsCalendar";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import {
   BookingContext,
   BookingDispatchContext,
@@ -12,7 +12,6 @@ import { useNavigate } from "react-router-dom";
 export const BookingPage = () => {
   const calendarRef = useRef<HTMLDialogElement>(null);
   const [policy, setPolicy] = useState(false);
-  const [activeTables, setActiveTables] = useState(0);
   const booking = useContext(BookingContext);
   const dispatch = useContext(BookingDispatchContext);
   let navigate = useNavigate();

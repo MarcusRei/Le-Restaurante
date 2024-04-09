@@ -37,6 +37,6 @@ export const BookingReducer = (state: Booking, action: IBookingAction) => {
       return { ...state, timeSlot: action.payload.timeSlot };
 
     default:
-      console.log("no type matched");
+      console.log("no matching type!");
   }
 };

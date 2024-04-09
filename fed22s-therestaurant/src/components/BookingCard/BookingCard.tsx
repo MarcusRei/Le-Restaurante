@@ -1,8 +1,6 @@
 import { useContext, useState } from "react";
 import { AdminContext } from "../../contexts/AdminContext";
-import { ActionType } from "../../reducers/AdminReducer";
 import { Booking } from "../../models/Booking";
-import { deleteBooking } from "../../services/dataService";
 import "./BookingCard.css";
 
 interface IBookingCardProps {
@@ -16,6 +14,7 @@ export const BookingCard = (props: IBookingCardProps) => {
   const [bookingToUpdate, setBookingToUpdate] = useState({});
 
   const updateBooking = () => {
+    console.log("updateBooking");
     props.updateChosenBooking(props.booking);
     const chosenBooking = { ...props.booking };
 
@@ -25,15 +24,16 @@ export const BookingCard = (props: IBookingCardProps) => {
   };
 
   const handleDeleteBooking = async () => {
-    try {
-      await deleteBooking(props.booking._id);
+    console.log("handleDeleteBooking");
+    /* try {
+      await deleteBooking(props.booking);
       dispatch({
         type: ActionType.DELETE_BOOKING,
-        payload: props.booking._id ? props.booking._id.toString() : "",
+        payload: props.booking ? props.booking.toString() : "",
       });
     } catch (error) {
       console.error("Could not delete the booking");
-    }
+    } */
   };
 
   return (
@@ -41,7 +41,7 @@ export const BookingCard = (props: IBookingCardProps) => {
       <section className="booking-card flex-column gap-small">
         <div>
           <article className="font-bold font medium">
-            {props.booking.customer.name}
+            {props.booking.name}
           </article>
           <article className="font-bold">
             Gäster: {props.booking.guests}
@@ -49,7 +49,7 @@ export const BookingCard = (props: IBookingCardProps) => {
         </div>
 
         <div>
-          <article className="font-bold">{props.booking.time}</article>
+          <article className="font-bold">{props.booking.timeSlot}</article>
           <article className="font-bold">Datum: {props.booking.date}</article>
         </div>
       </section>

@@ -9,10 +9,8 @@ import { TimeSwitchContext } from "../../contexts/TimeSwitchContext";
 import { TimeSwitchReducer } from "../../reducers/TimeSwitchReducer";
 import { TimeSwitchDispatchContext } from "../../contexts/TimeSwitchDispatchContext";
 import "./styles/Admin.css";
-import { FourSeats } from "../seats/FourSeats/FourSeats";
-import { FourSeatsRound } from "../seats/FourSeatsRound/FourSeatsRound";
-import { TwoSeats } from "../seats/TwoSeats/TwoSeats";
 import { Booking } from "../../models/Booking";
+import { TableView } from "../TableView/TableView";
 
 export const Admin = () => {
   const startValue: ILists = {
@@ -57,17 +55,7 @@ export const Admin = () => {
       <TimeSwitchDispatchContext.Provider value={TimeSwitchDispatch}>
         <TimeSwitchContext.Provider value={time}>
           <div className="flex-row">
-            <section className="table-view">
-              <article className="flex-row justify-center full-width">
-                <h2>Bordsvy</h2>
-              </article>
-
-              <div>
-                <FourSeats />
-                <FourSeatsRound />
-                <TwoSeats />
-              </div>
-            </section>
+            <TableView />
             <section className="admin-view">
               <article className="flex-row justify-center full-width">
                 <h2>Admin</h2>

@@ -29,8 +29,6 @@ export const BookingsCalendar = (props: IBookingsCalendarProps) => {
     loadBookings(DateTime.fromJSDate(date).toISODate()!);
   }, [date]);
 
-  /* loadBookings(DateTime.fromJSDate(date).toISODate()!); */
-
   async function loadBookings(date: string) {
     const response = await getBookingsByDate(date);
     checkAvailability(response);
