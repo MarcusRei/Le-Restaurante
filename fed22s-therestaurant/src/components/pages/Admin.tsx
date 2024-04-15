@@ -1,4 +1,4 @@
-import { BookingsList } from "../BookingsList";
+import { BookingsList } from "../BookingsList/BookingsList";
 import { useEffect, useReducer, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -66,17 +66,14 @@ export const Admin = () => {
               <div className="flex-row gap-small padding small">
                 <h3 className="font large">Bokningar</h3>
 
-                <div className="flex-resize"></div>
-                <div className="flex-row">
+                <div className="flex-resize" />
+                <div className="flex-row align-center gap-small">
                   <label htmlFor="date-picker">Datum:</label>
                   <DatePicker selected={new Date()} onChange={setDate} />
                 </div>
               </div>
 
-              <div className="flex-row justify-center">
-                <div className="section-separator"></div>
-                <div className="spacing small"></div>
-              </div>
+              <div className="section-separator" />
 
               <BookingsList />
 

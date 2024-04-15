@@ -1,44 +1,35 @@
-import { useContext, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { AdminContext } from "../../contexts/AdminContext";
 import { Booking } from "../../models/Booking";
 import "./BookingCard.css";
+import { UpdateBookingForm } from "../UpdateBookingForm/UpdateBookingForm";
 
 interface IBookingCardProps {
   handleUpdateForm: () => void;
   booking: Booking;
-  updateChosenBooking: (current: Booking) => void;
 }
 
 export const BookingCard = (props: IBookingCardProps) => {
+  const dialogRef = useRef<HTMLDialogElement>(null);
   const { dispatch } = useContext(AdminContext);
   const [bookingToUpdate, setBookingToUpdate] = useState({});
 
-  const updateBooking = () => {
+  function updateBooking() {
     console.log("updateBooking");
-    props.updateChosenBooking(props.booking);
-    const chosenBooking = { ...props.booking };
-
     props.handleUpdateForm();
+  }
 
-    setBookingToUpdate(chosenBooking);
-  };
+  function openUpdateDialog() {
+    dialogRef.current!.showModal();
+  }
 
   const handleDeleteBooking = async () => {
     console.log("handleDeleteBooking");
-    /* try {
-      await deleteBooking(props.booking);
-      dispatch({
-        type: ActionType.DELETE_BOOKING,
-        payload: props.booking ? props.booking.toString() : "",
-      });
-    } catch (error) {
-      console.error("Could not delete the booking");
-    } */
   };
 
   return (
-    <div className="flex-row gap-small">
-      <section className="booking-card flex-column gap-small">
+    <div className="booking-card flex-row gap-small">
+      <section className="flex-column gap-small">
         <div>
           <article className="font-bold font medium">
             {props.booking.name}
@@ -57,9 +48,13 @@ export const BookingCard = (props: IBookingCardProps) => {
       <div className="flex-resize" />
 
       <section className="booking-card-buttons flex-row gap-small align-center">
-        <button className="admin-button font-bold" onClick={updateBooking}>
+        <button
+          className="admin-button font-bold"
+          onClick={() => openUpdateDialog()}
+        >
           Uppdatera
         </button>
+
         <button
           className="admin-button danger font-bold"
           onClick={handleDeleteBooking}
@@ -67,6 +62,15 @@ export const BookingCard = (props: IBookingCardProps) => {
           Ta bort
         </button>
       </section>
+
+      <dialog ref={dialogRef}>
+        <div>
+          <UpdateBookingForm
+            booking={props.booking}
+            closeDialog={() => dialogRef.current!.close()}
+          />
+        </div>
+      </dialog>
     </div>
   );
 };

@@ -4,7 +4,7 @@
 }
 
 .section-separator {
-  height: 2px;
+  height: 1px;
   background-color: rgba(148, 148, 148, 0.431);
-  width: 95%;
+  width: 100%;
 }
