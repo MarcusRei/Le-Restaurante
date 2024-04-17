@@ -1,5 +1,9 @@
+import { useContext, useRef, useState } from "react";
 import { Booking } from "../../models/Booking";
 import "./UpdateBookingForm.css";
+import Calendar from "react-calendar";
+import { DateTime } from "luxon";
+import { BookingContext } from "../../contexts/BookingContext";
 
 interface IUpdateBookingFormProps {
   closeDialog: Function;
@@ -7,6 +11,17 @@ interface IUpdateBookingFormProps {
 }
 
 export const UpdateBookingForm = (props: IUpdateBookingFormProps) => {
+  const calendarRef = useRef<HTMLDialogElement>(null);
+  const dispatch = useContext(BookingContext);
+  const [date, setDate] = useState(DateTime.local().toJSDate());
+
+  function changeDate(date: Date) {
+    const chosenDate = DateTime.fromJSDate(date).toISODate()!;
+
+    setDate(date);
+    calendarRef.current!.close();
+  }
+
   return (
     <>
       <form className="update-booking-form">
@@ -20,9 +35,9 @@ export const UpdateBookingForm = (props: IUpdateBookingFormProps) => {
         </div>
 
         <h2 className="font medium">Uppdatera bokning</h2>
+        <div className="spacing small" />
 
-        <article className="flex-column gap-small">
-          <div className="font-bold">Nuvaranade namn: {props.booking.name}</div>
+        <article className="flex-row align-center gap-small">
           <label htmlFor="name">Namn:</label>
           <input
             type="text"
@@ -33,20 +48,14 @@ export const UpdateBookingForm = (props: IUpdateBookingFormProps) => {
 
         <div className="spacing small" />
 
-        <article className="flex-column gap-small">
-          <div className="font-bold">
-            Nuvarande email: {props.booking.email}
-          </div>
+        <article className="flex-row align-center gap-small">
           <label htmlFor="email">Email:</label>
           <input type="text" value={props.booking.email} name="email" />
         </article>
 
         <div className="spacing small" />
 
-        <article className="flex-column gap-small">
-          <div className="font-bold">
-            Nuvarande nummer: {props.booking.phonenumber}
-          </div>
+        <article className="flex-row align-center gap-small">
           <label htmlFor="phone">Telefonnummer:</label>
           <input
             type="text"
@@ -57,17 +66,15 @@ export const UpdateBookingForm = (props: IUpdateBookingFormProps) => {
 
         <div className="spacing small" />
 
-        <article>
-          <label>
-            Antal i sällskap:
-            <input
-              type="number"
-              min={1}
-              //max={10}
-              value={props.booking.guests}
-              name="guests"
-            />
-          </label>
+        <article className="flex-row align-center gap-small">
+          <label>Antal i sällskap:</label>
+          <input
+            type="number"
+            min={1}
+            //max={10}
+            value={props.booking.guests}
+            name="guests"
+          />
         </article>
 
         <div className="spacing small" />
@@ -78,7 +85,15 @@ export const UpdateBookingForm = (props: IUpdateBookingFormProps) => {
             {props.booking.timeSlot}
           </div>
 
-          <button className="admin-button font-bold">Byt tid</button>
+          <button
+            className="admin-button font-bold"
+            onClick={(e) => {
+              e.preventDefault();
+              calendarRef.current!.showModal();
+            }}
+          >
+            Byt tid
+          </button>
         </article>
 
         <div className="spacing small" />
@@ -88,8 +103,23 @@ export const UpdateBookingForm = (props: IUpdateBookingFormProps) => {
         </div>
       </form>
 
-      <dialog>
-        <div></div>
+      <dialog ref={calendarRef}>
+        <div className="padding small">
+          <button
+            className="admin-button danger"
+            onClick={(e) => {
+              e.preventDefault();
+              calendarRef.current!.close();
+            }}
+          >
+            Close
+          </button>
+          <Calendar
+            value={date}
+            onClickDay={(value) => changeDate(value)}
+            minDate={DateTime.local().toJSDate()}
+          ></Calendar>
+        </div>
       </dialog>
     </>
   );
