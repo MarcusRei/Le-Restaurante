@@ -38,18 +38,10 @@ export const BookingsList = (props: IBookingsListProps) => {
     }
   }
 
-  function handleUpdateForm() {
-    setUpdateFormSwitch(!updateFormSwitch);
-  }
-
   return (
     <div className="bookings-list">
       {bookings.map((booking, index) => (
-        <BookingCard
-          handleUpdateForm={handleUpdateForm}
-          key={index}
-          booking={booking}
-        />
+        <BookingCard key={index} booking={booking} />
       ))}
     </div>
   );

@@ -86,10 +86,8 @@ export async function deleteBooking(bookingId: string) {
   }
 }
 
-export async function updateBooking(
-  bookingId: string,
-  updatedBooking: Booking
-) {
+export async function updateBooking(updatedBooking: Booking) {
+  const bookingId = updatedBooking._id;
   const response = await fetch(
     `http://localhost:5001/api/v1/bookings/${bookingId}`,
     {

@@ -1,22 +1,14 @@
-import { useContext, useRef, useState } from "react";
-import { AdminContext } from "../../contexts/AdminContext";
+import { useRef } from "react";
 import { Booking } from "../../models/Booking";
 import "./BookingCard.css";
 import { UpdateBookingForm } from "../UpdateBookingForm/UpdateBookingForm";
 
 interface IBookingCardProps {
-  handleUpdateForm: () => void;
   booking: Booking;
 }
 
 export const BookingCard = (props: IBookingCardProps) => {
   const dialogRef = useRef<HTMLDialogElement>(null);
-  const { dispatch } = useContext(AdminContext);
-
-  function updateBooking() {
-    console.log("updateBooking");
-    props.handleUpdateForm();
-  }
 
   function openUpdateDialog() {
     dialogRef.current!.showModal();

@@ -1,9 +1,10 @@
-import { useContext, useRef, useState } from "react";
+import { ChangeEvent, useRef, useState } from "react";
 import { Booking } from "../../models/Booking";
 import "./UpdateBookingForm.css";
 import Calendar from "react-calendar";
 import { DateTime } from "luxon";
-import { BookingContext } from "../../contexts/BookingContext";
+import { TimeSlot } from "../../enums/timeSlots";
+import { updateBooking } from "../../services/dataService";
 
 interface IUpdateBookingFormProps {
   closeDialog: Function;
@@ -12,8 +13,11 @@ interface IUpdateBookingFormProps {
 
 export const UpdateBookingForm = (props: IUpdateBookingFormProps) => {
   const calendarRef = useRef<HTMLDialogElement>(null);
-  const dispatch = useContext(BookingContext);
+  const timeSlotRef = useRef<HTMLDialogElement>(null);
   const [date, setDate] = useState(DateTime.local().toJSDate());
+  const [booking, setBooking] = useState<Booking>(props.booking);
+
+  console.log("booking", booking);
 
   function changeDate(date: Date) {
     const chosenDate = DateTime.fromJSDate(date).toISODate()!;
@@ -22,13 +26,30 @@ export const UpdateBookingForm = (props: IUpdateBookingFormProps) => {
     calendarRef.current!.close();
   }
 
+  function handleChange(e: ChangeEvent<HTMLInputElement>) {
+    setBooking({
+      ...booking,
+      [e.target.name]: e.target.value,
+    });
+  }
+
+  async function updateBookingHandler() {
+    const response = await updateBooking(booking);
+    if (response) {
+      props.closeDialog();
+    }
+  }
+
   return (
     <>
       <form className="update-booking-form">
         <div className="upper-button-container flex-row">
           <button
             className="admin-button danger font-bold"
-            onClick={() => props.closeDialog()}
+            onClick={(e) => {
+              e.preventDefault();
+              props.closeDialog();
+            }}
           >
             Close
           </button>
@@ -41,16 +62,26 @@ export const UpdateBookingForm = (props: IUpdateBookingFormProps) => {
           <label htmlFor="name">Namn:</label>
           <input
             type="text"
-            defaultValue={props.booking.name}
+            defaultValue={booking.name}
             name="name"
-          ></input>
+            onChange={(e) => {
+              handleChange(e);
+            }}
+          />
         </article>
 
         <div className="spacing small" />
 
         <article className="flex-row align-center gap-small">
           <label htmlFor="email">Email:</label>
-          <input type="text" value={props.booking.email} name="email" />
+          <input
+            type="email"
+            defaultValue={booking.email}
+            name="email"
+            onChange={(e) => {
+              handleChange(e);
+            }}
+          />
         </article>
 
         <div className="spacing small" />
@@ -58,9 +89,12 @@ export const UpdateBookingForm = (props: IUpdateBookingFormProps) => {
         <article className="flex-row align-center gap-small">
           <label htmlFor="phone">Telefonnummer:</label>
           <input
-            type="text"
-            value={props.booking.phonenumber}
+            type="tel"
+            defaultValue={booking.phonenumber}
             name="phonenumber"
+            onChange={(e) => {
+              handleChange(e);
+            }}
           />
         </article>
 
@@ -72,24 +106,25 @@ export const UpdateBookingForm = (props: IUpdateBookingFormProps) => {
             type="number"
             min={1}
             //max={10}
-            value={props.booking.guests}
+            defaultValue={booking.guests}
             name="guests"
+            onChange={(e) => {
+              handleChange(e);
+            }}
           />
         </article>
 
         <div className="spacing small" />
 
         <article className="flex-row align-center gap-small">
-          <div className="font-bold">
-            Nuvarande sittning:
-            {props.booking.timeSlot}
-          </div>
+          <div className="font-bold">Nuvarande sittning:</div>
+          <div className="font-bold">{booking.timeSlot}</div>
 
           <button
             className="admin-button font-bold"
             onClick={(e) => {
               e.preventDefault();
-              calendarRef.current!.showModal();
+              timeSlotRef.current!.showModal();
             }}
           >
             Byt tid
@@ -99,7 +134,14 @@ export const UpdateBookingForm = (props: IUpdateBookingFormProps) => {
         <div className="spacing small" />
 
         <div className="flex-row justify-center">
-          <button className="admin-button font-bold">Uppdatera bokning</button>
+          <button
+            className="admin-button font-bold"
+            onClick={() => {
+              updateBookingHandler();
+            }}
+          >
+            Uppdatera bokning
+          </button>
         </div>
       </form>
 
@@ -119,6 +161,49 @@ export const UpdateBookingForm = (props: IUpdateBookingFormProps) => {
             onClickDay={(value) => changeDate(value)}
             minDate={DateTime.local().toJSDate()}
           ></Calendar>
+        </div>
+      </dialog>
+
+      <dialog ref={timeSlotRef}>
+        <div className="flex-column gap-small padding small">
+          <button
+            className="admin-button danger"
+            onClick={(e) => {
+              e.preventDefault();
+              timeSlotRef.current!.close();
+            }}
+          >
+            Close
+          </button>
+
+          <div className="flex-row gap-small">
+            <button
+              className="admin-button font-bold"
+              onClick={(e) => {
+                e.preventDefault();
+                setBooking({
+                  ...booking,
+                  timeSlot: TimeSlot.EARLY,
+                });
+                timeSlotRef.current!.close();
+              }}
+            >
+              {TimeSlot.EARLY}
+            </button>
+            <button
+              className="admin-button font-bold"
+              onClick={(e) => {
+                e.preventDefault();
+                setBooking({
+                  ...booking,
+                  timeSlot: TimeSlot.LATE,
+                });
+                timeSlotRef.current!.close();
+              }}
+            >
+              {TimeSlot.LATE}
+            </button>
+          </div>
         </div>
       </dialog>
     </>
