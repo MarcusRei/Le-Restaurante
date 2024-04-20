@@ -2,9 +2,11 @@ import { useRef } from "react";
 import { Booking } from "../../models/Booking";
 import "./BookingCard.css";
 import { UpdateBookingForm } from "../UpdateBookingForm/UpdateBookingForm";
+import { deleteBooking } from "../../services/dataService";
 
 interface IBookingCardProps {
   booking: Booking;
+  refreshBookings: Function;
 }
 
 export const BookingCard = (props: IBookingCardProps) => {
@@ -14,9 +16,14 @@ export const BookingCard = (props: IBookingCardProps) => {
     dialogRef.current!.showModal();
   }
 
-  const handleDeleteBooking = async () => {
+  async function handleDeleteBooking() {
     console.log("handleDeleteBooking");
-  };
+    const response = await deleteBooking(props.booking);
+    if (response.status === 200) {
+      props.refreshBookings();
+      alert("Bokningen har tagits bort!");
+    }
+  }
 
   return (
     <div className="booking-card flex-row gap-small">
@@ -59,6 +66,7 @@ export const BookingCard = (props: IBookingCardProps) => {
           <UpdateBookingForm
             booking={props.booking}
             closeDialog={() => dialogRef.current!.close()}
+            /* refreshBookings={props.refreshBookings()} */
           />
         </div>
       </dialog>

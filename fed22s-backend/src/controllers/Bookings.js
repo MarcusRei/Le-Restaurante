@@ -1,11 +1,11 @@
 const Booking = require("../models/Booking");
-const booking = require("../models/Booking");
 const customer = require("../models/Customer");
 const nodemailer = require("nodemailer");
+const { calculateGuests } = require("../utils");
 
 exports.getAllBookings = async (req, res, next) => {
   try {
-    const bookings = await booking.find();
+    const bookings = await Booking.find();
 
     if (!bookings) {
       throw new NotFoundError("There are no bookings");
@@ -22,7 +22,7 @@ exports.getBookingByDate = async (req, res, next) => {
   console.log("getBookingByDate");
   try {
     const date = req.params.date;
-    const bookings = await booking.find({ date: date });
+    const bookings = await Booking.find({ date: date });
 
     return res.json(bookings);
   } catch {
@@ -59,45 +59,111 @@ exports.addBooking = async (req, res, next) => {
 
 exports.updateBooking = async (req, res, next) => {
   try {
+    console.log("updateBooking");
     const bookingId = req.params.id;
-    const { name, email, phonenumber, date, time, guests } = req.body;
+    const { name, email, phonenumber, date, timeSlot, guests } = req.body;
 
-    const reservation = await booking.findById(bookingId);
+    const booking = await Booking.findById(bookingId);
 
-    if (!reservation) {
-      throw new Error("Sorry, no reservation was found with that id");
+    if (!booking) {
+      throw new Error("Sorry, no booking was found with that id");
+    }
+    console.log("in DB", booking);
+
+    let updatedBooking = {
+      date: booking.date,
+      timeSlot: booking.timeSlot,
+      guests: booking.guests,
+      name: booking.name,
+      email: booking.email,
+      phonenumber: booking.phonenumber,
+    };
+
+    console.log("updatedBooking", updatedBooking);
+
+    if (name !== booking.name) {
+      updatedBooking.name = name;
+    }
+    if (email !== booking.email) {
+      updatedBooking.email = email;
+    }
+    if (phonenumber !== booking.phonenumber) {
+      updatedBooking.phonenumber = phonenumber;
     }
 
-    const customerToUpdate = await customer.findById(reservation.customer._id);
+    if (date !== booking.date) {
+      console.log("new date", date);
+      const otherBookings = await Booking.find({
+        date: date,
+        timeSlot: timeSlot,
+      });
 
-    if (!customerToUpdate) {
-      throw new Error("Sorry i couldn't find a customer with that id");
+      console.log("OTHER BOOKINGS", otherBookings);
+
+      if (otherBookings.length !== 0) {
+        //! Check that there is enough seats on the new date
+        const guests = calculateGuests(otherBookings);
+
+        if (!guests) {
+          throw new Error(
+            "Sorry, there are too many guests booked on that date"
+          );
+        }
+      }
+
+      updatedBooking.date = date;
     }
 
-    if (name) {
-      customerToUpdate.name = name;
-    }
-    if (email) {
-      customerToUpdate.email = email;
-    }
-    if (phonenumber) {
-      customerToUpdate.phonenumber = phonenumber;
-    }
-    // const updatedCustomer = await customer.save(customerToUpdate)
-    const updatedCustomer = await customerToUpdate.save();
+    if (timeSlot !== booking.timeSlot && date === booking.date) {
+      const otherBookings = await Booking.find({
+        date: date,
+        timeSlot: timeSlot,
+      });
 
-    if (date) {
-      reservation.date = date;
-    }
-    if (time) {
-      reservation.time = time;
-    }
-    if (guests) {
-      reservation.guests = guests;
-    }
-    const updatedBooking = await reservation.save();
+      if (otherBookings.length !== 0) {
+        //! Check that there is enough seats on the new timeSlot
+        const guests = calculateGuests(otherBookings);
 
-    res.send("Your reservation has been updated!");
+        if (!guests) {
+          throw new Error(
+            "There are too many guests booked on that for this timeSlot"
+          );
+        }
+      }
+      updatedBooking.timeSlot = timeSlot;
+    }
+
+    if (guests !== booking.guests) {
+      //! Check that there is enough seats with new guest amount
+      const otherBookings = await Booking.find({
+        date: updatedBooking.date,
+        timeSlot: updatedBooking.timeSlot,
+      });
+
+      if (otherBookings.length !== 0) {
+        const guests = calculateGuests(otherBookings);
+
+        if (!guests) {
+          throw new Error(
+            "Sorry, there are too many guests booked on that for this timeSlot"
+          );
+        }
+      }
+      updatedBooking.guests = guests;
+    }
+
+    console.log("finished product", updatedBooking);
+
+    const updateBooking = await Booking.findByIdAndUpdate(
+      bookingId,
+      updatedBooking
+    );
+
+    if (!updateBooking) {
+      throw new Error("Update was not possible!");
+    }
+
+    return res.json(updatedBooking);
   } catch (error) {
     console.error(error);
     return res.status(500).json({ message: error.message });
@@ -106,15 +172,18 @@ exports.updateBooking = async (req, res, next) => {
 
 exports.deleteBooking = async (req, res, next) => {
   try {
+    console.log("deleteBooking");
     const bookingId = req.params.id;
 
-    const deletedBooking = await booking.findByIdAndDelete(bookingId);
+    console.log(bookingId);
+
+    const deletedBooking = await Booking.findByIdAndDelete(bookingId);
 
     if (!deletedBooking) {
-      throw new Error("Sorry, I could not find a reservation with that id!");
+      throw new Error("Sorry, I could not find a booking with that id!");
     }
 
-    res.json({ message: "Reservation deleted successfully" });
+    res.json({ message: "booking deleted successfully" });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ message: error.message });

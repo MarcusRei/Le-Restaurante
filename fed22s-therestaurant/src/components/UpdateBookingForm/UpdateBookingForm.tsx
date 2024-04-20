@@ -9,6 +9,7 @@ import { updateBooking } from "../../services/dataService";
 interface IUpdateBookingFormProps {
   closeDialog: Function;
   booking: Booking;
+  /* refreshBookings: Function; */
 }
 
 export const UpdateBookingForm = (props: IUpdateBookingFormProps) => {
@@ -20,7 +21,11 @@ export const UpdateBookingForm = (props: IUpdateBookingFormProps) => {
   console.log("booking", booking);
 
   function changeDate(date: Date) {
-    const chosenDate = DateTime.fromJSDate(date).toISODate()!;
+    const dateString = DateTime.fromJSDate(date).toFormat("yyyy-MM-dd");
+    setBooking({
+      ...booking,
+      date: dateString,
+    });
 
     setDate(date);
     calendarRef.current!.close();
@@ -35,7 +40,9 @@ export const UpdateBookingForm = (props: IUpdateBookingFormProps) => {
 
   async function updateBookingHandler() {
     const response = await updateBooking(booking);
-    if (response) {
+    console.log(response);
+    if (response.status === 200) {
+      alert("Bokningen har uppdaterats");
       props.closeDialog();
     }
   }
@@ -131,12 +138,28 @@ export const UpdateBookingForm = (props: IUpdateBookingFormProps) => {
           </button>
         </article>
 
+        <article className="flex-row align-center gap-small">
+          <div className="font-bold">Datum:</div>
+          <div className="font-bold">{booking.date}</div>
+
+          <button
+            className="admin-button font-bold"
+            onClick={(e) => {
+              e.preventDefault();
+              calendarRef.current!.showModal();
+            }}
+          >
+            Byt datum
+          </button>
+        </article>
+
         <div className="spacing small" />
 
         <div className="flex-row justify-center">
           <button
             className="admin-button font-bold"
-            onClick={() => {
+            onClick={(e) => {
+              e.preventDefault();
               updateBookingHandler();
             }}
           >

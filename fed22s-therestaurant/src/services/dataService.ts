@@ -71,16 +71,24 @@ export async function postNewBooking(booking: Booking) {
   }
 }
 
-export async function deleteBooking(bookingId: string) {
+export async function deleteBooking(booking: Booking) {
+  const bookingId = booking._id;
   const response = await fetch(
     `http://localhost:5001/api/v1/bookings/${bookingId}`,
     {
       method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
     }
   );
 
   if (response.ok) {
-    const data = await response.json();
+    let data = await response.json();
+    console.log("response", response);
+    console.log("data", data);
+    data = { data: data, status: response.status };
+    return data;
   } else {
     return response;
   }
@@ -92,11 +100,17 @@ export async function updateBooking(updatedBooking: Booking) {
     `http://localhost:5001/api/v1/bookings/${bookingId}`,
     {
       method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify(updatedBooking),
     }
   );
   if (response.ok) {
-    const data = await response.json();
+    let data = await response.json();
+    console.log("response", response);
+    console.log("data", data);
+    data = { data: data, status: response.status };
     return data;
   } else {
     return response;

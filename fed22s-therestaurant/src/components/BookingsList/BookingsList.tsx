@@ -1,10 +1,8 @@
-import { useContext, useEffect, useReducer, useState } from "react";
+import { useEffect, useState } from "react";
 import { BookingCard } from "../BookingCard/BookingCard";
-import { AdminContext } from "../../contexts/AdminContext";
 import "./BookingsList.css";
 import { getBookings, getBookingsByDate } from "../../services/dataService";
 import { DateTime } from "luxon";
-import { AdminReducer } from "../../reducers/AdminReducer";
 import { Booking } from "../../models/Booking";
 
 export interface IFormHandling {
@@ -41,7 +39,11 @@ export const BookingsList = (props: IBookingsListProps) => {
   return (
     <div className="bookings-list">
       {bookings.map((booking, index) => (
-        <BookingCard key={index} booking={booking} />
+        <BookingCard
+          key={index}
+          booking={booking}
+          refreshBookings={() => updateBookings()}
+        />
       ))}
     </div>
   );
