@@ -60,8 +60,6 @@ export const BookingsCalendar = (props: IBookingsCalendarProps) => {
       }
     }
 
-    console.log("early:", earlySitting, "late:", lateSitting);
-
     if (earlySitting + booking.guests < 36) {
       setEarlySlot(true);
     } else {

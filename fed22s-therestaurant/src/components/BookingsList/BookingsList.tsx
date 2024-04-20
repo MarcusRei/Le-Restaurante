@@ -1,16 +1,42 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useReducer, useState } from "react";
 import { BookingCard } from "../BookingCard/BookingCard";
 import { AdminContext } from "../../contexts/AdminContext";
 import "./BookingsList.css";
+import { getBookings, getBookingsByDate } from "../../services/dataService";
+import { DateTime } from "luxon";
+import { AdminReducer } from "../../reducers/AdminReducer";
+import { Booking } from "../../models/Booking";
 
 export interface IFormHandling {
   openForm: () => void;
   closeForm: () => void;
 }
 
-export const BookingsList = () => {
-  const { bookings } = useContext(AdminContext);
+export interface IBookingsListProps {
+  date: Date;
+  showAll: Boolean;
+}
+
+export const BookingsList = (props: IBookingsListProps) => {
+  const [bookings, setBookings] = useState<Booking[]>([]);
   const [updateFormSwitch, setUpdateFormSwitch] = useState(false);
+
+  useEffect(() => {
+    updateBookings();
+  }, [props.date, props.showAll]);
+  console.log(bookings);
+
+  async function updateBookings() {
+    if (props.showAll) {
+      setBookings(await getBookings());
+    } else {
+      setBookings(
+        await getBookingsByDate(
+          DateTime.fromJSDate(props.date).toFormat("yyyy-MM-dd")
+        )
+      );
+    }
+  }
 
   function handleUpdateForm() {
     setUpdateFormSwitch(!updateFormSwitch);
@@ -18,10 +44,10 @@ export const BookingsList = () => {
 
   return (
     <div className="bookings-list">
-      {bookings.filteredList.map((booking) => (
+      {bookings.map((booking, index) => (
         <BookingCard
           handleUpdateForm={handleUpdateForm}
-          key={booking._id}
+          key={index}
           booking={booking}
         />
       ))}

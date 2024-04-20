@@ -1,87 +1,87 @@
 import { BookingsList } from "../BookingsList/BookingsList";
-import { useEffect, useReducer, useState } from "react";
-import DatePicker from "react-datepicker";
+import { useReducer, useRef, useState } from "react";
 import "react-datepicker/dist/react-datepicker.css";
-import { getBookings } from "../../services/dataService";
 import { AdminContext } from "../../contexts/AdminContext";
-import { ActionType, AdminReducer, ILists } from "../../reducers/AdminReducer";
-import { TimeSwitchContext } from "../../contexts/TimeSwitchContext";
-import { TimeSwitchReducer } from "../../reducers/TimeSwitchReducer";
-import { TimeSwitchDispatchContext } from "../../contexts/TimeSwitchDispatchContext";
+import { AdminReducer, ILists } from "../../reducers/AdminReducer";
 import "./styles/Admin.css";
-import { Booking } from "../../models/Booking";
 import { TableView } from "../TableView/TableView";
+import Calendar from "react-calendar";
+import { DateTime } from "luxon";
 
 export const Admin = () => {
   const startValue: ILists = {
     allBookings: [],
     filteredList: [],
   };
-  const [time, TimeSwitchDispatch] = useReducer(TimeSwitchReducer, false);
   const [bookings, dispatch] = useReducer(AdminReducer, startValue);
-  const [selectedDate, setSelectedDate] = useState<string>("");
-  const [filteredBookings, setFilteredBookings] = useState<Booking[]>(
-    bookings.filteredList
-  );
-  const [timeslot, setTimeslot] = useState(false);
-
-  console.log("selected date:", selectedDate);
-
-  console.log("timeSlot:", timeslot);
-
-  useEffect(() => {
-    getBookings().then((bookings: Booking[]) => {
-      dispatch({
-        type: ActionType.ADDED_BOOKING,
-        payload: JSON.stringify(bookings),
-      });
-    });
-  }, []);
-
-  useEffect(() => {
-    dispatch({
-      type: ActionType.DATEFILTER_BOOKINGS,
-      payload: selectedDate,
-    });
-  }, [selectedDate]);
-
-  const setDate = (date: Date) => {
-    const selectedDateISO = date?.toISOString().split("T")[0] ?? "";
-    setSelectedDate(selectedDateISO);
-  };
+  const [date, setDate] = useState(DateTime.local().toJSDate());
+  const [showAllBookings, setShowAllBookings] = useState(false);
+  const dateRef = useRef<HTMLDialogElement>(null);
 
   return (
     <AdminContext.Provider value={{ bookings, dispatch }}>
-      <TimeSwitchDispatchContext.Provider value={TimeSwitchDispatch}>
-        <TimeSwitchContext.Provider value={time}>
-          <div className="flex-row">
-            <TableView />
-            <section className="admin-view">
-              <article className="flex-row justify-center full-width">
-                <h2>Admin</h2>
-              </article>
+      <div className="flex-row">
+        <TableView />
+        <section className="admin-view">
+          <article className="flex-row justify-center full-width">
+            <h2>Admin</h2>
+          </article>
 
-              <div className="spacing small"></div>
+          <div className="spacing small"></div>
 
-              <div className="flex-row gap-small padding small">
-                <h3 className="font large">Bokningar</h3>
+          <div className="flex-row gap-small padding small">
+            <h3 className="font large">Bokningar</h3>
 
-                <div className="flex-resize" />
-                <div className="flex-row align-center gap-small">
-                  <label htmlFor="date-picker">Datum:</label>
-                  <DatePicker selected={new Date()} onChange={setDate} />
-                </div>
-              </div>
-
-              <div className="section-separator" />
-
-              <BookingsList />
-
-              <div className="spacing medium"></div>
-            </section>
+            <div className="flex-resize" />
+            <div className="flex-row align-center gap-small">
+              <label htmlFor="date-picker">Datum:</label>
+              <button
+                className="admin-button"
+                onClick={() => dateRef.current!.showModal()}
+              >
+                {showAllBookings
+                  ? "visar alla bokningar"
+                  : DateTime.fromJSDate(date).toFormat("d MMM cccc")}
+              </button>
+            </div>
           </div>
-        </TimeSwitchContext.Provider>
-      </TimeSwitchDispatchContext.Provider>
+
+          <div className="section-separator" />
+
+          <BookingsList date={date} showAll={showAllBookings} />
+
+          <div className="spacing medium"></div>
+        </section>
+        <dialog ref={dateRef}>
+          <div className="flex-column gap-small padding small">
+            <div className="flex-row gap-small">
+              <button
+                className="admin-button danger"
+                onClick={() => dateRef.current!.close()}
+              >
+                Close
+              </button>
+              <button
+                className="admin-button"
+                onClick={() => {
+                  setShowAllBookings(true);
+                  dateRef.current!.close();
+                }}
+              >
+                Visa alla bokningar
+              </button>
+            </div>
+            <Calendar
+              value={date}
+              onClickDay={(value) => {
+                setShowAllBookings(false);
+                setDate(value);
+                dateRef.current!.close();
+              }}
+            />
+          </div>
+        </dialog>
+      </div>
     </AdminContext.Provider>
   );
 };

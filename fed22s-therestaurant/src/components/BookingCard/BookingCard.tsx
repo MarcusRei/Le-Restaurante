@@ -12,7 +12,6 @@ interface IBookingCardProps {
 export const BookingCard = (props: IBookingCardProps) => {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const { dispatch } = useContext(AdminContext);
-  const [bookingToUpdate, setBookingToUpdate] = useState({});
 
   function updateBooking() {
     console.log("updateBooking");
