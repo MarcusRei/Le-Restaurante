@@ -4,3 +4,22 @@
   height: 100vh;
   border-right: 1px solid rgba(148, 148, 148, 0.431);
 }
+
+.two-seats-group {
+  gap: 3rem;
+}
+
+.four-seats-group {
+  padding-top: 2rem;
+  grid-template-columns: 1fr 1fr 1fr;
+  column-gap: 3rem;
+  margin: auto;
+}
+
+.four-seats-round-group {
+  padding-top: 3rem;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  row-gap: 4rem;
+  column-gap: 7rem;
+  margin: auto;
+}

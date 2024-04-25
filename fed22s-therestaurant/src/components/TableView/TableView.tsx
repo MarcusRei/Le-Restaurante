@@ -12,17 +12,31 @@ export const TableView = () => {
 
       <div className="grid">
         <div>
-          <TwoSeats />
-          <TwoSeats />
-          <TwoSeats />
-          <TwoSeats />
+          <div className="spacing medium" />
+          <div className="two-seats-group full-width flex-row justify-center gap-medium">
+            <TwoSeats />
+            <TwoSeats />
+            <TwoSeats />
+            <TwoSeats />
+          </div>
         </div>
 
-        <div>
+        <div className="grid four-seats-group gap-medium">
+          <FourSeats />
+          <FourSeats />
+          <FourSeats />
+          <FourSeats />
           <FourSeats />
           <FourSeats />
         </div>
-        <div>
+
+        <div className="grid four-seats-round-group gap-medium">
+          <FourSeatsRound />
+          <FourSeatsRound />
+          <FourSeatsRound />
+          <FourSeatsRound />
+          <FourSeatsRound />
+          <FourSeatsRound />
           <FourSeatsRound />
           <FourSeatsRound />
         </div>

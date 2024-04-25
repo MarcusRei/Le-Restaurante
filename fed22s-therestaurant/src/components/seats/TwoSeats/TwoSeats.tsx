@@ -1,6 +1,16 @@
-export const TwoSeats = () => {
+import { Booking } from "../../../models/Booking";
+import "./TwoSeats.css";
+
+interface ITwoSeatsProps {
+  booking?: Booking;
+}
+
+export const TwoSeats = (props: ITwoSeatsProps) => {
   return (
-    <div className="seats-wrapper debug-frame">
+    <div className="two-seats flex-row align-center justify-center">
+      <div>{props.booking?.name}</div>
+      <div>{props.booking?.guests}</div>
+
       <svg
         width="70"
         height="162"

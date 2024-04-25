@@ -1,0 +1,17 @@
+.four-seats {
+  width: 120px;
+  height: 120px;
+  border-radius: 30px;
+  background-color: transparent;
+  transition: background-color 0.2s ease;
+}
+
+.four-seats:hover {
+  background-color: rgba(128, 128, 128, 0.237);
+  cursor: pointer;
+}
+
+.four-seats svg {
+  width: 90%;
+  height: 90%;
+}

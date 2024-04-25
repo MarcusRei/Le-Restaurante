@@ -1,6 +1,15 @@
-export const FourSeats = () => {
+import { Booking } from "../../../models/Booking";
+import "./FourSeats.css";
+
+interface IFourSeatsProps {
+  booking?: Booking;
+}
+
+export const FourSeats = (props: IFourSeatsProps) => {
   return (
-    <div className="seats-wrapper debug-frame">
+    <div className="four-seats flex-row align-center justify-center">
+      <div>{props.booking?.name}</div>
+      <div>{props.booking?.guests}</div>
       <svg
         width="200"
         height="192"
