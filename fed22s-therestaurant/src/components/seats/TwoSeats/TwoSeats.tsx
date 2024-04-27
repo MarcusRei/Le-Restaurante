@@ -1,15 +1,17 @@
-import { Booking } from "../../../models/Booking";
+import { useState } from "react";
 import "./TwoSeats.css";
+import { Booking } from "../../../models/Booking";
 
 interface ITwoSeatsProps {
-  booking?: Booking;
+  booking: Booking;
 }
 
 export const TwoSeats = (props: ITwoSeatsProps) => {
+  /* console.log("test", props.booking); */
   return (
     <div className="two-seats flex-row align-center justify-center">
-      <div>{props.booking?.name}</div>
-      <div>{props.booking?.guests}</div>
+      {/* <div>{booking.name}</div>
+      <div>{booking.guests}</div> */}
 
       <svg
         width="70"
