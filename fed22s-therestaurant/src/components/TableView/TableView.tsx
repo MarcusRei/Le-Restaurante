@@ -41,6 +41,7 @@ export const TableView = (props: ITableViewProps) => {
 
     let bigGroups: extendedBooking[] = [];
 
+    // sort into two four and six, move big groups to separate array
     for (let i = 0; i < props.bookings.length; i++) {
       const booking = props.bookings[i];
 
@@ -70,10 +71,61 @@ export const TableView = (props: ITableViewProps) => {
       }
     }
 
+    if (updatedBookings.twoSeaters.length < 6) {
+      let remaining = 6 - updatedBookings.twoSeaters.length;
+
+      for (let i = 0; i < remaining; i++) {
+        const emptyTable = {
+          tableId: `t${updatedBookings.twoSeaters.length + 1}`,
+          date: "n/a",
+          timeSlot: null,
+          guests: 0,
+          name: "empty",
+          email: "n/a",
+          phonenumber: "n/a",
+        };
+        updatedBookings.twoSeaters.push(emptyTable);
+      }
+    }
+
+    if (updatedBookings.fourSeaters.length < 8) {
+      let remaining = 8 - updatedBookings.fourSeaters.length;
+
+      for (let i = 0; i < remaining; i++) {
+        const emptyTable = {
+          tableId: `f${updatedBookings.fourSeaters.length + 1}`,
+          date: "n/a",
+          timeSlot: null,
+          guests: 0,
+          name: "empty",
+          email: "n/a",
+          phonenumber: "n/a",
+        };
+        updatedBookings.fourSeaters.push(emptyTable);
+      }
+    }
+
+    if (updatedBookings.sixSeaters.length < 6) {
+      let remaining = 6 - updatedBookings.sixSeaters.length;
+
+      for (let i = 0; i < remaining; i++) {
+        const emptyTable = {
+          tableId: `s${updatedBookings.sixSeaters.length + 1}`,
+          date: "n/a",
+          timeSlot: null,
+          guests: 0,
+          name: "empty",
+          email: "n/a",
+          phonenumber: "n/a",
+        };
+        updatedBookings.sixSeaters.push(emptyTable);
+      }
+    }
+
     console.log("updatedBookings", updatedBookings);
     console.log("bigGroups", bigGroups);
 
-    setExtendedBookings(extendedBookings);
+    setExtendedBookings(updatedBookings);
   }
 
   function findTwoSeaters(tableId: string) {
@@ -116,33 +168,30 @@ export const TableView = (props: ITableViewProps) => {
         <div>
           <div className="spacing medium" />
           <div className="two-seats-group full-width flex-row justify-center gap-medium">
-            <TwoSeats booking={findTwoSeaters("t1")!} />
-            <TwoSeats booking={findTwoSeaters("t2")!} />
-            <TwoSeats booking={findTwoSeaters("t3")!} />
-            <TwoSeats booking={findTwoSeaters("t4")!} />
-            <TwoSeats booking={findTwoSeaters("t5")!} />
-            <TwoSeats booking={findTwoSeaters("t6")!} />
+            {extendedBookings.twoSeaters.map((booking) => {
+              return <TwoSeats tableId={booking.tableId} booking={booking} />;
+            })}
           </div>
         </div>
 
         <div className="grid four-seats-group gap-medium">
-          <SixSeats />
-          <SixSeats />
-          <SixSeats />
-          <SixSeats />
-          <SixSeats />
-          <SixSeats />
+          {extendedBookings.sixSeaters.map((booking) => {
+            return <SixSeats tableId={booking.tableId} booking={booking} />;
+          })}
         </div>
 
         <div className="grid four-seats-round-group gap-medium">
-          <FourSeats />
-          <FourSeats />
-          <FourSeats />
-          <FourSeats />
-          <FourSeats />
-          <FourSeats />
-          <FourSeats />
-          <FourSeats />
+          {/*  <FourSeats tableId="f1" />
+          <FourSeats tableId="f2" />
+          <FourSeats tableId="f3" />
+          <FourSeats tableId="f4" />
+          <FourSeats tableId="f5" />
+          <FourSeats tableId="f6" />
+          <FourSeats tableId="f7" />
+          <FourSeats tableId="f8" /> */}
+          {extendedBookings.fourSeaters.map((booking) => {
+            return <FourSeats tableId={booking.tableId} booking={booking} />;
+          })}
         </div>
       </div>
     </section>

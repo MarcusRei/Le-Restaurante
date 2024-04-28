@@ -4,14 +4,19 @@ import { Booking } from "../../../models/Booking";
 
 interface ITwoSeatsProps {
   booking: Booking;
+  tableId: string;
 }
 
 export const TwoSeats = (props: ITwoSeatsProps) => {
-  /* console.log("test", props.booking); */
   return (
-    <div className="two-seats flex-row align-center justify-center">
-      {/* <div>{booking.name}</div>
-      <div>{booking.guests}</div> */}
+    <div className="two-seats flex-row align-center justify-center position-relative">
+      <section className="two-seats-text-container flex-column justify-center align-center position-absolute">
+        <div className="font-bold">{props.tableId}</div>
+        <div className="font-bold">{props.booking.name}</div>
+        <div className="font-bold">
+          {props.booking.guests > 0 ? props.booking.guests : null}
+        </div>
+      </section>
 
       <svg
         width="70"

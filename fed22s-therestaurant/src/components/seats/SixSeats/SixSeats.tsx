@@ -2,14 +2,20 @@ import { Booking } from "../../../models/Booking";
 import "./SixSeats.css";
 
 interface ISixSeatsProps {
-  booking?: Booking;
+  booking: Booking;
+  tableId: string;
 }
 
 export const SixSeats = (props: ISixSeatsProps) => {
   return (
-    <div className="six-seats flex-row align-center justify-center">
-      <div>{props.booking?.name}</div>
-      <div>{props.booking?.guests}</div>
+    <div className="six-seats flex-row align-center justify-center position-relative">
+      <section className="six-seats-text-container flex-column justify-center align-center position-absolute">
+        <div className="font-bold">{props.tableId}</div>
+        <div className="font-bold">{props.booking.name}</div>
+        <div className="font-bold">
+          {props.booking.guests > 0 ? props.booking.guests : null}
+        </div>
+      </section>
       <svg
         width="240"
         height="200"
