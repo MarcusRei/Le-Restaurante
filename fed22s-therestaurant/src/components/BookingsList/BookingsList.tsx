@@ -1,48 +1,30 @@
-import { useEffect, useState } from "react";
 import { BookingCard } from "../BookingCard/BookingCard";
 import "./BookingsList.css";
-import { getBookings, getBookingsByDate } from "../../services/dataService";
-import { DateTime } from "luxon";
 import { Booking } from "../../models/Booking";
-
-export interface IFormHandling {
-  openForm: () => void;
-  closeForm: () => void;
-}
 
 export interface IBookingsListProps {
   date: Date;
   showAll: Boolean;
+  bookings: Booking[];
+  updateBookings: Function;
 }
 
 export const BookingsList = (props: IBookingsListProps) => {
-  const [bookings, setBookings] = useState<Booking[]>([]);
-  const [updateFormSwitch, setUpdateFormSwitch] = useState(false);
-
-  useEffect(() => {
-    updateBookings();
-  }, [props.date, props.showAll]);
-  console.log(bookings);
-
-  async function updateBookings() {
-    if (props.showAll) {
-      setBookings(await getBookings());
-    } else {
-      setBookings(
-        await getBookingsByDate(
-          DateTime.fromJSDate(props.date).toFormat("yyyy-MM-dd")
-        )
-      );
-    }
-  }
+  console.log(props.bookings);
 
   return (
     <div className="bookings-list">
-      {bookings.map((booking, index) => (
+      {props.bookings.length === 0 ? (
+        <div className="flex-column align-center justify-center">
+          <div className="spacing medium" />
+          <p>Inga bokningar på det här datumet</p>
+        </div>
+      ) : null}
+      {props.bookings.map((booking, index) => (
         <BookingCard
           key={index}
           booking={booking}
-          refreshBookings={() => updateBookings()}
+          refreshBookings={() => props.updateBookings()}
         />
       ))}
     </div>

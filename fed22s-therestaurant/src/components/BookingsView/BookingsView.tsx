@@ -8,6 +8,7 @@ interface IBookingsViewProps {
   showAllBookings: boolean;
   date: Date;
   openDialog: Function;
+  updateBookings: Function;
 }
 
 export const BookingsView = (props: IBookingsViewProps) => {
@@ -36,7 +37,12 @@ export const BookingsView = (props: IBookingsViewProps) => {
 
       <div className="section-separator" />
 
-      <BookingsList date={props.date} showAll={props.showAllBookings} />
+      <BookingsList
+        date={props.date}
+        showAll={props.showAllBookings}
+        bookings={props.bookings}
+        updateBookings={() => props.updateBookings()}
+      />
 
       <div className="spacing medium"></div>
     </section>

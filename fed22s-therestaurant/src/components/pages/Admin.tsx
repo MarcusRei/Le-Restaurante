@@ -38,6 +38,7 @@ export const Admin = () => {
         showAllBookings={showAllBookings}
         date={date}
         openDialog={() => dateRef.current!.showModal()}
+        updateBookings={() => updateBookings()}
       />
 
       <dialog ref={dateRef}>
