@@ -1,6 +1,4 @@
 const Booking = require("../models/Booking");
-const customer = require("../models/Customer");
-const nodemailer = require("nodemailer");
 const { calculateGuests } = require("../utils");
 
 exports.getAllBookings = async (req, res, next) => {
